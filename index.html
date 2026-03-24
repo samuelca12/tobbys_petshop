@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tobby's Pet Shop 🐾</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:      #2E8B57;
+      --green-lt:   #4CAF7D;
+      --green-pale: #E8F5EE;
+      --yellow:     #FFD54F;
+      --yellow-dk:  #F9A825;
+      --coral:      #FF6B6B;
+      --white:      #FFFFFF;
+      --offwhite:   #F7FBF8;
+      --text:       #1A3A2A;
+      --muted:      #6B9080;
+      --shadow:     0 4px 20px rgba(46,139,87,0.12);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--offwhite); color:var(--text); font-family:'Nunito',sans-serif; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:0; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ctext y='40' font-size='28' opacity='0.04'%3E🐾%3C/text%3E%3C/svg%3E"); pointer-events:none; }
+
+    /* NAV */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--green); padding:0 32px; height:68px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 16px rgba(46,139,87,0.3); }
+    .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+    .nav-logo img { height:44px; border-radius:8px; }
+    .nav-logo span { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--white); }
+    .nav-links { display:flex; align-items:center; gap:24px; }
+    .nav-links a { color:rgba(255,255,255,0.88); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--yellow); }
+    .cart-btn { position:relative; background:var(--yellow); color:var(--text); border:none; cursor:pointer; padding:10px 20px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.95rem; display:flex; align-items:center; gap:8px; transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 3px 12px rgba(249,168,37,0.4); }
+    .cart-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(249,168,37,0.5); }
+    .cart-count { background:var(--coral); color:white; border-radius:50%; width:22px; height:22px; font-size:0.75rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+
+    /* HERO */
+    #inicio { min-height:100vh; padding-top:68px; background:linear-gradient(135deg,var(--green) 0%,var(--green-lt) 50%,#A8D5BA 100%); display:flex; align-items:center; position:relative; overflow:hidden; }
+    .hero-shapes { position:absolute; inset:0; pointer-events:none; }
+    .hero-shapes span { position:absolute; font-size:4rem; opacity:0.12; animation:floatShape 6s ease-in-out infinite; }
+    .hero-shapes span:nth-child(1) { top:10%; left:5%; animation-delay:0s; font-size:3rem; }
+    .hero-shapes span:nth-child(2) { top:20%; right:8%; animation-delay:1s; font-size:5rem; }
+    .hero-shapes span:nth-child(3) { bottom:20%; left:12%; animation-delay:2s; font-size:3.5rem; }
+    .hero-shapes span:nth-child(4) { bottom:10%; right:15%; animation-delay:0.5s; font-size:2.5rem; }
+    .hero-shapes span:nth-child(5) { top:50%; left:30%; animation-delay:1.5s; font-size:2rem; }
+    .hero-inner { max-width:1200px; margin:0 auto; padding:60px 32px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; position:relative; z-index:2; }
+    .hero-text h1 { font-family:'Baloo 2',cursive; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:800; color:white; line-height:1.1; margin-bottom:20px; }
+    .hero-text h1 span { color:var(--yellow); }
+    .hero-text p { font-size:1.1rem; color:rgba(255,255,255,0.88); line-height:1.8; margin-bottom:32px; }
+    .hero-badges { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
+    .hero-badge { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:white; padding:6px 16px; border-radius:50px; font-size:0.85rem; font-weight:600; }
+    .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--text); padding:14px 32px; border-radius:50px; font-weight:800; font-size:1.05rem; text-decoration:none; transition:transform 0.2s, box-shadow 0.3s; box-shadow:0 6px 24px rgba(249,168,37,0.45); }
+    .hero-cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(249,168,37,0.5); }
+    .hero-img { display:flex; justify-content:center; }
+    .hero-img img { width:100%; max-width:380px; filter:drop-shadow(0 12px 32px rgba(0,0,0,0.2)); animation:floatShape 4s ease-in-out infinite; }
+
+    /* INFO BAR */
+    .info-bar { background:var(--yellow); padding:14px 32px; display:flex; justify-content:center; flex-wrap:wrap; gap:32px; position:relative; z-index:1; }
+    .info-item { display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.9rem; color:var(--text); }
+    .info-item a { color:inherit; text-decoration:none; }
+
+    /* SECTIONS */
+    section { padding:80px 32px; position:relative; z-index:1; }
+    .section-header { text-align:center; margin-bottom:48px; }
+    .section-label { font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--green); font-weight:700; margin-bottom:8px; }
+    .section-title { font-family:'Baloo 2',cursive; font-size:clamp(1.8rem,3vw,2.6rem); font-weight:800; color:var(--text); }
+    .section-title span { color:var(--green); }
+
+    /* FILTERS */
+    #catalogo { background:var(--offwhite); }
+    .filters-bar { background:white; border-radius:20px; padding:20px 24px; margin-bottom:32px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin-left:auto; margin-right:auto; margin-bottom:32px; }
+    .filter-search { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; background:var(--green-pale); border-radius:50px; padding:10px 18px; }
+    .filter-search input { border:none; background:transparent; outline:none; font-family:'Nunito',sans-serif; font-size:0.95rem; color:var(--text); width:100%; }
+    .filter-select { padding:10px 18px; border:2px solid var(--green-pale); border-radius:50px; background:white; font-family:'Nunito',sans-serif; font-size:0.9rem; font-weight:600; color:var(--text); cursor:pointer; outline:none; transition:border-color 0.2s; }
+    .filter-select:focus { border-color:var(--green); }
+    .filter-ofertas { display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:700; font-size:0.9rem; color:var(--coral); }
+    .filter-ofertas input { width:18px; height:18px; cursor:pointer; accent-color:var(--coral); }
+    .filter-clear { background:none; border:2px solid var(--muted); color:var(--muted); padding:8px 18px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; }
+    .filter-clear:hover { border-color:var(--coral); color:var(--coral); }
+
+    /* PRODUCTS GRID */
+    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
+    .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s; position:relative; animation:popIn 0.4s ease both; }
+    .product-card:hover { transform:translateY(-6px); box-shadow:0 12px 32px rgba(46,139,87,0.2); }
+    .product-card.in-cart { border:2.5px solid var(--green); }
+    .offer-badge { position:absolute; top:12px; left:12px; z-index:2; background:var(--coral); color:white; padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:800; text-transform:uppercase; }
+    .cart-indicator { position:absolute; top:12px; right:12px; z-index:2; background:var(--green); color:white; width:32px; height:32px; border-radius:50%; font-size:0.8rem; font-weight:800; display:none; align-items:center; justify-content:center; }
+    .product-card.in-cart .cart-indicator { display:flex; }
+    .product-img { width:100%; height:200px; object-fit:contain; background:var(--green-pale); padding:16px; display:block; }
+    .product-img-placeholder { width:100%; height:200px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted); }
+    .product-img-placeholder span { font-size:2.5rem; }
+    .product-img-placeholder p { font-size:0.8rem; font-weight:600; text-align:center; padding:0 12px; }
+    .product-body { padding:16px; }
+    .product-category { font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:4px; }
+    .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:4px; line-height:1.2; }
+    .product-brand { font-size:0.8rem; color:var(--muted); margin-bottom:10px; }
+    .product-desc { font-size:0.82rem; color:#5a7a6a; line-height:1.5; margin-bottom:12px; }
+    .product-price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+    .price-normal { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--green); }
+    .price-old { font-size:0.9rem; color:var(--muted); text-decoration:line-through; }
+    .price-offer { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--coral); }
+    .product-actions { display:flex; gap:8px; align-items:center; }
+    .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:10px 16px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.9rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px; }
+    .btn-add:hover { background:var(--green-lt); }
+    .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:8px 14px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; display:none; }
+    .btn-remove:hover { background:var(--coral); color:white; }
+    .product-card.in-cart .btn-remove { display:block; }
+
+    /* STATES */
+    .loading-state, .empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
+    .loading-state .spinner { width:48px; height:48px; border:4px solid var(--green-pale); border-top-color:var(--green); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
+    .empty-state .empty-icon { font-size:4rem; margin-bottom:16px; }
+    .empty-state p { color:var(--muted); font-size:1.05rem; font-weight:600; }
+
+    /* CART SIDEBAR */
+    .cart-overlay { display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.4); backdrop-filter:blur(3px); }
+    .cart-overlay.active { display:block; }
+    .cart-sidebar { position:fixed; top:0; right:-420px; width:420px; max-width:100vw; height:100vh; background:white; z-index:301; display:flex; flex-direction:column; box-shadow:-8px 0 32px rgba(0,0,0,0.15); transition:right 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .cart-sidebar.active { right:0; }
+    .cart-header { background:var(--green); color:white; padding:20px 24px; display:flex; justify-content:space-between; align-items:center; }
+    .cart-header h2 { font-family:'Baloo 2',cursive; font-size:1.4rem; font-weight:800; }
+    .cart-close { background:none; border:none; color:white; font-size:1.6rem; cursor:pointer; line-height:1; }
+    .cart-items { flex:1; overflow-y:auto; padding:20px; }
+    .cart-empty { text-align:center; padding:48px 24px; color:var(--muted); }
+    .cart-empty span { font-size:3.5rem; display:block; margin-bottom:12px; }
+    .cart-item { display:flex; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid var(--green-pale); }
+    .cart-item img { width:60px; height:60px; object-fit:contain; background:var(--green-pale); border-radius:10px; padding:4px; }
+    .cart-item-placeholder { width:60px; height:60px; background:var(--green-pale); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; }
+    .cart-item-info { flex:1; }
+    .cart-item-name { font-weight:700; font-size:0.9rem; color:var(--text); margin-bottom:2px; }
+    .cart-item-price { font-weight:700; color:var(--green); font-size:0.9rem; }
+    .cart-item-controls { display:flex; align-items:center; gap:8px; margin-top:8px; }
+    .qty-btn { width:28px; height:28px; border-radius:50%; border:2px solid var(--green); background:none; color:var(--green); font-size:1rem; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+    .qty-btn:hover { background:var(--green); color:white; }
+    .qty-num { font-weight:800; font-size:0.95rem; min-width:20px; text-align:center; }
+    .cart-item-delete { background:none; border:none; color:var(--muted); font-size:1.1rem; cursor:pointer; transition:color 0.2s; padding:4px; }
+    .cart-item-delete:hover { color:var(--coral); }
+    .cart-footer { padding:20px 24px; border-top:2px solid var(--green-pale); }
+    .cart-total { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .cart-total span:first-child { font-weight:700; font-size:1rem; color:var(--muted); }
+    .cart-total span:last-child { font-family:'Baloo 2',cursive; font-size:1.5rem; font-weight:800; color:var(--green); }
+    .btn-pedido { width:100%; background:#25D366; color:white; border:none; border-radius:50px; padding:16px; font-family:'Nunito',sans-serif; font-weight:800; font-size:1.05rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 6px 20px rgba(37,211,102,0.35); }
+    .btn-pedido:hover { background:#1ebe5a; transform:translateY(-2px); }
+    .btn-pedido:disabled { background:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; }
+
+    /* TIENDA */
+    #tienda { background:var(--green-pale); }
+    .tienda-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:0 auto; align-items:center; }
+    .tienda-img { border-radius:24px; overflow:hidden; box-shadow:var(--shadow); }
+    .tienda-img img { width:100%; display:block; }
+    .tienda-info h3 { font-family:'Baloo 2',cursive; font-size:1.8rem; font-weight:800; color:var(--text); margin-bottom:20px; }
+    .info-list { display:flex; flex-direction:column; gap:16px; }
+    .info-row { display:flex; gap:14px; align-items:flex-start; }
+    .info-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
+    .info-row a { color:var(--green); text-decoration:none; font-weight:700; }
+    .info-row a:hover { color:var(--green-lt); }
+    .ubicacion-img { border-radius:16px; overflow:hidden; margin-top:24px; box-shadow:var(--shadow); }
+    .ubicacion-img img { width:100%; display:block; }
+
+    /* FOOTER */
+    footer { background:var(--green); color:rgba(255,255,255,0.85); padding:40px 32px; text-align:center; position:relative; z-index:1; }
+    .foot-logo { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:20px; }
+    .foot-logo img { height:48px; border-radius:10px; }
+    .foot-logo span { font-family:'Baloo 2',cursive; font-size:1.4rem; font-weight:800; color:white; }
+    .foot-links { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:20px; }
+    .foot-links a { color:rgba(255,255,255,0.8); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; }
+    .foot-links a:hover { color:var(--yellow); }
+    footer p { font-size:0.8rem; color:rgba(255,255,255,0.55); }
+
+    /* ANIMATIONS */
+    @keyframes floatShape { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    @keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .hero-inner{grid-template-columns:1fr;text-align:center}
+      .hero-img{display:none}
+      .tienda-grid{grid-template-columns:1fr}
+      .cart-sidebar{width:100vw}
+    }
+    @media(max-width:600px){
+      section{padding:60px 16px}
+      nav{padding:0 16px}
+      .info-bar{gap:16px}
+      .filters-bar{padding:16px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#inicio" class="nav-logo">
+    <img src="imagenes/logo2.png" alt="Tobby's" onerror="this.style.display='none'" />
+    <span>Tobby's Pet Shop 🐾</span>
+  </a>
+  <div class="nav-links">
+    <a href="#catalogo">Catálogo</a>
+    <a href="#tienda">Nuestra Tienda</a>
+    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">📸 Instagram</a>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Carrito <span class="cart-count" id="cartCount">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-shapes">
+    <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Todo para tu <span>mascota</span> favorita 🐾</h1>
+      <p>En Tobby's Pet Shop encontrás los mejores alimentos y accesorios para tus compañeros de vida. ¡Con entrega a domicilio completamente gratis!</p>
+      <div class="hero-badges">
+        <span class="hero-badge">🚚 Entrega gratis</span>
+        <span class="hero-badge">🐶 Perros & Gatos</span>
+        <span class="hero-badge">⭐ Calidad garantizada</span>
+        <span class="hero-badge">📦 Gran variedad</span>
+      </div>
+      <a href="#catalogo" class="hero-cta">Ver catálogo 🛍️</a>
+    </div>
+    <div class="hero-img">
+      <img src="imagenes/tobby.png" alt="Tobby" onerror="this.style.display='none'" />
+    </div>
+  </div>
+</section>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-item">🕐 Lun–Sáb 9am–6pm</div>
+  <div class="info-item">📱 <a href="https://wa.me/50671830963">7183-0963</a></div>
+  <div class="info-item">📍 50m norte Iglesia Guadalupe, San José</div>
+  <div class="info-item">🚚 Entregas gratis</div>
+</div>
+
+<!-- CATÁLOGO -->
+<section id="catalogo">
+  <div class="section-header">
+    <p class="section-label">Lo que tenemos para vos</p>
+    <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
+  </div>
+
+  <div class="filters-bar">
+    <div class="filter-search">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="Buscar producto o marca..." oninput="applyFilters()" />
+    </div>
+    <select class="filter-select" id="catFilter" onchange="applyFilters()">
+      <option value="">🐾 Todas las categorías</option>
+    </select>
+    <select class="filter-select" id="marcaFilter" onchange="applyFilters()">
+      <option value="">🏷️ Todas las marcas</option>
+    </select>
+    <label class="filter-ofertas">
+      <input type="checkbox" id="ofertaFilter" onchange="applyFilters()" /> 🔥 Solo ofertas
+    </label>
+    <button class="filter-clear" onclick="clearFilters()">✕ Limpiar</button>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p style="color:var(--muted);font-weight:600;margin-top:8px;">Cargando productos...</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIENDA FÍSICA -->
+<section id="tienda">
+  <div class="section-header">
+    <p class="section-label">Visítanos en persona</p>
+    <h2 class="section-title">Nuestra <span>Tienda</span> Física 🏪</h2>
+  </div>
+  <div class="tienda-grid">
+    <div>
+      <div class="tienda-img">
+        <img src="imagenes/local.png" alt="Tobby's Pet Shop" onerror="this.parentNode.innerHTML='<div style=\'background:var(--green-pale);padding:80px;text-align:center;border-radius:24px;font-size:5rem;\'>🏪</div>'" />
+      </div>
+      <div class="ubicacion-img">
+        <img src="imagenes/ubicacion.png" alt="Ubicación" onerror="this.style.display='none'" />
+      </div>
+    </div>
+    <div class="tienda-info">
+      <h3>¡Te esperamos con las patas abiertas! 🐾</h3>
+      <div class="info-list">
+        <div class="info-row"><span class="info-icon">📍</span><p>50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica</p></div>
+        <div class="info-row"><span class="info-icon">🕐</span><p>Lunes a Sábado de 9:00am a 6:00pm</p></div>
+        <div class="info-row"><span class="info-icon">📱</span><p><a href="https://wa.me/50671830963">WhatsApp: 7183-0963</a></p></div>
+        <div class="info-row"><span class="info-icon">📸</span><p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">@tobbyspetshop.cr en Instagram</a></p></div>
+        <div class="info-row"><span class="info-icon">🚚</span><p>¡Hacemos <strong>entregas a domicilio completamente gratis!</strong> Pedí desde aquí y te lo llevamos.</p></div>
+        <div class="info-row"><span class="info-icon">🐶</span><p>Especialistas en alimentos y accesorios para perros, gatos y más mascotas. ¡Más de 50 productos disponibles!</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">
+    <img src="imagenes/logo2.png" alt="Logo" onerror="this.style.display='none'" />
+    <span>Tobby's Pet Shop</span>
+  </div>
+  <div class="foot-links">
+    <a href="#catalogo">Catálogo</a>
+    <a href="#tienda">Tienda</a>
+    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">Instagram</a>
+    <a href="https://wa.me/50671830963">WhatsApp</a>
+  </div>
+  <p>© 2025 Tobby's Pet Shop · San José, Costa Rica · Hecho con ❤️ para las mascotas</p>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>🛒 Mi Carrito</h2>
+    <button class="cart-close" onclick="toggleCart()">×</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío.<br/>¡Agregá productos del catálogo!</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total estimado:</span>
+      <span id="cartTotal">₡0</span>
+    </div>
+    <button class="btn-pedido" id="btnPedido" onclick="hacerPedido()" disabled>
+      💬 Hacer Pedido por WhatsApp
+    </button>
+  </div>
+</div>
+
+<script>
+  // ══════════════════════════════════════════════════════════
+  // Google Sheet HERE
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1VPGurnlH9Fjnts7Q7WfotFVFf_i1_FP1SAC6gPPP3P0/export?format=csv&gid=0';
+  const WA_NUMBER = '50671830963';
+
+  let allProducts = [];
+  let cart = {};
+
+  // ── CARGAR GOOGLE SHEET ──
+  async function loadProducts() {
+    try {
+      const res = await fetch(SHEET_URL);
+      if (!res.ok) throw new Error('Error cargando Sheet');
+      const csv = await res.text();
+      allProducts = parseCSV(csv);
+      populateFilters();
+      renderProducts(allProducts);
+    } catch (e) {
+      document.getElementById('productsGrid').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">⚠️</div>
+          <p>No se pudo cargar el catálogo.<br/>
+          <small style="color:var(--muted);font-weight:500;">Verificá que la URL del Google Sheet esté configurada correctamente en el código.</small></p>
+        </div>`;
+    }
+  }
+
+  // ── PARSEAR CSV ──
+  function parseCSV(csv) {
+    const lines = csv.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,'').toLowerCase());
+    return lines.slice(1).map((line, i) => {
+      const vals = parseCSVLine(line);
+      const obj = {};
+      headers.forEach((h, j) => { obj[h] = (vals[j] || '').trim().replace(/^"|"$/g,''); });
+      obj._id = i;
+      return obj;
+    }).filter(p => p.disponible && p.disponible.toUpperCase() === 'SI' && p.nombre && p.nombre.trim());
+  }
+
+  function parseCSVLine(line) {
+    const result = []; let cur = ''; let inQ = false;
+    for (const c of line) {
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
+      else { cur += c; }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  // ── FILTROS ──
+  function populateFilters() {
+    const cats   = [...new Set(allProducts.map(p => p.categoria).filter(Boolean))].sort();
+    const marcas = [...new Set(allProducts.map(p => p.marca).filter(Boolean))].sort();
+    const catSel  = document.getElementById('catFilter');
+    const marcSel = document.getElementById('marcaFilter');
+    cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = getCatEmoji(c) + ' ' + c; catSel.appendChild(o); });
+    marcas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; marcSel.appendChild(o); });
+  }
+
+  function getCatEmoji(cat) {
+    if (!cat) return '🐾';
+    const c = cat.toLowerCase();
+    if (c.includes('perro')) return '🐶';
+    if (c.includes('gato')) return '🐱';
+    if (c.includes('pez') || c.includes('peces')) return '🐟';
+    if (c.includes('ave') || c.includes('pájaro') || c.includes('pajaro')) return '🦜';
+    if (c.includes('reptil')) return '🦎';
+    return '🐾';
+  }
+
+  function applyFilters() {
+    const search  = document.getElementById('searchInput').value.toLowerCase();
+    const cat     = document.getElementById('catFilter').value;
+    const marca   = document.getElementById('marcaFilter').value;
+    const ofertas = document.getElementById('ofertaFilter').checked;
+    const filtered = allProducts.filter(p => {
+      if (search && !p.nombre.toLowerCase().includes(search) && !(p.marca||'').toLowerCase().includes(search) && !(p.descripcion||'').toLowerCase().includes(search)) return false;
+      if (cat && p.categoria !== cat) return false;
+      if (marca && p.marca !== marca) return false;
+      if (ofertas && (!p.oferta || !p.oferta.trim())) return false;
+      return true;
+    });
+    renderProducts(filtered);
+  }
+
+  function clearFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('catFilter').value = '';
+    document.getElementById('marcaFilter').value = '';
+    document.getElementById('ofertaFilter').checked = false;
+    renderProducts(allProducts);
+  }
+
+  // ── RENDER PRODUCTOS ──
+  function renderProducts(products) {
+    const grid = document.getElementById('productsGrid');
+    if (!products.length) {
+      grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No se encontraron productos con esos filtros.</p></div>`;
+      return;
+    }
+    grid.innerHTML = products.map((p, i) => buildCard(p, i)).join('');
+  }
+
+  function getPrice(p) {
+    const hasOffer = p.oferta && p.oferta.trim() !== '';
+    const regular  = parseFloat((p.precio||'0').replace(/[^\d.]/g,'')) || 0;
+    const offer    = hasOffer ? (parseFloat((p.oferta||'0').replace(/[^\d.]/g,'')) || 0) : 0;
+    return { hasOffer, regular, offer, active: hasOffer ? offer : regular };
+  }
+
+  function buildCard(p, delay) {
+    const { hasOffer, regular, offer } = getPrice(p);
+    const inCart = cart[p._id] ? cart[p._id].qty : 0;
+
+    const imgHTML = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http')
+      ? `<img class="product-img" src="${p.imagen_url}" alt="${p.nombre}" loading="lazy"
+           onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>🐾</span><p>${p.nombre.replace(/'/g,"&#39;")}</p></div>'" />`
+      : `<div class="product-img-placeholder"><span>🐾</span><p>${p.nombre}</p></div>`;
+
+    const priceHTML = hasOffer
+      ? `<span class="price-old">₡${regular.toLocaleString()}</span><span class="price-offer">₡${offer.toLocaleString()}</span>`
+      : `<span class="price-normal">₡${regular.toLocaleString()}</span>`;
+
+    return `
+      <div class="product-card ${inCart > 0 ? 'in-cart' : ''}" id="card-${p._id}" style="animation-delay:${Math.min(delay,12)*0.05}s">
+        ${hasOffer ? '<div class="offer-badge">🔥 Oferta</div>' : ''}
+        <div class="cart-indicator" id="ind-${p._id}" style="${inCart > 0 ? 'display:flex' : ''}">${inCart}</div>
+        ${imgHTML}
+        <div class="product-body">
+          <div class="product-category">${getCatEmoji(p.categoria)} ${p.categoria||''}</div>
+          <div class="product-name">${p.nombre}</div>
+          ${p.marca ? `<div class="product-brand">🏷️ ${p.marca}</div>` : ''}
+          ${p.descripcion ? `<div class="product-desc">${p.descripcion}</div>` : ''}
+          <div class="product-price">${priceHTML}</div>
+          <div class="product-actions">
+            <button class="btn-add" onclick="addToCart(${p._id})">➕ Agregar</button>
+            <button class="btn-remove" onclick="removeOne(${p._id})">➖</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── CARRITO ──
+  function addToCart(id) {
+    const product = allProducts.find(p => p._id === id);
+    if (!product) return;
+    if (cart[id]) { cart[id].qty++; } else { cart[id] = { product, qty: 1 }; }
+    updateAll(id);
+  }
+
+  function removeOne(id) {
+    if (!cart[id]) return;
+    cart[id].qty--;
+    if (cart[id].qty <= 0) delete cart[id];
+    updateAll(id);
+  }
+
+  function deleteItem(id) {
+    delete cart[id];
+    updateAll(id);
+  }
+
+  function updateAll(id) {
+    updateCardUI(id);
+    updateCartUI();
+  }
+
+  function updateCardUI(id) {
+    const card = document.getElementById('card-' + id);
+    const ind  = document.getElementById('ind-' + id);
+    if (!card) return;
+    const qty = cart[id] ? cart[id].qty : 0;
+    card.classList.toggle('in-cart', qty > 0);
+    if (ind) { ind.textContent = qty; ind.style.display = qty > 0 ? 'flex' : 'none'; }
+  }
+
+  function updateCartUI() {
+    const items = Object.values(cart);
+    const totalQty   = items.reduce((s, i) => s + i.qty, 0);
+    const totalPrice = items.reduce((s, i) => s + getPrice(i.product).active * i.qty, 0);
+
+    document.getElementById('cartCount').textContent = totalQty;
+    document.getElementById('cartTotal').textContent = '₡' + totalPrice.toLocaleString();
+    document.getElementById('btnPedido').disabled = totalQty === 0;
+
+    const el = document.getElementById('cartItems');
+    if (!items.length) {
+      el.innerHTML = `<div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío.<br/>¡Agregá productos del catálogo!</p></div>`;
+      return;
+    }
+    el.innerHTML = items.map(({ product: p, qty }) => {
+      const { active } = getPrice(p);
+      const imgEl = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http')
+        ? `<img src="${p.imagen_url}" alt="${p.nombre}" onerror="this.outerHTML='<div class=\\'cart-item-placeholder\\'>🐾</div>'" />`
+        : `<div class="cart-item-placeholder">🐾</div>`;
+      return `
+        <div class="cart-item">
+          ${imgEl}
+          <div class="cart-item-info">
+            <div class="cart-item-name">${p.nombre}</div>
+            <div class="cart-item-price">₡${active.toLocaleString()} c/u · Total: ₡${(active*qty).toLocaleString()}</div>
+            <div class="cart-item-controls">
+              <button class="qty-btn" onclick="removeOne(${p._id})">−</button>
+              <span class="qty-num">${qty}</span>
+              <button class="qty-btn" onclick="addToCart(${p._id})">+</button>
+            </div>
+          </div>
+          <button class="cart-item-delete" onclick="deleteItem(${p._id})" title="Eliminar">🗑️</button>
+        </div>`;
+    }).join('');
+  }
+
+  function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('active');
+    document.getElementById('cartOverlay').classList.toggle('active');
+  }
+
+  // ── PEDIDO POR WHATSAPP ──
+  function hacerPedido() {
+    const items = Object.values(cart);
+    if (!items.length) return;
+    let msg = '¡Hola Tobby\'s Pet Shop! 🐾 Quiero hacer el siguiente pedido:\n\n🛒 *Mi pedido:*\n';
+    let total = 0;
+    items.forEach(({ product: p, qty }) => {
+      const { active } = getPrice(p);
+      const sub = active * qty;
+      total += sub;
+      msg += `• ${qty}x *${p.nombre}*`;
+      if (p.marca) msg += ` (${p.marca})`;
+      msg += ` — ₡${active.toLocaleString()} c/u = ₡${sub.toLocaleString()}\n`;
+    });
+    msg += `\n💰 *Total estimado: ₡${total.toLocaleString()}*`;
+    msg += '\n\nPor favor confirmar disponibilidad y coordinar la entrega. ¡Muchas gracias! 😊🐾';
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ── INIT ──
+  loadProducts();
+</script>
+</body>
+</html>
