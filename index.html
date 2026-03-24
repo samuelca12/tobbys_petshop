@@ -191,6 +191,43 @@
       .info-bar{gap:16px}
       .filters-bar{padding:16px}
     }
+    /* MARCAS SCROLL */
+    .brands-bar {
+    background: white;
+    overflow: hidden;
+    padding: 16px 0;
+    position: relative;
+    }
+
+    .brands-track {
+    display: flex;
+    width: max-content;
+    animation: scrollBrands 25s linear infinite;
+    }
+
+    .brands-track img {
+    height: 50px;
+    margin: 0 40px;
+    object-fit: contain;
+    filter: grayscale(20%);
+    opacity: 0.9;
+    transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .brands-track img:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    }
+
+    /* ANIMACIÓN */
+    @keyframes scrollBrands {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+    }
   </style>
 </head>
 <body>
@@ -242,11 +279,35 @@
   <div class="info-item">🚚 Entregas gratis</div>
 </div>
 
+
+
+
 <!-- CATÁLOGO -->
 <section id="catalogo">
   <div class="section-header">
     <p class="section-label">Lo que tenemos para vos</p>
     <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
+  </div>
+
+  <!-- MARCAS (SCROLL INFINITO) -->
+  <div class="brands-bar">
+    <div class="brands-track">
+      <img src="imagenes/marcas/bayer.png">
+      <img src="imagenes/marcas/hills.png">
+      <img src="imagenes/marcas/nutrisource.png">
+      <img src="imagenes/marcas/orijen.png">
+      <img src="imagenes/marcas/Pedigree.png">
+      <img src="imagenes/marcas/purina.png">
+      <img src="imagenes/marcas/royalcanin.png">
+    
+      <img src="imagenes/marcas/bayer.png">
+      <img src="imagenes/marcas/hills.png">
+      <img src="imagenes/marcas/nutrisource.png">
+      <img src="imagenes/marcas/orijen.png">
+      <img src="imagenes/marcas/Pedigree.png">
+      <img src="imagenes/marcas/purina.png">
+      <img src="imagenes/marcas/royalcanin.png">
+    </div>
   </div>
 
   <div class="filters-bar">
