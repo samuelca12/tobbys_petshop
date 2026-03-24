@@ -341,7 +341,7 @@
 
 <script>
   // ══════════════════════════════════════════════════════════
-  // Google Sheet HERE
+  // Google sheet
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1VPGurnlH9Fjnts7Q7WfotFVFf_i1_FP1SAC6gPPP3P0/export?format=csv&gid=0';
   const WA_NUMBER = '50671830963';
 
@@ -456,10 +456,9 @@
     const { hasOffer, regular, offer } = getPrice(p);
     const inCart = cart[p._id] ? cart[p._id].qty : 0;
 
-    const imgHTML = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http')
-      ? `<img class="product-img" src="${p.imagen_url}" alt="${p.nombre}" loading="lazy"
-           onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>🐾</span><p>${p.nombre.replace(/'/g,"&#39;")}</p></div>'" />`
-      : `<div class="product-img-placeholder"><span>🐾</span><p>${p.nombre}</p></div>`;
+    const imgHTML = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 8
+      ? `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${p.nombre}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>🐾</span><p>${p.nombre.replace(/'/g,"&#39;")}</p></div>'" /></div>`
+      : `<div class="img-wrap"><div class="product-img-placeholder"><span>🐾</span><p>${p.nombre}</p></div></div>`;
 
     const priceHTML = hasOffer
       ? `<span class="price-old">₡${regular.toLocaleString()}</span><span class="price-offer">₡${offer.toLocaleString()}</span>`
