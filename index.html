@@ -26,19 +26,20 @@
     body { background:var(--offwhite); color:var(--text); font-family:'Nunito',sans-serif; overflow-x:hidden; }
     body::before { content:''; position:fixed; inset:0; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ctext y='40' font-size='28' opacity='0.04'%3E🐾%3C/text%3E%3C/svg%3E"); pointer-events:none; }
 
-    /* NAV */
+    /* ── NAV ── */
     nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--green); padding:0 32px; height:68px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 16px rgba(46,139,87,0.3); }
     .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-logo img { height:44px; border-radius:8px; }
+    .nav-logo img { height:44px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); }
     .nav-logo span { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--white); }
     .nav-links { display:flex; align-items:center; gap:24px; }
-    .nav-links a { color:rgba(255,255,255,0.88); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; }
+    .nav-links a { color:rgba(255,255,255,0.88); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; display:flex; align-items:center; gap:6px; }
     .nav-links a:hover { color:var(--yellow); }
+    .nav-links a img { height:18px; width:18px; object-fit:contain; filter:brightness(0) invert(1); }
     .cart-btn { position:relative; background:var(--yellow); color:var(--text); border:none; cursor:pointer; padding:10px 20px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.95rem; display:flex; align-items:center; gap:8px; transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 3px 12px rgba(249,168,37,0.4); }
     .cart-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(249,168,37,0.5); }
     .cart-count { background:var(--coral); color:white; border-radius:50%; width:22px; height:22px; font-size:0.75rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
 
-    /* HERO */
+    /* ── HERO ── */
     #inicio { min-height:100vh; padding-top:68px; background:linear-gradient(135deg,var(--green) 0%,var(--green-lt) 50%,#A8D5BA 100%); display:flex; align-items:center; position:relative; overflow:hidden; }
     .hero-shapes { position:absolute; inset:0; pointer-events:none; }
     .hero-shapes span { position:absolute; font-size:4rem; opacity:0.12; animation:floatShape 6s ease-in-out infinite; }
@@ -55,24 +56,33 @@
     .hero-badge { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:white; padding:6px 16px; border-radius:50px; font-size:0.85rem; font-weight:600; }
     .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--text); padding:14px 32px; border-radius:50px; font-weight:800; font-size:1.05rem; text-decoration:none; transition:transform 0.2s, box-shadow 0.3s; box-shadow:0 6px 24px rgba(249,168,37,0.45); }
     .hero-cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(249,168,37,0.5); }
-    .hero-img { display:flex; justify-content:center; }
-    .hero-img img { width:100%; max-width:380px; filter:drop-shadow(0 12px 32px rgba(0,0,0,0.2)); animation:floatShape 4s ease-in-out infinite; }
+    .hero-img { display:flex; justify-content:center; align-items:center; }
+    .hero-logo-circle { width:280px; height:280px; border-radius:50%; overflow:hidden; border:6px solid rgba(255,255,255,0.4); box-shadow:0 12px 40px rgba(0,0,0,0.2); animation:floatShape 4s ease-in-out infinite; }
+    .hero-logo-circle img { width:100%; height:100%; object-fit:cover; }
 
-    /* INFO BAR */
+    /* ── INFO BAR ── */
     .info-bar { background:var(--yellow); padding:14px 32px; display:flex; justify-content:center; flex-wrap:wrap; gap:32px; position:relative; z-index:1; }
     .info-item { display:flex; align-items:center; gap:8px; font-weight:700; font-size:0.9rem; color:var(--text); }
-    .info-item a { color:inherit; text-decoration:none; }
+    .info-item a { color:inherit; text-decoration:none; display:flex; align-items:center; gap:6px; }
+    .info-item img { height:18px; width:18px; object-fit:contain; }
 
-    /* SECTIONS */
+    /* ── SECTIONS ── */
     section { padding:80px 32px; position:relative; z-index:1; }
     .section-header { text-align:center; margin-bottom:48px; }
     .section-label { font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--green); font-weight:700; margin-bottom:8px; }
     .section-title { font-family:'Baloo 2',cursive; font-size:clamp(1.8rem,3vw,2.6rem); font-weight:800; color:var(--text); }
     .section-title span { color:var(--green); }
 
-    /* FILTERS */
+    /* ── BRANDS SCROLL ── */
+    .brands-bar { background:white; overflow:hidden; padding:16px 0; position:relative; border-top:2px solid var(--green-pale); border-bottom:2px solid var(--green-pale); }
+    .brands-track { display:flex; width:max-content; animation:scrollBrands 25s linear infinite; }
+    .brands-track img { height:50px; margin:0 40px; object-fit:contain; filter:grayscale(20%); opacity:0.85; transition:transform 0.2s, opacity 0.2s; }
+    .brands-track img:hover { transform:scale(1.1); opacity:1; filter:none; }
+    @keyframes scrollBrands { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── CATALOG FILTERS ── */
     #catalogo { background:var(--offwhite); }
-    .filters-bar { background:white; border-radius:20px; padding:20px 24px; margin-bottom:32px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin-left:auto; margin-right:auto; margin-bottom:32px; }
+    .filters-bar { background:white; border-radius:20px; padding:20px 24px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin:0 auto 32px; }
     .filter-search { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; background:var(--green-pale); border-radius:50px; padding:10px 18px; }
     .filter-search input { border:none; background:transparent; outline:none; font-family:'Nunito',sans-serif; font-size:0.95rem; color:var(--text); width:100%; }
     .filter-select { padding:10px 18px; border:2px solid var(--green-pale); border-radius:50px; background:white; font-family:'Nunito',sans-serif; font-size:0.9rem; font-weight:600; color:var(--text); cursor:pointer; outline:none; transition:border-color 0.2s; }
@@ -82,7 +92,7 @@
     .filter-clear { background:none; border:2px solid var(--muted); color:var(--muted); padding:8px 18px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; }
     .filter-clear:hover { border-color:var(--coral); color:var(--coral); }
 
-    /* PRODUCTS GRID */
+    /* ── PRODUCTS GRID ── */
     .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
     .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s; position:relative; animation:popIn 0.4s ease both; }
     .product-card:hover { transform:translateY(-6px); box-shadow:0 12px 32px rgba(46,139,87,0.2); }
@@ -90,11 +100,14 @@
     .offer-badge { position:absolute; top:12px; left:12px; z-index:2; background:var(--coral); color:white; padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:800; text-transform:uppercase; }
     .cart-indicator { position:absolute; top:12px; right:12px; z-index:2; background:var(--green); color:white; width:32px; height:32px; border-radius:50%; font-size:0.8rem; font-weight:800; display:none; align-items:center; justify-content:center; }
     .product-card.in-cart .cart-indicator { display:flex; }
+    .img-wrap { width:100%; height:200px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .product-img { width:100%; height:200px; object-fit:contain; background:var(--green-pale); padding:16px; display:block; }
+    .brand-img { width:100%; height:200px; object-fit:contain; background:var(--green-pale); padding:28px; display:block; }
     .product-img-placeholder { width:100%; height:200px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted); }
     .product-img-placeholder span { font-size:2.5rem; }
     .product-img-placeholder p { font-size:0.8rem; font-weight:600; text-align:center; padding:0 12px; }
     .product-body { padding:16px; }
+    .product-animal { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
     .product-category { font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:4px; }
     .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:4px; line-height:1.2; }
     .product-brand { font-size:0.8rem; color:var(--muted); margin-bottom:10px; }
@@ -110,13 +123,13 @@
     .btn-remove:hover { background:var(--coral); color:white; }
     .product-card.in-cart .btn-remove { display:block; }
 
-    /* STATES */
-    .loading-state, .empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
+    /* ── STATES ── */
+    .loading-state,.empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
     .loading-state .spinner { width:48px; height:48px; border:4px solid var(--green-pale); border-top-color:var(--green); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
     .empty-state .empty-icon { font-size:4rem; margin-bottom:16px; }
     .empty-state p { color:var(--muted); font-size:1.05rem; font-weight:600; }
 
-    /* CART SIDEBAR */
+    /* ── CART SIDEBAR ── */
     .cart-overlay { display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.4); backdrop-filter:blur(3px); }
     .cart-overlay.active { display:block; }
     .cart-sidebar { position:fixed; top:0; right:-420px; width:420px; max-width:100vw; height:100vh; background:white; z-index:301; display:flex; flex-direction:column; box-shadow:-8px 0 32px rgba(0,0,0,0.15); transition:right 0.35s cubic-bezier(0.4,0,0.2,1); }
@@ -146,9 +159,41 @@
     .btn-pedido { width:100%; background:#25D366; color:white; border:none; border-radius:50px; padding:16px; font-family:'Nunito',sans-serif; font-weight:800; font-size:1.05rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:10px; box-shadow:0 6px 20px rgba(37,211,102,0.35); }
     .btn-pedido:hover { background:#1ebe5a; transform:translateY(-2px); }
     .btn-pedido:disabled { background:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; }
+    .btn-pedido img { width:22px; height:22px; filter:brightness(0) invert(1); }
 
-    /* TIENDA */
-    #tienda { background:var(--green-pale); }
+    /* ── QUIÉNES SOMOS ── */
+    #nosotros { background:var(--green-pale); }
+    .nosotros-inner { max-width:1100px; margin:0 auto; }
+    .nosotros-intro { text-align:center; max-width:680px; margin:0 auto 64px; font-size:1.05rem; line-height:1.9; color:#3a6a50; }
+
+    .hanging-photos { display:flex; justify-content:center; gap:60px; flex-wrap:wrap; margin-bottom:64px; }
+    .hanging-photo-wrap { display:flex; flex-direction:column; align-items:center; }
+    .hanging-string { width:2px; height:40px; background:linear-gradient(to bottom, #8B6914, #C8A84B); margin-bottom:0; }
+    .hanging-clip { font-size:1.2rem; margin-bottom:-6px; z-index:2; position:relative; }
+    .hanging-frame {
+      width:240px;
+      background:white;
+      padding:16px 16px 40px;
+      box-shadow:4px 8px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1);
+      transform:rotate(-2deg);
+      transition:transform 0.3s;
+      position:relative;
+    }
+    .hanging-photo-wrap:nth-child(2) .hanging-frame { transform:rotate(2deg); }
+    .hanging-photo-wrap:nth-child(3) .hanging-frame { transform:rotate(-1.5deg); }
+    .hanging-frame:hover { transform:rotate(0deg) scale(1.03); }
+    .hanging-frame img { width:100%; height:220px; object-fit:cover; display:block; }
+    .hanging-frame .frame-caption { text-align:center; margin-top:12px; font-family:'Baloo 2',cursive; font-size:0.9rem; font-weight:700; color:var(--text); line-height:1.3; }
+    .hanging-frame .frame-subcaption { text-align:center; font-size:0.75rem; color:var(--muted); margin-top:4px; }
+
+    .nosotros-valores { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:900px; margin:0 auto; }
+    .valor-card { background:white; border-radius:16px; padding:28px 24px; text-align:center; box-shadow:var(--shadow); }
+    .valor-icon { font-size:2.2rem; margin-bottom:12px; }
+    .valor-card h4 { font-family:'Baloo 2',cursive; font-size:1.05rem; font-weight:800; color:var(--text); margin-bottom:8px; }
+    .valor-card p { font-size:0.85rem; color:var(--muted); line-height:1.7; }
+
+    /* ── TIENDA ── */
+    #tienda { background:white; }
     .tienda-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:0 auto; align-items:center; }
     .tienda-img { border-radius:24px; overflow:hidden; box-shadow:var(--shadow); }
     .tienda-img img { width:100%; display:block; }
@@ -156,92 +201,99 @@
     .info-list { display:flex; flex-direction:column; gap:16px; }
     .info-row { display:flex; gap:14px; align-items:flex-start; }
     .info-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .info-icon-img { width:24px; height:24px; object-fit:contain; flex-shrink:0; margin-top:2px; }
     .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
-    .info-row a { color:var(--green); text-decoration:none; font-weight:700; }
+    .info-row a { color:var(--green); text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .info-row a:hover { color:var(--green-lt); }
     .ubicacion-img { border-radius:16px; overflow:hidden; margin-top:24px; box-shadow:var(--shadow); }
     .ubicacion-img img { width:100%; display:block; }
 
-    /* FOOTER */
+    /* ── FAQ ── */
+    #faq { background:var(--offwhite); }
+    .faq-inner { max-width:800px; margin:0 auto; }
+    .faq-item { background:white; border-radius:16px; margin-bottom:16px; box-shadow:var(--shadow); overflow:hidden; }
+    .faq-question { width:100%; background:none; border:none; padding:20px 24px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-family:'Nunito',sans-serif; font-size:1rem; font-weight:700; color:var(--text); text-align:left; transition:background 0.2s; }
+    .faq-question:hover { background:var(--green-pale); }
+    .faq-question.active { background:var(--green-pale); color:var(--green); }
+    .faq-arrow { font-size:1.2rem; transition:transform 0.3s; flex-shrink:0; margin-left:12px; }
+    .faq-question.active .faq-arrow { transform:rotate(180deg); }
+    .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; padding:0 24px; font-size:0.95rem; line-height:1.8; color:#3a6a50; }
+    .faq-answer.open { max-height:400px; padding:0 24px 20px; }
+    .faq-answer a { color:var(--green); font-weight:700; display:inline-flex; align-items:center; gap:6px; }
+    .faq-answer img { height:16px; width:16px; object-fit:contain; }
+
+    /* ── FOOTER ── */
     footer { background:var(--green); color:rgba(255,255,255,0.85); padding:40px 32px; text-align:center; position:relative; z-index:1; }
     .foot-logo { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:20px; }
-    .foot-logo img { height:48px; border-radius:10px; }
+    .foot-logo img { height:48px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); }
     .foot-logo span { font-family:'Baloo 2',cursive; font-size:1.4rem; font-weight:800; color:white; }
     .foot-links { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:20px; }
-    .foot-links a { color:rgba(255,255,255,0.8); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; }
+    .foot-links a { color:rgba(255,255,255,0.8); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; display:inline-flex; align-items:center; gap:6px; }
     .foot-links a:hover { color:var(--yellow); }
+    .foot-links a img { height:16px; width:16px; object-fit:contain; filter:brightness(0) invert(1); opacity:0.8; }
     footer p { font-size:0.8rem; color:rgba(255,255,255,0.55); }
 
-    /* ANIMATIONS */
+    /* ── TOBBY WELCOME BUBBLE ── */
+    .tobby-bubble { position:fixed; bottom:32px; right:32px; z-index:500; display:flex; flex-direction:column; align-items:flex-end; gap:10px; animation:tobbyAppear 0.6s ease both; }
+    .tobby-bubble.hiding { animation:tobbyHide 0.8s ease forwards; }
+    .tobby-speech { background:white; border-radius:20px 20px 4px 20px; padding:12px 18px; box-shadow:0 6px 24px rgba(0,0,0,0.15); font-family:'Baloo 2',cursive; font-size:0.95rem; font-weight:700; color:var(--text); max-width:220px; text-align:center; line-height:1.4; border:2px solid var(--green-pale); position:relative; }
+    .tobby-speech::after { content:''; position:absolute; bottom:-12px; right:24px; width:0; height:0; border-left:12px solid transparent; border-right:4px solid transparent; border-top:14px solid white; }
+    .tobby-speech::before { content:''; position:absolute; bottom:-15px; right:22px; width:0; height:0; border-left:14px solid transparent; border-right:6px solid transparent; border-top:16px solid var(--green-pale); }
+    .tobby-avatar { width:80px; height:80px; border-radius:50%; overflow:hidden; border:3px solid var(--green); box-shadow:0 4px 16px rgba(46,139,87,0.3); align-self:flex-end; }
+    .tobby-avatar img { width:100%; height:100%; object-fit:cover; }
+    @keyframes tobbyAppear { from{opacity:0;transform:translateY(30px) scale(0.8)} to{opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes tobbyHide { from{opacity:1;transform:translateY(0) scale(1)} to{opacity:0;transform:translateY(20px) scale(0.8)} }
+
+    /* ── ANIMATIONS ── */
     @keyframes floatShape { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
     @keyframes spin { to{transform:rotate(360deg)} }
     @keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
     @media(max-width:900px){
       .nav-links{display:none}
       .hero-inner{grid-template-columns:1fr;text-align:center}
       .hero-img{display:none}
       .tienda-grid{grid-template-columns:1fr}
       .cart-sidebar{width:100vw}
+      .nosotros-valores{grid-template-columns:1fr}
+      .hanging-photos{gap:30px}
     }
     @media(max-width:600px){
       section{padding:60px 16px}
       nav{padding:0 16px}
       .info-bar{gap:16px}
       .filters-bar{padding:16px}
-    }
-    /* MARCAS SCROLL */
-    .brands-bar {
-    background: white;
-    overflow: hidden;
-    padding: 16px 0;
-    position: relative;
-    }
-
-    .brands-track {
-    display: flex;
-    width: max-content;
-    animation: scrollBrands 25s linear infinite;
-    }
-
-    .brands-track img {
-    height: 50px;
-    margin: 0 40px;
-    object-fit: contain;
-    filter: grayscale(20%);
-    opacity: 0.9;
-    transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .brands-track img:hover {
-    transform: scale(1.1);
-    opacity: 1;
-    }
-
-    /* ANIMACIÓN */
-    @keyframes scrollBrands {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
+      .tobby-bubble{bottom:16px;right:16px}
     }
   </style>
 </head>
 <body>
 
+<!-- TOBBY WELCOME BUBBLE -->
+<div class="tobby-bubble" id="tobbyBubble">
+  <div class="tobby-speech">🐾 ¡Bienvenidos a<br/>Tobby's Pet Shop!</div>
+  <div class="tobby-avatar">
+    <img src="imagenes/tobby.png" alt="Tobby" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐶</text></svg>'" />
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <a href="#inicio" class="nav-logo">
-    <img src="imagenes/logo2.png" alt="Tobby's" onerror="this.style.display='none'" />
-    <span>Tobby's Pet Shop 🐾</span>
+    <img src="imagenes/logo_transparente.png" alt="Tobby's" onerror="this.style.display='none'" />
+    <span>Tobby's Pet Shop</span>
   </a>
   <div class="nav-links">
     <a href="#catalogo">Catálogo</a>
-    <a href="#tienda">Nuestra Tienda</a>
-    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">📸 Instagram</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#tienda">Tienda</a>
+    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
+      <img src="imagenes/instagram_logo.png" alt="Instagram" onerror="this.style.display='none'" /> Instagram
+    </a>
+    <a href="https://wa.me/50671830963" target="_blank">
+      <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.style.display='none'" /> WhatsApp
+    </a>
   </div>
   <button class="cart-btn" onclick="toggleCart()">
     🛒 Carrito <span class="cart-count" id="cartCount">0</span>
@@ -251,6 +303,7 @@
 <!-- HERO -->
 <section id="inicio">
   <div class="hero-shapes">
+    <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
     <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
   </div>
   <div class="hero-inner">
@@ -266,7 +319,9 @@
       <a href="#catalogo" class="hero-cta">Ver catálogo 🛍️</a>
     </div>
     <div class="hero-img">
-      <img src="imagenes/tobby.png" alt="Tobby" onerror="this.style.display='none'" />
+      <div class="hero-logo-circle">
+        <img src="imagenes/logo.jpeg" alt="Tobby's Pet Shop" onerror="this.parentNode.style.background='var(--green-lt)'" />
+      </div>
     </div>
   </div>
 </section>
@@ -274,13 +329,14 @@
 <!-- INFO BAR -->
 <div class="info-bar">
   <div class="info-item">🕐 Lun–Sáb 9am–6pm</div>
-  <div class="info-item">📱 <a href="https://wa.me/50671830963">7183-0963</a></div>
+  <div class="info-item">
+    <a href="https://wa.me/50671830963">
+      <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.style.display='none'" /> 7183-0963
+    </a>
+  </div>
   <div class="info-item">📍 50m norte Iglesia Guadalupe, San José</div>
   <div class="info-item">🚚 Entregas gratis</div>
 </div>
-
-
-
 
 <!-- CATÁLOGO -->
 <section id="catalogo">
@@ -289,34 +345,40 @@
     <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
   </div>
 
-  <!-- MARCAS (SCROLL INFINITO) -->
+  <!-- MARCAS SCROLL -->
   <div class="brands-bar">
     <div class="brands-track">
-      <img src="imagenes/marcas/bayer.png">
-      <img src="imagenes/marcas/hills.png">
-      <img src="imagenes/marcas/nutrisource.png">
-      <img src="imagenes/marcas/orijen.png">
-      <img src="imagenes/marcas/Pedigree.png">
-      <img src="imagenes/marcas/purina.png">
-      <img src="imagenes/marcas/royalcanin.png">
-    
-      <img src="imagenes/marcas/bayer.png">
-      <img src="imagenes/marcas/hills.png">
-      <img src="imagenes/marcas/nutrisource.png">
-      <img src="imagenes/marcas/orijen.png">
-      <img src="imagenes/marcas/Pedigree.png">
-      <img src="imagenes/marcas/purina.png">
-      <img src="imagenes/marcas/royalcanin.png">
+      <img src="imagenes/marcas/bayer.png" alt="Bayer">
+      <img src="imagenes/marcas/hills.png" alt="Hills">
+      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
+      <img src="imagenes/marcas/orijen.png" alt="Orijen">
+      <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
+      <img src="imagenes/marcas/purina.png" alt="Purina">
+      <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
+      <img src="imagenes/marcas/balance.png" alt="Balance">
+      <!-- Duplicado para loop infinito -->
+      <img src="imagenes/marcas/bayer.png" alt="Bayer">
+      <img src="imagenes/marcas/hills.png" alt="Hills">
+      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
+      <img src="imagenes/marcas/orijen.png" alt="Orijen">
+      <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
+      <img src="imagenes/marcas/purina.png" alt="Purina">
+      <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
+      <img src="imagenes/marcas/balance.png" alt="Balance">
     </div>
   </div>
 
+  <!-- FILTROS -->
   <div class="filters-bar">
     <div class="filter-search">
       <span>🔍</span>
       <input type="text" id="searchInput" placeholder="Buscar producto o marca..." oninput="applyFilters()" />
     </div>
+    <select class="filter-select" id="animalFilter" onchange="applyFilters()">
+      <option value="">🐾 Todos los animales</option>
+    </select>
     <select class="filter-select" id="catFilter" onchange="applyFilters()">
-      <option value="">🐾 Todas las categorías</option>
+      <option value="">📦 Todas las categorías</option>
     </select>
     <select class="filter-select" id="marcaFilter" onchange="applyFilters()">
       <option value="">🏷️ Todas las marcas</option>
@@ -331,6 +393,73 @@
     <div class="loading-state">
       <div class="spinner"></div>
       <p style="color:var(--muted);font-weight:600;margin-top:8px;">Cargando productos...</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUIÉNES SOMOS -->
+<section id="nosotros">
+  <div class="nosotros-inner">
+    <div class="section-header">
+      <p class="section-label">Conocenos</p>
+      <h2 class="section-title">¿Quiénes <span>somos</span>? 💚</h2>
+    </div>
+
+    <p class="nosotros-intro">
+      Tobby's Pet Shop nació del amor por los animales y el sueño de dos mujeres emprendedoras costarricenses:
+      una madre y su hija que decidieron crear un espacio donde cada mascota recibe lo mejor.
+      Desde Guadalupe, San José, llevamos felicidad a los hogares de cientos de familias y sus peludos. 🐾
+    </p>
+
+    <div class="hanging-photos">
+      <!-- Foto mujeres -->
+      <div class="hanging-photo-wrap">
+        <div class="hanging-string"></div>
+        <div class="hanging-clip">📎</div>
+        <div class="hanging-frame">
+          <img src="imagenes/mujeres.png" alt="Marcela y Nicole" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 font-size=%2260%22>👩‍👧</text></svg>'" />
+          <div class="frame-caption">Marcela Durán & Nicole Zúñiga</div>
+          <div class="frame-subcaption">Madre e hija · Fundadoras</div>
+        </div>
+      </div>
+
+      <!-- Foto Tobby real -->
+      <div class="hanging-photo-wrap">
+        <div class="hanging-string"></div>
+        <div class="hanging-clip">📌</div>
+        <div class="hanging-frame" style="transform:rotate(1.5deg)">
+          <img src="imagenes/tobbyreal.png" alt="Tobby" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 font-size=%2260%22>🐶</text></svg>'" />
+          <div class="frame-caption">¡Mucho gusto, soy Tobby! 🐾</div>
+          <div class="frame-subcaption">El corazón de la tienda</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Texto Tobby -->
+    <div style="max-width:600px;margin:0 auto 56px;background:white;border-radius:20px;padding:28px 32px;box-shadow:var(--shadow);text-align:center;">
+      <p style="font-size:1.8rem;margin-bottom:12px;">🐶</p>
+      <p style="font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:12px;">¡Hola! Soy Tobby 🐾</p>
+      <p style="font-size:0.95rem;line-height:1.8;color:#3a6a50;">
+        Soy el perro más consentido de Guadalupe y el embajador oficial de la tienda. Me encanta recibir visitas, oler todas las croquetas y supervisar que mi mamá Marcela y mi hermana Nicole les atiendan con todo el cariño del mundo. ¡Espero verte pronto! 🐾
+      </p>
+    </div>
+
+    <div class="nosotros-valores">
+      <div class="valor-card">
+        <div class="valor-icon">💚</div>
+        <h4>Amor por los animales</h4>
+        <p>Cada producto que vendemos lo elegimos pensando en el bienestar y la felicidad de tu mascota.</p>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon">⭐</div>
+        <h4>Calidad garantizada</h4>
+        <p>Trabajamos solo con marcas reconocidas y de confianza. Tu mascota merece lo mejor.</p>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon">🤝</div>
+        <h4>Atención personalizada</h4>
+        <p>Somos un negocio familiar y te atendemos con la calidez y el compromiso de siempre.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -355,26 +484,114 @@
       <div class="info-list">
         <div class="info-row"><span class="info-icon">📍</span><p>50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica</p></div>
         <div class="info-row"><span class="info-icon">🕐</span><p>Lunes a Sábado de 9:00am a 6:00pm</p></div>
-        <div class="info-row"><span class="info-icon">📱</span><p><a href="https://wa.me/50671830963">WhatsApp: 7183-0963</a></p></div>
-        <div class="info-row"><span class="info-icon">📸</span><p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">@tobbyspetshop.cr en Instagram</a></p></div>
+        <div class="info-row">
+          <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>💬</span>'" />
+          <p><a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" alt="" style="height:15px;width:15px;object-fit:contain;" onerror="this.style.display='none'"> WhatsApp: 7183-0963</a></p>
+        </div>
+        <div class="info-row">
+          <img src="imagenes/instagram_logo.png" alt="Instagram" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>📸</span>'" />
+          <p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank"><img src="imagenes/instagram_logo.png" alt="" style="height:15px;width:15px;object-fit:contain;" onerror="this.style.display='none'"> @tobbyspetshop.cr</a></p>
+        </div>
         <div class="info-row"><span class="info-icon">🚚</span><p>¡Hacemos <strong>entregas a domicilio completamente gratis!</strong> Pedí desde aquí y te lo llevamos.</p></div>
-        <div class="info-row"><span class="info-icon">🐶</span><p>Especialistas en alimentos y accesorios para perros, gatos y más mascotas. ¡Más de 50 productos disponibles!</p></div>
+        <div class="info-row"><span class="info-icon">🐶</span><p>Especialistas en alimentos y accesorios para perros, gatos y más mascotas.</p></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section id="faq">
+  <div class="section-header">
+    <p class="section-label">Resolvemos tus dudas</p>
+    <h2 class="section-title">Preguntas <span>Frecuentes</span> 🙋</h2>
+  </div>
+  <div class="faq-inner">
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        🛒 ¿Cómo hago un pedido? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        ¡Es muy fácil! Explorá nuestro catálogo, agregá los productos que querés al carrito con el botón <strong>➕ Agregar</strong>, y cuando estés listo hacé clic en <strong>"Hacer Pedido por WhatsApp"</strong>. Te va a llegar un mensaje ya escrito con todo lo que elegiste. ¡Solo lo enviás y coordinamos la entrega!<br/><br/>
+        Si preferís una atención más personalizada, también podés escribirnos directamente por WhatsApp al <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" onerror="this.style.display='none'"> 7183-0963</a> y con gusto te asesoramos.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        🚚 ¿Cómo funcionan los envíos? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Realizamos <strong>entregas a domicilio completamente gratis</strong> en los residenciales cercanos al local, especialmente en la zona de Moravia y alrededores de Guadalupe. También podés <strong>retirar tu pedido directamente en la tienda</strong> sin ningún costo adicional.<br/><br/>
+        Para coordinar la entrega, simplemente hacé tu pedido y nos ponemos de acuerdo por WhatsApp sobre el horario que más te convenga. 🐾
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        💰 ¿Cuáles son las formas de pago? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Aceptamos <strong>efectivo, transferencia SINPE Móvil</strong> y otros métodos. Al coordinar tu pedido por WhatsApp te indicamos todas las opciones disponibles según tu caso. ¡Buscamos siempre la forma más cómoda para vos!
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        🐾 ¿Qué tipo de productos venden? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Contamos con una amplia variedad de <strong>alimentos y accesorios para perros y gatos</strong>. En alimentos tenemos desde croquetas por kilo, bolsas, sacos grandes, latas húmedas, hasta snacks y treats. Manejamos marcas reconocidas como Balance, Nutrisource, Hills, Pro Plan, Royal Canin, Pedigree, Dog Chow, entre muchas otras.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        📦 ¿Tienen productos para otras mascotas además de perros y gatos? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Por el momento nuestro catálogo está especializado en perros y gatos, pero estamos en constante crecimiento. ¡Escribinos por WhatsApp si necesitás algo específico y vemos cómo podemos ayudarte! 🐾
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ⏰ ¿Cuál es el horario de atención? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        Atendemos <strong>de lunes a sábado de 9:00am a 6:00pm</strong> tanto en la tienda física como por WhatsApp. Podés visitarnos en nuestra tienda ubicada 50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        ❓ ¿Puedo pedir asesoría para elegir el alimento de mi mascota? <span class="faq-arrow">▼</span>
+      </button>
+      <div class="faq-answer">
+        ¡Por supuesto! Sabemos que elegir el alimento correcto para tu mascota puede ser abrumador. Escribinos por <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" onerror="this.style.display='none'"> WhatsApp</a> contándonos la raza, edad y necesidades de tu mascota, y con gusto te recomendamos la mejor opción. 💚
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">
-    <img src="imagenes/logo2.png" alt="Logo" onerror="this.style.display='none'" />
+    <img src="imagenes/logo_transparente.png" alt="Logo" onerror="this.style.display='none'" />
     <span>Tobby's Pet Shop</span>
   </div>
   <div class="foot-links">
     <a href="#catalogo">Catálogo</a>
+    <a href="#nosotros">Nosotros</a>
     <a href="#tienda">Tienda</a>
-    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">Instagram</a>
-    <a href="https://wa.me/50671830963">WhatsApp</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
+      <img src="imagenes/instagram_logo.png" alt="Instagram" onerror="this.style.display='none'"> Instagram
+    </a>
+    <a href="https://wa.me/50671830963" target="_blank">
+      <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.style.display='none'"> WhatsApp
+    </a>
   </div>
   <p>© 2025 Tobby's Pet Shop · San José, Costa Rica · Hecho con ❤️ para las mascotas</p>
 </footer>
@@ -395,25 +612,52 @@
       <span id="cartTotal">₡0</span>
     </div>
     <button class="btn-pedido" id="btnPedido" onclick="hacerPedido()" disabled>
-      💬 Hacer Pedido por WhatsApp
+      <img src="imagenes/whatsapp_logo.png" alt="" onerror="this.style.display='none'" /> Hacer Pedido por WhatsApp
     </button>
   </div>
 </div>
 
 <script>
   // ══════════════════════════════════════════════════════════
-  // Google sheet
-  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1VPGurnlH9Fjnts7Q7WfotFVFf_i1_FP1SAC6gPPP3P0/export?format=csv&gid=0';
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jh8K3O89rfs7APCzEX1-hGkPmTaW5tBZnafdLaFmWBc/export?format=csv&gid=0';
   const WA_NUMBER = '50671830963';
+
+  // Mapa de logos por marca
+  const BRAND_LOGOS = {
+    'balance':     'imagenes/marcas/balance.png',
+    'nutrisource': 'imagenes/marcas/nutrisource.png',
+    'pure vita':   'imagenes/marcas/nutrisource.png',
+    'hills':       'imagenes/marcas/hills.png',
+    'pro plan':    'imagenes/marcas/purina.png',
+    'proplan':     'imagenes/marcas/purina.png',
+    'dog chow':    'imagenes/marcas/purina.png',
+    'cat chow':    'imagenes/marcas/purina.png',
+    'felix':       'imagenes/marcas/purina.png',
+    'purina':      'imagenes/marcas/purina.png',
+    'pedigree':    'imagenes/marcas/Pedigree.png',
+    'royal canin': 'imagenes/marcas/royalcanin.png',
+    'royalcanin':  'imagenes/marcas/royalcanin.png',
+    'bayer':       'imagenes/marcas/bayer.png',
+    'orijen':      'imagenes/marcas/orijen.png',
+  };
 
   let allProducts = [];
   let cart = {};
 
-  // ── CARGAR GOOGLE SHEET ──
+  // ── TOBBY BUBBLE ──
+  window.addEventListener('load', () => {
+    const bubble = document.getElementById('tobbyBubble');
+    setTimeout(() => {
+      bubble.classList.add('hiding');
+      setTimeout(() => bubble.style.display = 'none', 800);
+    }, 3500);
+  });
+
+  // ── LOAD SHEET ──
   async function loadProducts() {
     try {
       const res = await fetch(SHEET_URL);
-      if (!res.ok) throw new Error('Error cargando Sheet');
+      if (!res.ok) throw new Error('Error');
       const csv = await res.text();
       allProducts = parseCSV(csv);
       populateFilters();
@@ -423,12 +667,12 @@
         <div class="empty-state">
           <div class="empty-icon">⚠️</div>
           <p>No se pudo cargar el catálogo.<br/>
-          <small style="color:var(--muted);font-weight:500;">Verificá que la URL del Google Sheet esté configurada correctamente en el código.</small></p>
+          <small style="color:var(--muted);font-weight:500;">Verificá la URL del Google Sheet.</small></p>
         </div>`;
     }
   }
 
-  // ── PARSEAR CSV ──
+  // ── PARSE CSV ──
   function parseCSV(csv) {
     const lines = csv.trim().split('\n');
     const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,'').toLowerCase());
@@ -452,34 +696,43 @@
     return result;
   }
 
-  // ── FILTROS ──
+  // ── FILTERS ──
   function populateFilters() {
-    const cats   = [...new Set(allProducts.map(p => p.categoria).filter(Boolean))].sort();
-    const marcas = [...new Set(allProducts.map(p => p.marca).filter(Boolean))].sort();
-    const catSel  = document.getElementById('catFilter');
-    const marcSel = document.getElementById('marcaFilter');
-    cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = getCatEmoji(c) + ' ' + c; catSel.appendChild(o); });
-    marcas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; marcSel.appendChild(o); });
+    const animals = [...new Set(allProducts.map(p => p.animal).filter(Boolean))].sort();
+    const cats    = [...new Set(allProducts.map(p => p.categoria).filter(Boolean))].sort();
+    const marcas  = [...new Set(allProducts.map(p => p.marca).filter(Boolean))].sort();
+
+    const anSel  = document.getElementById('animalFilter');
+    const catSel = document.getElementById('catFilter');
+    const marSel = document.getElementById('marcaFilter');
+
+    animals.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = getAnimalEmoji(a) + ' ' + a; anSel.appendChild(o); });
+    cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o); });
+    marcas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; marSel.appendChild(o); });
   }
 
-  function getCatEmoji(cat) {
-    if (!cat) return '🐾';
-    const c = cat.toLowerCase();
-    if (c.includes('perro')) return '🐶';
-    if (c.includes('gato')) return '🐱';
-    if (c.includes('pez') || c.includes('peces')) return '🐟';
-    if (c.includes('ave') || c.includes('pájaro') || c.includes('pajaro')) return '🦜';
-    if (c.includes('reptil')) return '🦎';
+  function getAnimalEmoji(animal) {
+    if (!animal) return '🐾';
+    const a = animal.toLowerCase();
+    if (a.includes('perro')) return '🐶';
+    if (a.includes('gato')) return '🐱';
+    if (a.includes('pez') || a.includes('peces')) return '🐟';
+    if (a.includes('ave') || a.includes('pájaro')) return '🦜';
     return '🐾';
   }
 
   function applyFilters() {
     const search  = document.getElementById('searchInput').value.toLowerCase();
+    const animal  = document.getElementById('animalFilter').value;
     const cat     = document.getElementById('catFilter').value;
     const marca   = document.getElementById('marcaFilter').value;
     const ofertas = document.getElementById('ofertaFilter').checked;
+
     const filtered = allProducts.filter(p => {
-      if (search && !p.nombre.toLowerCase().includes(search) && !(p.marca||'').toLowerCase().includes(search) && !(p.descripcion||'').toLowerCase().includes(search)) return false;
+      if (search && !p.nombre.toLowerCase().includes(search) &&
+          !(p.marca||'').toLowerCase().includes(search) &&
+          !(p.descripcion||'').toLowerCase().includes(search)) return false;
+      if (animal && p.animal !== animal) return false;
       if (cat && p.categoria !== cat) return false;
       if (marca && p.marca !== marca) return false;
       if (ofertas && (!p.oferta || !p.oferta.trim())) return false;
@@ -490,13 +743,24 @@
 
   function clearFilters() {
     document.getElementById('searchInput').value = '';
+    document.getElementById('animalFilter').value = '';
     document.getElementById('catFilter').value = '';
     document.getElementById('marcaFilter').value = '';
     document.getElementById('ofertaFilter').checked = false;
     renderProducts(allProducts);
   }
 
-  // ── RENDER PRODUCTOS ──
+  // ── GET BRAND LOGO ──
+  function getBrandLogo(marca) {
+    if (!marca) return null;
+    const key = marca.toLowerCase().trim();
+    for (const [k, v] of Object.entries(BRAND_LOGOS)) {
+      if (key.includes(k)) return v;
+    }
+    return null;
+  }
+
+  // ── RENDER ──
   function renderProducts(products) {
     const grid = document.getElementById('productsGrid');
     if (!products.length) {
@@ -516,10 +780,28 @@
   function buildCard(p, delay) {
     const { hasOffer, regular, offer } = getPrice(p);
     const inCart = cart[p._id] ? cart[p._id].qty : 0;
+    const animalEmoji = getAnimalEmoji(p.animal || '');
+    const brandLogo = getBrandLogo(p.marca);
+    const safeNombre = (p.nombre || '').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
 
-    const imgHTML = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 8
-      ? `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${p.nombre}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>🐾</span><p>${p.nombre.replace(/'/g,"&#39;")}</p></div>'" /></div>`
-      : `<div class="img-wrap"><div class="product-img-placeholder"><span>🐾</span><p>${p.nombre}</p></div></div>`;
+    let imgHTML;
+    if (p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 10) {
+      // Tiene URL de imagen — usa la imagen, si falla intenta logo de marca
+      if (brandLogo) {
+        imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy"
+          onerror="this.src='${brandLogo}';this.className='brand-img';this.onerror=function(){this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';}" /></div>`;
+      } else {
+        imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy"
+          onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
+      }
+    } else if (brandLogo) {
+      // Sin imagen pero tiene logo de marca
+      imgHTML = `<div class="img-wrap"><img class="brand-img" src="${brandLogo}" alt="${p.marca}" loading="lazy"
+        onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
+    } else {
+      // Sin imagen ni logo — placeholder con emoji según animal
+      imgHTML = `<div class="img-wrap"><div class="product-img-placeholder"><span>${animalEmoji}🐾</span><p>${p.nombre}</p></div></div>`;
+    }
 
     const priceHTML = hasOffer
       ? `<span class="price-old">₡${regular.toLocaleString()}</span><span class="price-offer">₡${offer.toLocaleString()}</span>`
@@ -531,7 +813,8 @@
         <div class="cart-indicator" id="ind-${p._id}" style="${inCart > 0 ? 'display:flex' : ''}">${inCart}</div>
         ${imgHTML}
         <div class="product-body">
-          <div class="product-category">${getCatEmoji(p.categoria)} ${p.categoria||''}</div>
+          ${p.animal ? `<div class="product-animal">${animalEmoji} ${p.animal}</div>` : ''}
+          <div class="product-category">${p.categoria||''}</div>
           <div class="product-name">${p.nombre}</div>
           ${p.marca ? `<div class="product-brand">🏷️ ${p.marca}</div>` : ''}
           ${p.descripcion ? `<div class="product-desc">${p.descripcion}</div>` : ''}
@@ -544,7 +827,7 @@
       </div>`;
   }
 
-  // ── CARRITO ──
+  // ── CART ──
   function addToCart(id) {
     const product = allProducts.find(p => p._id === id);
     if (!product) return;
@@ -592,11 +875,18 @@
       el.innerHTML = `<div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío.<br/>¡Agregá productos del catálogo!</p></div>`;
       return;
     }
+    const brandLogoFn = getBrandLogo;
     el.innerHTML = items.map(({ product: p, qty }) => {
       const { active } = getPrice(p);
-      const imgEl = p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http')
-        ? `<img src="${p.imagen_url}" alt="${p.nombre}" onerror="this.outerHTML='<div class=\\'cart-item-placeholder\\'>🐾</div>'" />`
-        : `<div class="cart-item-placeholder">🐾</div>`;
+      const bLogo = brandLogoFn(p.marca);
+      let imgEl;
+      if (p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 10) {
+        imgEl = `<img src="${p.imagen_url}" alt="${p.nombre}" onerror="this.src='${bLogo||''}';this.onerror=function(){this.outerHTML='<div class=\\'cart-item-placeholder\\'>🐾</div>';}" />`;
+      } else if (bLogo) {
+        imgEl = `<img src="${bLogo}" alt="${p.marca}" onerror="this.outerHTML='<div class=\\'cart-item-placeholder\\'>🐾</div>'" />`;
+      } else {
+        imgEl = `<div class="cart-item-placeholder">🐾</div>`;
+      }
       return `
         <div class="cart-item">
           ${imgEl}
@@ -619,7 +909,7 @@
     document.getElementById('cartOverlay').classList.toggle('active');
   }
 
-  // ── PEDIDO POR WHATSAPP ──
+  // ── WHATSAPP ORDER ──
   function hacerPedido() {
     const items = Object.values(cart);
     if (!items.length) return;
@@ -636,6 +926,20 @@
     msg += `\n💰 *Total estimado: ₡${total.toLocaleString()}*`;
     msg += '\n\nPor favor confirmar disponibilidad y coordinar la entrega. ¡Muchas gracias! 😊🐾';
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ── FAQ ACCORDION ──
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // Cerrar todos
+    document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
+    // Abrir el seleccionado si estaba cerrado
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('active');
+    }
   }
 
   // ── INIT ──
