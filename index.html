@@ -205,8 +205,6 @@
     .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
     .info-row a { color:var(--green); text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .info-row a:hover { color:var(--green-lt); }
-    .ubicacion-img { border-radius:16px; overflow:hidden; margin-top:24px; box-shadow:var(--shadow); }
-    .ubicacion-img img { width:100%; display:block; }
 
     /* ── FAQ ── */
     #faq { background:var(--offwhite); }
@@ -351,7 +349,6 @@
       <img src="imagenes/marcas/bayer.png" alt="Bayer">
       <img src="imagenes/marcas/hills.png" alt="Hills">
       <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
-      <img src="imagenes/marcas/orijen.png" alt="Orijen">
       <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
       <img src="imagenes/marcas/purina.png" alt="Purina">
       <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
@@ -360,7 +357,6 @@
       <img src="imagenes/marcas/bayer.png" alt="Bayer">
       <img src="imagenes/marcas/hills.png" alt="Hills">
       <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
-      <img src="imagenes/marcas/orijen.png" alt="Orijen">
       <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
       <img src="imagenes/marcas/purina.png" alt="Purina">
       <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
@@ -435,15 +431,6 @@
       </div>
     </div>
 
-    <!-- Texto Tobby -->
-    <div style="max-width:600px;margin:0 auto 56px;background:white;border-radius:20px;padding:28px 32px;box-shadow:var(--shadow);text-align:center;">
-      <p style="font-size:1.8rem;margin-bottom:12px;">🐶</p>
-      <p style="font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:12px;">¡Hola! Soy Tobby 🐾</p>
-      <p style="font-size:0.95rem;line-height:1.8;color:#3a6a50;">
-        Soy el perro más consentido de Guadalupe y el embajador oficial de la tienda. Me encanta recibir visitas, oler todas las croquetas y supervisar que mi mamá Marcela y mi hermana Nicole les atiendan con todo el cariño del mundo. ¡Espero verte pronto! 🐾
-      </p>
-    </div>
-
     <div class="nosotros-valores">
       <div class="valor-card">
         <div class="valor-icon">💚</div>
@@ -475,12 +462,9 @@
       <div class="tienda-img">
         <img src="imagenes/local.png" alt="Tobby's Pet Shop" onerror="this.parentNode.innerHTML='<div style=\'background:var(--green-pale);padding:80px;text-align:center;border-radius:24px;font-size:5rem;\'>🏪</div>'" />
       </div>
-      <div class="ubicacion-img">
-        <img src="imagenes/ubicacion.png" alt="Ubicación" onerror="this.style.display='none'" />
-      </div>
     </div>
     <div class="tienda-info">
-      <h3>¡Te esperamos con las patas abiertas! 🐾</h3>
+      <h3>¡Vení con tu mejor amigo! 🐾</h3>
       <div class="info-list">
         <div class="info-row"><span class="info-icon">📍</span><p>50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica</p></div>
         <div class="info-row"><span class="info-icon">🕐</span><p>Lunes a Sábado de 9:00am a 6:00pm</p></div>
@@ -619,7 +603,7 @@
 
 <script>
   // ══════════════════════════════════════════════════════════
-  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jh8K3O89rfs7APCzEX1-hGkPmTaW5tBZnafdLaFmWBc/export?format=csv&gid=0';
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jh8K3O89rfs7APCzEX1-hGkPmTaW5tBZnafdLaFmWBc/edit?usp=sharing';
   const WA_NUMBER = '50671830963';
 
   // Mapa de logos por marca
@@ -638,7 +622,6 @@
     'royal canin': 'imagenes/marcas/royalcanin.png',
     'royalcanin':  'imagenes/marcas/royalcanin.png',
     'bayer':       'imagenes/marcas/bayer.png',
-    'orijen':      'imagenes/marcas/orijen.png',
   };
 
   let allProducts = [];
@@ -649,8 +632,8 @@
     const bubble = document.getElementById('tobbyBubble');
     setTimeout(() => {
       bubble.classList.add('hiding');
-      setTimeout(() => bubble.style.display = 'none', 800);
-    }, 3500);
+      setTimeout(() => bubble.style.display = 'none', 1000);
+    }, 5000);
   });
 
   // ── LOAD SHEET ──
@@ -667,7 +650,7 @@
         <div class="empty-state">
           <div class="empty-icon">⚠️</div>
           <p>No se pudo cargar el catálogo.<br/>
-          <small style="color:var(--muted);font-weight:500;">Verificá la URL del Google Sheet.</small></p>
+          <small style="color:var(--muted);font-weight:500;">Agradecemos si nos notificas el error.</small></p>
         </div>`;
     }
   }
