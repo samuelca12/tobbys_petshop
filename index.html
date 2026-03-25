@@ -43,11 +43,16 @@
     #inicio { min-height:100vh; padding-top:68px; background:linear-gradient(135deg,var(--green) 0%,var(--green-lt) 50%,#A8D5BA 100%); display:flex; align-items:center; position:relative; overflow:hidden; }
     .hero-shapes { position:absolute; inset:0; pointer-events:none; }
     .hero-shapes span { position:absolute; font-size:4rem; opacity:0.12; animation:floatShape 6s ease-in-out infinite; }
-    .hero-shapes span:nth-child(1) { top:10%; left:5%; animation-delay:0s; font-size:3rem; }
-    .hero-shapes span:nth-child(2) { top:20%; right:8%; animation-delay:1s; font-size:5rem; }
-    .hero-shapes span:nth-child(3) { bottom:20%; left:12%; animation-delay:2s; font-size:3.5rem; }
-    .hero-shapes span:nth-child(4) { bottom:10%; right:15%; animation-delay:0.5s; font-size:2.5rem; }
-    .hero-shapes span:nth-child(5) { top:50%; left:30%; animation-delay:1.5s; font-size:2rem; }
+    .hero-shapes span:nth-child(1)  { top:10%;  left:5%;   animation-delay:0s;   font-size:3rem; }
+    .hero-shapes span:nth-child(2)  { top:20%;  right:8%;  animation-delay:1s;   font-size:5rem; }
+    .hero-shapes span:nth-child(3)  { bottom:20%; left:12%; animation-delay:2s;  font-size:3.5rem; }
+    .hero-shapes span:nth-child(4)  { bottom:10%; right:15%; animation-delay:0.5s; font-size:2.5rem; }
+    .hero-shapes span:nth-child(5)  { top:50%;  left:30%;  animation-delay:1.5s; font-size:2rem; }
+    .hero-shapes span:nth-child(6)  { top:35%;  left:18%;  animation-delay:0.8s; font-size:2.8rem; }
+    .hero-shapes span:nth-child(7)  { top:70%;  right:25%; animation-delay:1.2s; font-size:3.2rem; }
+    .hero-shapes span:nth-child(8)  { top:15%;  left:45%;  animation-delay:2.2s; font-size:2.2rem; }
+    .hero-shapes span:nth-child(9)  { bottom:35%; right:5%; animation-delay:0.3s; font-size:3.8rem; }
+    .hero-shapes span:nth-child(10) { bottom:5%;  left:40%; animation-delay:1.8s; font-size:2.6rem; }
     .hero-inner { max-width:1200px; margin:0 auto; padding:60px 32px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; position:relative; z-index:2; }
     .hero-text h1 { font-family:'Baloo 2',cursive; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:800; color:white; line-height:1.1; margin-bottom:20px; }
     .hero-text h1 span { color:var(--yellow); }
@@ -166,22 +171,24 @@
     .nosotros-inner { max-width:1100px; margin:0 auto; }
     .nosotros-intro { text-align:center; max-width:680px; margin:0 auto 64px; font-size:1.05rem; line-height:1.9; color:#3a6a50; }
 
+    /* Fotos colgantes */
     .hanging-photos { display:flex; justify-content:center; gap:60px; flex-wrap:wrap; margin-bottom:64px; }
     .hanging-photo-wrap { display:flex; flex-direction:column; align-items:center; }
-    .hanging-string { width:2px; height:40px; background:linear-gradient(to bottom, #8B6914, #C8A84B); margin-bottom:0; }
+    .hanging-string { width:2px; height:40px; background:linear-gradient(to bottom,#8B6914,#C8A84B); }
     .hanging-clip { font-size:1.2rem; margin-bottom:-6px; z-index:2; position:relative; }
     .hanging-frame {
       width:240px;
       background:white;
       padding:16px 16px 40px;
       box-shadow:4px 8px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1);
-      transform:rotate(-2deg);
-      transition:transform 0.3s;
+      transition:transform 0.3s, box-shadow 0.3s;
       position:relative;
     }
-    .hanging-photo-wrap:nth-child(2) .hanging-frame { transform:rotate(2deg); }
-    .hanging-photo-wrap:nth-child(3) .hanging-frame { transform:rotate(-1.5deg); }
-    .hanging-frame:hover { transform:rotate(0deg) scale(1.03); }
+    /* Rotaciones individuales por defecto — SIN inline styles para que hover funcione */
+    .hanging-photo-wrap:nth-child(1) .hanging-frame { transform:rotate(-2deg); }
+    .hanging-photo-wrap:nth-child(2) .hanging-frame { transform:rotate(1.5deg); }
+    /* Hover igual para AMBAS fotos */
+    .hanging-frame:hover { transform:rotate(0deg) scale(1.04) !important; box-shadow:6px 12px 32px rgba(0,0,0,0.25); }
     .hanging-frame img { width:100%; height:220px; object-fit:cover; display:block; }
     .hanging-frame .frame-caption { text-align:center; margin-top:12px; font-family:'Baloo 2',cursive; font-size:0.9rem; font-weight:700; color:var(--text); line-height:1.3; }
     .hanging-frame .frame-subcaption { text-align:center; font-size:0.75rem; color:var(--muted); margin-top:4px; }
@@ -205,6 +212,8 @@
     .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
     .info-row a { color:var(--green); text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .info-row a:hover { color:var(--green-lt); }
+    .ubicacion-img { border-radius:16px; overflow:hidden; margin-top:24px; box-shadow:var(--shadow); }
+    .ubicacion-img img { width:100%; display:block; }
 
     /* ── FAQ ── */
     #faq { background:var(--offwhite); }
@@ -218,7 +227,7 @@
     .faq-answer { max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.3s; padding:0 24px; font-size:0.95rem; line-height:1.8; color:#3a6a50; }
     .faq-answer.open { max-height:400px; padding:0 24px 20px; }
     .faq-answer a { color:var(--green); font-weight:700; display:inline-flex; align-items:center; gap:6px; }
-    .faq-answer img { height:16px; width:16px; object-fit:contain; }
+    .faq-answer img.inline-icon { height:16px; width:16px; object-fit:contain; }
 
     /* ── FOOTER ── */
     footer { background:var(--green); color:rgba(255,255,255,0.85); padding:40px 32px; text-align:center; position:relative; z-index:1; }
@@ -301,8 +310,10 @@
 <!-- HERO -->
 <section id="inicio">
   <div class="hero-shapes">
+    <!-- Fila 1 -->
     <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
-    <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
+    <!-- Fila 2 — emojis diferentes -->
+    <span>🐕</span><span>🐩</span><span>🐈</span><span>😻</span><span>🎾</span>
   </div>
   <div class="hero-inner">
     <div class="hero-text">
@@ -349,14 +360,15 @@
       <img src="imagenes/marcas/bayer.png" alt="Bayer">
       <img src="imagenes/marcas/hills.png" alt="Hills">
       <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
+      <img src="imagenes/marcas/orijen.png" alt="Orijen">
       <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
       <img src="imagenes/marcas/purina.png" alt="Purina">
       <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
       <img src="imagenes/marcas/balance.png" alt="Balance">
-      <!-- Duplicado para loop infinito -->
       <img src="imagenes/marcas/bayer.png" alt="Bayer">
       <img src="imagenes/marcas/hills.png" alt="Hills">
       <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
+      <img src="imagenes/marcas/orijen.png" alt="Orijen">
       <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
       <img src="imagenes/marcas/purina.png" alt="Purina">
       <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
@@ -413,8 +425,9 @@
         <div class="hanging-string"></div>
         <div class="hanging-clip">📎</div>
         <div class="hanging-frame">
-          <img src="imagenes/mujeres.png" alt="Marcela y Nicole" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 font-size=%2260%22>👩‍👧</text></svg>'" />
-          <div class="frame-caption">Marcela Durán & Nicole Zúñiga</div>
+          <img src="imagenes/mujeres.png" alt="Marcela y Nicole"
+            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%25%22 y=%2250%%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2260%22>👩‍👧</text></svg>'" />
+          <div class="frame-caption">Marcela Durán &amp; Nicole Zúñiga</div>
           <div class="frame-subcaption">Madre e hija · Fundadoras</div>
         </div>
       </div>
@@ -423,12 +436,22 @@
       <div class="hanging-photo-wrap">
         <div class="hanging-string"></div>
         <div class="hanging-clip">📌</div>
-        <div class="hanging-frame" style="transform:rotate(1.5deg)">
-          <img src="imagenes/tobbyreal.png" alt="Tobby" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 font-size=%2260%22>🐶</text></svg>'" />
+        <div class="hanging-frame">
+          <img src="imagenes/tobbyreal.png" alt="Tobby"
+            onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 220%22><rect width=%22200%22 height=%22220%22 fill=%22%23E8F5EE%22/><text x=%2250%%25%22 y=%2250%%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22 font-size=%2260%22>🐶</text></svg>'" />
           <div class="frame-caption">¡Mucho gusto, soy Tobby! 🐾</div>
           <div class="frame-subcaption">El corazón de la tienda</div>
         </div>
       </div>
+    </div>
+
+    <!-- Tarjeta Tobby -->
+    <div style="max-width:600px;margin:0 auto 56px;background:white;border-radius:20px;padding:28px 32px;box-shadow:var(--shadow);text-align:center;">
+      <p style="font-size:1.8rem;margin-bottom:12px;">🐶</p>
+      <p style="font-family:'Baloo 2',cursive;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:12px;">¡Hola! Soy Tobby 🐾</p>
+      <p style="font-size:0.95rem;line-height:1.8;color:#3a6a50;">
+        Soy el perro más consentido de Guadalupe y el embajador oficial de la tienda. Me encanta recibir visitas, oler todas las croquetas y supervisar que mi mamá Marcela y mi hermana Nicole les atiendan con todo el cariño del mundo. ¡Espero verte pronto! 🐾
+      </p>
     </div>
 
     <div class="nosotros-valores">
@@ -460,21 +483,25 @@
   <div class="tienda-grid">
     <div>
       <div class="tienda-img">
-        <img src="imagenes/local.png" alt="Tobby's Pet Shop" onerror="this.parentNode.innerHTML='<div style=\'background:var(--green-pale);padding:80px;text-align:center;border-radius:24px;font-size:5rem;\'>🏪</div>'" />
+        <img src="imagenes/local.png" alt="Tobby's Pet Shop"
+          onerror="this.parentNode.innerHTML='<div style=\'background:var(--green-pale);padding:80px;text-align:center;border-radius:24px;font-size:5rem;\'>🏪</div>'" />
+      </div>
+      <div class="ubicacion-img">
+        <img src="imagenes/ubicacion.png" alt="Ubicación" onerror="this.style.display='none'" />
       </div>
     </div>
     <div class="tienda-info">
-      <h3>¡Vení con tu mejor amigo! 🐾</h3>
+      <h3>¡Te esperamos con las patas abiertas! 🐾</h3>
       <div class="info-list">
         <div class="info-row"><span class="info-icon">📍</span><p>50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica</p></div>
         <div class="info-row"><span class="info-icon">🕐</span><p>Lunes a Sábado de 9:00am a 6:00pm</p></div>
         <div class="info-row">
-          <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>💬</span>'" />
-          <p><a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" alt="" style="height:15px;width:15px;object-fit:contain;" onerror="this.style.display='none'"> WhatsApp: 7183-0963</a></p>
+          <img src="imagenes/whatsapp_logo.png" alt="" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>💬</span>'" />
+          <p><a href="https://wa.me/50671830963">WhatsApp: 7183-0963</a></p>
         </div>
         <div class="info-row">
-          <img src="imagenes/instagram_logo.png" alt="Instagram" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>📸</span>'" />
-          <p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank"><img src="imagenes/instagram_logo.png" alt="" style="height:15px;width:15px;object-fit:contain;" onerror="this.style.display='none'"> @tobbyspetshop.cr</a></p>
+          <img src="imagenes/instagram_logo.png" alt="" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>📸</span>'" />
+          <p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">@tobbyspetshop.cr</a></p>
         </div>
         <div class="info-row"><span class="info-icon">🚚</span><p>¡Hacemos <strong>entregas a domicilio completamente gratis!</strong> Pedí desde aquí y te lo llevamos.</p></div>
         <div class="info-row"><span class="info-icon">🐶</span><p>Especialistas en alimentos y accesorios para perros, gatos y más mascotas.</p></div>
@@ -496,8 +523,8 @@
         🛒 ¿Cómo hago un pedido? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        ¡Es muy fácil! Explorá nuestro catálogo, agregá los productos que querés al carrito con el botón <strong>➕ Agregar</strong>, y cuando estés listo hacé clic en <strong>"Hacer Pedido por WhatsApp"</strong>. Te va a llegar un mensaje ya escrito con todo lo que elegiste. ¡Solo lo enviás y coordinamos la entrega!<br/><br/>
-        Si preferís una atención más personalizada, también podés escribirnos directamente por WhatsApp al <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" onerror="this.style.display='none'"> 7183-0963</a> y con gusto te asesoramos.
+        ¡Es muy fácil! Explorá nuestro catálogo, agregá los productos al carrito con <strong>➕ Agregar</strong>, y cuando estés listo hacé clic en <strong>"Hacer Pedido por WhatsApp"</strong>. Te llegará un mensaje ya escrito con todo lo que elegiste, solo lo enviás y coordinamos la entrega.<br/><br/>
+        Si preferís una atención más personalizada o un servicio especial, también podés escribirnos directamente al <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> 7183-0963</a> y con gusto te asesoramos.
       </div>
     </div>
 
@@ -507,7 +534,7 @@
       </button>
       <div class="faq-answer">
         Realizamos <strong>entregas a domicilio completamente gratis</strong> en los residenciales cercanos al local, especialmente en la zona de Moravia y alrededores de Guadalupe. También podés <strong>retirar tu pedido directamente en la tienda</strong> sin ningún costo adicional.<br/><br/>
-        Para coordinar la entrega, simplemente hacé tu pedido y nos ponemos de acuerdo por WhatsApp sobre el horario que más te convenga. 🐾
+        Solo coordinamos por WhatsApp el horario que más te convenga. 🐾
       </div>
     </div>
 
@@ -516,7 +543,7 @@
         💰 ¿Cuáles son las formas de pago? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        Aceptamos <strong>efectivo, transferencia SINPE Móvil</strong> y otros métodos. Al coordinar tu pedido por WhatsApp te indicamos todas las opciones disponibles según tu caso. ¡Buscamos siempre la forma más cómoda para vos!
+        Aceptamos <strong>efectivo y SINPE Móvil</strong>. Al coordinar tu pedido por WhatsApp te confirmamos las opciones disponibles. ¡Buscamos siempre la forma más cómoda para vos!
       </div>
     </div>
 
@@ -525,16 +552,16 @@
         🐾 ¿Qué tipo de productos venden? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        Contamos con una amplia variedad de <strong>alimentos y accesorios para perros y gatos</strong>. En alimentos tenemos desde croquetas por kilo, bolsas, sacos grandes, latas húmedas, hasta snacks y treats. Manejamos marcas reconocidas como Balance, Nutrisource, Hills, Pro Plan, Royal Canin, Pedigree, Dog Chow, entre muchas otras.
+        Contamos con una amplia variedad de <strong>alimentos y accesorios para perros y gatos</strong>: croquetas por kilo, bolsas, sacos grandes, latas húmedas, snacks y treats. Manejamos marcas como Balance, Nutrisource, Hills, Pro Plan, Royal Canin, Pedigree, Dog Chow y muchas más.
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">
-        📦 ¿Tienen productos para otras mascotas además de perros y gatos? <span class="faq-arrow">▼</span>
+        📦 ¿Tienen productos para otras mascotas? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        Por el momento nuestro catálogo está especializado en perros y gatos, pero estamos en constante crecimiento. ¡Escribinos por WhatsApp si necesitás algo específico y vemos cómo podemos ayudarte! 🐾
+        Por el momento nuestro catálogo está especializado en perros y gatos, pero estamos en constante crecimiento. ¡Escribinos por WhatsApp si necesitás algo específico! 🐾
       </div>
     </div>
 
@@ -543,16 +570,16 @@
         ⏰ ¿Cuál es el horario de atención? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        Atendemos <strong>de lunes a sábado de 9:00am a 6:00pm</strong> tanto en la tienda física como por WhatsApp. Podés visitarnos en nuestra tienda ubicada 50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica.
+        Atendemos <strong>de lunes a sábado de 9:00am a 6:00pm</strong> en la tienda física y por WhatsApp. Estamos ubicados 50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica.
       </div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question" onclick="toggleFaq(this)">
-        ❓ ¿Puedo pedir asesoría para elegir el alimento de mi mascota? <span class="faq-arrow">▼</span>
+        ❓ ¿Me pueden asesorar para elegir el alimento correcto? <span class="faq-arrow">▼</span>
       </button>
       <div class="faq-answer">
-        ¡Por supuesto! Sabemos que elegir el alimento correcto para tu mascota puede ser abrumador. Escribinos por <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" onerror="this.style.display='none'"> WhatsApp</a> contándonos la raza, edad y necesidades de tu mascota, y con gusto te recomendamos la mejor opción. 💚
+        ¡Por supuesto! Escribinos por <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> WhatsApp</a> contándonos la raza, edad y necesidades de tu mascota, y con gusto te recomendamos la mejor opción. 💚
       </div>
     </div>
 
@@ -571,10 +598,10 @@
     <a href="#tienda">Tienda</a>
     <a href="#faq">FAQ</a>
     <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
-      <img src="imagenes/instagram_logo.png" alt="Instagram" onerror="this.style.display='none'"> Instagram
+      <img src="imagenes/instagram_logo.png" alt="" onerror="this.style.display='none'"> Instagram
     </a>
     <a href="https://wa.me/50671830963" target="_blank">
-      <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.style.display='none'"> WhatsApp
+      <img src="imagenes/whatsapp_logo.png" alt="" onerror="this.style.display='none'"> WhatsApp
     </a>
   </div>
   <p>© 2025 Tobby's Pet Shop · San José, Costa Rica · Hecho con ❤️ para las mascotas</p>
@@ -603,6 +630,9 @@
 
 <script>
   // ══════════════════════════════════════════════════════════
+  // formato export CSV para que JavaScript pueda leerlo
+  // El link de "compartir" de Google no funciona directamente en código
+  // Se extrae el ID del sheet y se usa el endpoint de exportación
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1jh8K3O89rfs7APCzEX1-hGkPmTaW5tBZnafdLaFmWBc/export?format=csv&gid=0';
   const WA_NUMBER = '50671830963';
 
@@ -622,6 +652,7 @@
     'royal canin': 'imagenes/marcas/royalcanin.png',
     'royalcanin':  'imagenes/marcas/royalcanin.png',
     'bayer':       'imagenes/marcas/bayer.png',
+    'orijen':      'imagenes/marcas/orijen.png',
   };
 
   let allProducts = [];
@@ -632,15 +663,15 @@
     const bubble = document.getElementById('tobbyBubble');
     setTimeout(() => {
       bubble.classList.add('hiding');
-      setTimeout(() => bubble.style.display = 'none', 1000);
-    }, 5000);
+      setTimeout(() => bubble.style.display = 'none', 800);
+    }, 3500);
   });
 
   // ── LOAD SHEET ──
   async function loadProducts() {
     try {
       const res = await fetch(SHEET_URL);
-      if (!res.ok) throw new Error('Error');
+      if (!res.ok) throw new Error('Error cargando Sheet');
       const csv = await res.text();
       allProducts = parseCSV(csv);
       populateFilters();
@@ -650,7 +681,7 @@
         <div class="empty-state">
           <div class="empty-icon">⚠️</div>
           <p>No se pudo cargar el catálogo.<br/>
-          <small style="color:var(--muted);font-weight:500;">Agradecemos si nos notificas el error.</small></p>
+          <small style="color:var(--muted);font-weight:500;">Verificá la configuración del Google Sheet.</small></p>
         </div>`;
     }
   }
@@ -690,15 +721,15 @@
     const marSel = document.getElementById('marcaFilter');
 
     animals.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = getAnimalEmoji(a) + ' ' + a; anSel.appendChild(o); });
-    cats.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o); });
-    marcas.forEach(m => { const o = document.createElement('option'); o.value = m; o.textContent = m; marSel.appendChild(o); });
+    cats.forEach(c    => { const o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o); });
+    marcas.forEach(m  => { const o = document.createElement('option'); o.value = m; o.textContent = m; marSel.appendChild(o); });
   }
 
   function getAnimalEmoji(animal) {
     if (!animal) return '🐾';
     const a = animal.toLowerCase();
     if (a.includes('perro')) return '🐶';
-    if (a.includes('gato')) return '🐱';
+    if (a.includes('gato'))  return '🐱';
     if (a.includes('pez') || a.includes('peces')) return '🐟';
     if (a.includes('ave') || a.includes('pájaro')) return '🦜';
     return '🐾';
@@ -733,7 +764,7 @@
     renderProducts(allProducts);
   }
 
-  // ── GET BRAND LOGO ──
+  // ── BRAND LOGO ──
   function getBrandLogo(marca) {
     if (!marca) return null;
     const key = marca.toLowerCase().trim();
@@ -762,27 +793,20 @@
 
   function buildCard(p, delay) {
     const { hasOffer, regular, offer } = getPrice(p);
-    const inCart = cart[p._id] ? cart[p._id].qty : 0;
+    const inCart      = cart[p._id] ? cart[p._id].qty : 0;
     const animalEmoji = getAnimalEmoji(p.animal || '');
-    const brandLogo = getBrandLogo(p.marca);
-    const safeNombre = (p.nombre || '').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+    const brandLogo   = getBrandLogo(p.marca);
+    const safeNombre  = (p.nombre || '').replace(/'/g,"&#39;").replace(/"/g,"&quot;");
 
     let imgHTML;
     if (p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 10) {
-      // Tiene URL de imagen — usa la imagen, si falla intenta logo de marca
-      if (brandLogo) {
-        imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy"
-          onerror="this.src='${brandLogo}';this.className='brand-img';this.onerror=function(){this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';}" /></div>`;
-      } else {
-        imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy"
-          onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
-      }
+      const fallback = brandLogo
+        ? `this.src='${brandLogo}';this.className='brand-img';this.onerror=function(){this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';};`
+        : `this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';`;
+      imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy" onerror="${fallback}" /></div>`;
     } else if (brandLogo) {
-      // Sin imagen pero tiene logo de marca
-      imgHTML = `<div class="img-wrap"><img class="brand-img" src="${brandLogo}" alt="${p.marca}" loading="lazy"
-        onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
+      imgHTML = `<div class="img-wrap"><img class="brand-img" src="${brandLogo}" alt="${p.marca}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
     } else {
-      // Sin imagen ni logo — placeholder con emoji según animal
       imgHTML = `<div class="img-wrap"><div class="product-img-placeholder"><span>${animalEmoji}🐾</span><p>${p.nombre}</p></div></div>`;
     }
 
@@ -830,10 +854,7 @@
     updateAll(id);
   }
 
-  function updateAll(id) {
-    updateCardUI(id);
-    updateCartUI();
-  }
+  function updateAll(id) { updateCardUI(id); updateCartUI(); }
 
   function updateCardUI(id) {
     const card = document.getElementById('card-' + id);
@@ -845,7 +866,7 @@
   }
 
   function updateCartUI() {
-    const items = Object.values(cart);
+    const items      = Object.values(cart);
     const totalQty   = items.reduce((s, i) => s + i.qty, 0);
     const totalPrice = items.reduce((s, i) => s + getPrice(i.product).active * i.qty, 0);
 
@@ -858,10 +879,9 @@
       el.innerHTML = `<div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío.<br/>¡Agregá productos del catálogo!</p></div>`;
       return;
     }
-    const brandLogoFn = getBrandLogo;
     el.innerHTML = items.map(({ product: p, qty }) => {
       const { active } = getPrice(p);
-      const bLogo = brandLogoFn(p.marca);
+      const bLogo = getBrandLogo(p.marca);
       let imgEl;
       if (p.imagen_url && p.imagen_url.trim() && p.imagen_url.startsWith('http') && p.imagen_url.length > 10) {
         imgEl = `<img src="${p.imagen_url}" alt="${p.nombre}" onerror="this.src='${bLogo||''}';this.onerror=function(){this.outerHTML='<div class=\\'cart-item-placeholder\\'>🐾</div>';}" />`;
@@ -915,14 +935,9 @@
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = answer.classList.contains('open');
-    // Cerrar todos
     document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
     document.querySelectorAll('.faq-question').forEach(b => b.classList.remove('active'));
-    // Abrir el seleccionado si estaba cerrado
-    if (!isOpen) {
-      answer.classList.add('open');
-      btn.classList.add('active');
-    }
+    if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
   }
 
   // ── INIT ──
