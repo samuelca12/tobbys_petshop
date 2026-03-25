@@ -639,7 +639,7 @@
   // ── LOAD SHEET ──
   async function loadProducts() {
     try {
-      const res = await fetch(SHEET_URL);
+      const res = await fetch('https://docs.google.com/spreadsheets/d/1jh8K3O89rfs7APCzEX1-hGkPmTaW5tBZnafdLaFmWBc/edit?usp=sharing/export?format=csv');
       if (!res.ok) throw new Error('Error');
       const csv = await res.text();
       allProducts = parseCSV(csv);
