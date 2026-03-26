@@ -57,8 +57,23 @@
     .hero-text h1 { font-family:'Baloo 2',cursive; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:800; color:white; line-height:1.1; margin-bottom:20px; }
     .hero-text h1 span { color:var(--yellow); }
     .hero-text p { font-size:1.1rem; color:rgba(255,255,255,0.88); line-height:1.8; margin-bottom:32px; }
-    .hero-badges { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px; }
-    .hero-badge { background:rgba(255,255,255,0.18); border:1px solid rgba(255,255,255,0.3); color:white; padding:6px 16px; border-radius:50px; font-size:0.85rem; font-weight:600; }
+
+    /* Hero nav links — reemplaza los badges */
+    .hero-nav-links { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:32px; }
+    .hero-nav-link {
+      background:rgba(255,255,255,0.18);
+      border:1px solid rgba(255,255,255,0.4);
+      color:white;
+      padding:8px 20px;
+      border-radius:50px;
+      font-size:0.88rem;
+      font-weight:700;
+      text-decoration:none;
+      transition:background 0.2s, transform 0.2s;
+      display:inline-flex; align-items:center; gap:7px;
+    }
+    .hero-nav-link:hover { background:rgba(255,255,255,0.32); transform:translateY(-2px); }
+
     .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--text); padding:14px 32px; border-radius:50px; font-weight:800; font-size:1.05rem; text-decoration:none; transition:transform 0.2s, box-shadow 0.3s; box-shadow:0 6px 24px rgba(249,168,37,0.45); }
     .hero-cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(249,168,37,0.5); }
     .hero-img { display:flex; justify-content:center; align-items:center; }
@@ -81,26 +96,13 @@
     /* ── BRANDS SCROLL ── */
     .brands-bar { background:white; overflow:hidden; padding:16px 0; position:relative; border-top:2px solid var(--green-pale); border-bottom:2px solid var(--green-pale); }
     .brands-track { display:flex; width:max-content; animation:scrollBrands 25s linear infinite; }
-    .brands-track img {
-      height:50px; margin:0 40px; object-fit:contain;
-      filter:grayscale(20%); opacity:0.85;
-      transition:transform 0.2s, opacity 0.2s, filter 0.2s;
-      cursor:pointer;
-    }
+    .brands-track img { height:50px; margin:0 40px; object-fit:contain; filter:grayscale(20%); opacity:0.85; transition:transform 0.2s, opacity 0.2s, filter 0.2s; cursor:pointer; }
     .brands-track img:hover { transform:scale(1.12); opacity:1; filter:none; }
     .brands-track img.brand-active { filter:none; opacity:1; outline:3px solid var(--green); border-radius:6px; }
     @keyframes scrollBrands { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
     /* ── CATALOG ── */
     #catalogo { background:var(--offwhite); }
-
-    /* Filters label + bar */
-    .filters-label {
-      max-width:1200px; margin:0 auto 10px;
-      font-family:'Baloo 2',cursive; font-size:1rem; font-weight:800;
-      color:var(--green); letter-spacing:0.08em; text-transform:uppercase;
-      display:flex; align-items:center; gap:8px;
-    }
     .filters-bar { background:white; border-radius:20px; padding:20px 24px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin:0 auto 16px; }
     .filter-search { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; background:var(--green-pale); border-radius:50px; padding:10px 18px; }
     .filter-search input { border:none; background:transparent; outline:none; font-family:'Nunito',sans-serif; font-size:0.95rem; color:var(--text); width:100%; }
@@ -111,77 +113,57 @@
     .filter-clear { background:none; border:2px solid var(--muted); color:var(--muted); padding:8px 18px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; }
     .filter-clear:hover { border-color:var(--coral); color:var(--coral); }
 
-    /* Active brand filter indicator */
-    .brand-filter-active {
-      max-width:1200px; margin:0 auto 12px;
-      display:none; align-items:center; gap:10px;
-      background:var(--green-pale); border-radius:50px;
-      padding:8px 18px; width:fit-content;
-      font-size:0.85rem; font-weight:700; color:var(--green);
-    }
+    .brand-filter-active { max-width:1200px; margin:0 auto 12px; display:none; align-items:center; gap:10px; background:var(--green-pale); border-radius:50px; padding:8px 18px; width:fit-content; font-size:0.85rem; font-weight:700; color:var(--green); }
     .brand-filter-active.visible { display:flex; }
     .brand-filter-active button { background:none; border:none; cursor:pointer; color:var(--coral); font-size:1rem; font-weight:800; line-height:1; }
+    .results-summary { max-width:1200px; margin:0 auto 16px; font-size:0.85rem; color:var(--muted); font-weight:600; }
 
-    /* Results summary */
-    .results-summary {
-      max-width:1200px; margin:0 auto 16px;
-      font-size:0.85rem; color:var(--muted); font-weight:600;
+    /* ── PRODUCTS GRID — 5 columnas fijas en desktop ── */
+    .products-grid {
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      gap:20px;
+      max-width:1300px;
+      margin:0 auto;
     }
 
-    /* ── PRODUCTS GRID ── */
-    .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
     .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s; position:relative; animation:popIn 0.4s ease both; }
     .product-card:hover { transform:translateY(-6px); box-shadow:0 12px 32px rgba(46,139,87,0.2); }
     .product-card.in-cart { border:2.5px solid var(--green); }
-    .offer-badge { position:absolute; top:12px; left:12px; z-index:2; background:var(--coral); color:white; padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:800; text-transform:uppercase; }
-    .cart-indicator { position:absolute; top:12px; right:12px; z-index:2; background:var(--green); color:white; width:32px; height:32px; border-radius:50%; font-size:0.8rem; font-weight:800; display:none; align-items:center; justify-content:center; }
+    .offer-badge { position:absolute; top:10px; left:10px; z-index:2; background:var(--coral); color:white; padding:3px 10px; border-radius:50px; font-size:0.7rem; font-weight:800; text-transform:uppercase; }
+    .cart-indicator { position:absolute; top:10px; right:10px; z-index:2; background:var(--green); color:white; width:28px; height:28px; border-radius:50%; font-size:0.75rem; font-weight:800; display:none; align-items:center; justify-content:center; }
     .product-card.in-cart .cart-indicator { display:flex; }
-    .img-wrap { width:100%; height:180px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .product-img { width:100%; height:180px; object-fit:contain; background:var(--green-pale); padding:12px; display:block; image-rendering:auto; }
-    .brand-img { width:100%; height:180px; object-fit:contain; background:var(--green-pale); padding:24px; display:block; }
-    .product-img-placeholder { width:100%; height:180px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted); }
-    .product-img-placeholder span { font-size:2.2rem; }
-    .product-img-placeholder p { font-size:0.78rem; font-weight:600; text-align:center; padding:0 10px; }
-    .product-body { padding:14px; }
-    .product-animal { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
-    .product-category { font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:4px; }
-    .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:4px; line-height:1.2; }
-    .product-brand { font-size:0.8rem; color:var(--muted); margin-bottom:8px; }
-    .product-desc { font-size:0.82rem; color:#5a7a6a; line-height:1.5; margin-bottom:10px; }
-    .product-price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
-    .price-normal { font-family:'Baloo 2',cursive; font-size:1.25rem; font-weight:800; color:var(--green); }
-    .price-old { font-size:0.88rem; color:var(--muted); text-decoration:line-through; }
-    .price-offer { font-family:'Baloo 2',cursive; font-size:1.25rem; font-weight:800; color:var(--coral); }
-    .product-actions { display:flex; gap:8px; align-items:center; }
-    .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:9px 14px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px; }
+    .img-wrap { width:100%; height:160px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .product-img { width:100%; height:160px; object-fit:contain; background:var(--green-pale); padding:10px; display:block; }
+    .brand-img { width:100%; height:160px; object-fit:contain; background:var(--green-pale); padding:20px; display:block; }
+    .product-img-placeholder { width:100%; height:160px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--muted); }
+    .product-img-placeholder span { font-size:2rem; }
+    .product-img-placeholder p { font-size:0.72rem; font-weight:600; text-align:center; padding:0 8px; }
+    .product-body { padding:12px; }
+    .product-animal { font-size:0.64rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+    .product-category { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--green); margin-bottom:3px; }
+    .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:0.92rem; color:var(--text); margin-bottom:3px; line-height:1.2; }
+    .product-brand { font-size:0.75rem; color:var(--muted); margin-bottom:8px; }
+    .product-desc { font-size:0.76rem; color:#5a7a6a; line-height:1.4; margin-bottom:8px; }
+    .product-price { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+    .price-normal { font-family:'Baloo 2',cursive; font-size:1.15rem; font-weight:800; color:var(--green); }
+    .price-old { font-size:0.82rem; color:var(--muted); text-decoration:line-through; }
+    .price-offer { font-family:'Baloo 2',cursive; font-size:1.15rem; font-weight:800; color:var(--coral); }
+    .product-actions { display:flex; gap:6px; align-items:center; }
+    .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:8px 12px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:4px; }
     .btn-add:hover { background:var(--green-lt); }
-    .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:7px 12px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; display:none; }
+    .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:6px 10px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.8rem; cursor:pointer; transition:all 0.2s; display:none; }
     .btn-remove:hover { background:var(--coral); color:white; }
     .product-card.in-cart .btn-remove { display:block; }
 
     /* ── PAGINATION ── */
-    .pagination-wrap {
-      max-width:1200px; margin:36px auto 0;
-      display:flex; justify-content:center; align-items:center; gap:12px;
-      flex-wrap:wrap;
-    }
+    .pagination-wrap { max-width:1300px; margin:36px auto 0; display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; }
     .pagination-info { font-size:0.88rem; color:var(--muted); font-weight:600; text-align:center; }
-    .page-btn {
-      background:white; border:2px solid var(--green-pale);
-      color:var(--text); padding:9px 20px; border-radius:50px;
-      font-family:'Nunito',sans-serif; font-weight:700; font-size:0.9rem;
-      cursor:pointer; transition:all 0.2s; box-shadow:var(--shadow);
-    }
+    .page-btn { background:white; border:2px solid var(--green-pale); color:var(--text); padding:9px 20px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.9rem; cursor:pointer; transition:all 0.2s; box-shadow:var(--shadow); }
     .page-btn:hover:not(:disabled) { background:var(--green); color:white; border-color:var(--green); }
     .page-btn:disabled { opacity:0.4; cursor:not-allowed; }
-    .page-btn.active { background:var(--green); color:white; border-color:var(--green); }
     .page-numbers { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
-    .page-number {
-      background:white; border:2px solid var(--green-pale);
-      color:var(--muted); width:38px; height:38px; border-radius:50%;
-      font-family:'Nunito',sans-serif; font-weight:700; font-size:0.88rem;
-      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center;
-    }
+    .page-number { background:white; border:2px solid var(--green-pale); color:var(--muted); width:38px; height:38px; border-radius:50%; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
     .page-number:hover { border-color:var(--green); color:var(--green); }
     .page-number.active { background:var(--green); color:white; border-color:var(--green); }
     .page-number.dots { cursor:default; border-color:transparent; }
@@ -259,8 +241,6 @@
     .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
     .info-row a { color:var(--green); text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .info-row a:hover { color:var(--green-lt); }
-    .ubicacion-img { border-radius:16px; overflow:hidden; margin-top:24px; box-shadow:var(--shadow); }
-    .ubicacion-img img { width:100%; display:block; }
 
     /* ── FAQ ── */
     #faq { background:var(--offwhite); }
@@ -304,14 +284,19 @@
     @keyframes popIn { from{opacity:0;transform:scale(0.85) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
     /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      .products-grid { grid-template-columns:repeat(4, 1fr); }
+    }
     @media(max-width:900px){
       .nav-links{display:none}
       .hero-inner{grid-template-columns:1fr;text-align:center}
       .hero-img{display:none}
+      .hero-nav-links{justify-content:center}
       .tienda-grid{grid-template-columns:1fr}
       .cart-sidebar{width:100vw}
       .nosotros-valores{grid-template-columns:1fr}
       .hanging-photos{gap:30px}
+      .products-grid { grid-template-columns:repeat(3, 1fr); }
     }
     @media(max-width:600px){
       section{padding:60px 16px}
@@ -319,6 +304,8 @@
       .info-bar{gap:16px}
       .filters-bar{padding:16px}
       .tobby-bubble{bottom:16px;right:16px}
+      /* 2 columnas en móvil */
+      .products-grid { grid-template-columns:repeat(2, 1fr); gap:12px; }
       .page-numbers{display:none}
     }
   </style>
@@ -346,6 +333,9 @@
     <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
       <img src="imagenes/instagram_logo.png" alt="Instagram" onerror="this.style.display='none'" /> Instagram
     </a>
+    <a href="https://www.tiktok.com/@tobbyspetshop.cr?_t=8qZPhHe6NTp&_r=1" target="_blank">
+      <img src="imagenes/tiktok_logo.png" alt="TikTok" onerror="this.style.display='none'" /> TikTok
+    </a>
     <a href="https://wa.me/50671830963" target="_blank">
       <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.style.display='none'" /> WhatsApp
     </a>
@@ -365,12 +355,14 @@
     <div class="hero-text">
       <h1>Todo para tu <span>mascota</span> favorita</h1>
       <p>En Tobby's Pet Shop encontrás los mejores alimentos y accesorios para tus compañeros de vida</p>
-      <div class="hero-badges">
-        <span class="hero-badge">🚚 Entrega gratis en Moravia y Guadalupe</span>
-        <span class="hero-badge">🐶 Perros & Gatos</span>
-        <span class="hero-badge">⭐ Calidad garantizada</span>
-        <span class="hero-badge">📦 Gran variedad</span>
+
+      <!-- Accesos directos a secciones -->
+      <div class="hero-nav-links">
+        <a href="#tienda" class="hero-nav-link">📍 Nuestra Tienda</a>
+        <a href="#nosotros" class="hero-nav-link">💚 Quiénes Somos</a>
+        <a href="#faq" class="hero-nav-link">🙋 Preguntas Frecuentes</a>
       </div>
+
       <a href="#catalogo" class="hero-cta">Ver catálogo 🛍️</a>
     </div>
     <div class="hero-img">
@@ -400,28 +392,28 @@
     <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
   </div>
 
-  <!-- MARCAS SCROLL — click para filtrar -->
+  <!-- MARCAS SCROLL -->
   <div class="brands-bar">
     <div class="brands-track" id="brandsTrack">
-      <img src="imagenes/marcas/bayer.png"       alt="Bayer"      data-brand="bayer"      onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/hills.png"        alt="Hills"      data-brand="hills"      onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/whiskas.png"      alt="Whiskas"    data-brand="whiskas"    onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/propet.png"       alt="Pro Pet"    data-brand="pro pet"    onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/nutrisource.png"  alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/Pedigree.png"     alt="Pedigree"   data-brand="pedigree"   onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/purina.png"       alt="Purina"     data-brand="purina"     onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/royalcanin.png"   alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/balance.png"      alt="Balance"    data-brand="balance"    onclick="filterByBrand(this)">
-      <!-- Duplicado para loop infinito -->
-      <img src="imagenes/marcas/bayer.png"       alt="Bayer"      data-brand="bayer"      onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/hills.png"        alt="Hills"      data-brand="hills"      onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/whiskas.png"      alt="Whiskas"    data-brand="whiskas"    onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/propet.png"       alt="Pro Pet"    data-brand="pro pet"    onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/nutrisource.png"  alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/Pedigree.png"     alt="Pedigree"   data-brand="pedigree"   onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/purina.png"       alt="Purina"     data-brand="purina"     onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/royalcanin.png"   alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
-      <img src="imagenes/marcas/balance.png"      alt="Balance"    data-brand="balance"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/bayer.png"      alt="Bayer"       data-brand="bayer"       onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/hills.png"       alt="Hills"       data-brand="hills"       onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/whiskas.png"     alt="Whiskas"     data-brand="whiskas"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/propet.png"      alt="Pro Pet"     data-brand="pro pet"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/Pedigree.png"    alt="Pedigree"    data-brand="pedigree"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/purina.png"      alt="Purina"      data-brand="purina"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/royalcanin.png"  alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/balance.png"     alt="Balance"     data-brand="balance"     onclick="filterByBrand(this)">
+      <!-- Duplicado para loop -->
+      <img src="imagenes/marcas/bayer.png"      alt="Bayer"       data-brand="bayer"       onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/hills.png"       alt="Hills"       data-brand="hills"       onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/whiskas.png"     alt="Whiskas"     data-brand="whiskas"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/propet.png"      alt="Pro Pet"     data-brand="pro pet"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/Pedigree.png"    alt="Pedigree"    data-brand="pedigree"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/purina.png"      alt="Purina"      data-brand="purina"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/royalcanin.png"  alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/balance.png"     alt="Balance"     data-brand="balance"     onclick="filterByBrand(this)">
     </div>
   </div>
 
@@ -446,13 +438,11 @@
     <button class="filter-clear" onclick="clearFilters()">✕ Limpiar filtros</button>
   </div>
 
-  <!-- Indicador de filtro de marca activo -->
   <div class="brand-filter-active" id="brandFilterIndicator">
     <span id="brandFilterLabel"></span>
-    <button onclick="clearBrandFilter()" title="Quitar filtro de marca">✕</button>
+    <button onclick="clearBrandFilter()" title="Quitar filtro">✕</button>
   </div>
 
-  <!-- Resumen de resultados -->
   <div class="results-summary" id="resultsSummary"></div>
 
   <div class="products-grid" id="productsGrid">
@@ -462,7 +452,6 @@
     </div>
   </div>
 
-  <!-- PAGINACIÓN -->
   <div class="pagination-wrap" id="paginationWrap" style="display:none;">
     <button class="page-btn" id="btnPrev" onclick="changePage(currentPage - 1)">← Anterior</button>
     <div class="page-numbers" id="pageNumbers"></div>
@@ -551,6 +540,10 @@
           <img src="imagenes/instagram_logo.png" alt="" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>📸</span>'" />
           <p><a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">@tobbyspetshop.cr</a></p>
         </div>
+        <div class="info-row">
+          <img src="imagenes/tiktok_logo.png" alt="" class="info-icon-img" onerror="this.outerHTML='<span class=\'info-icon\'>🎵</span>'" />
+          <p><a href="https://www.tiktok.com/@tobbyspetshop.cr?_t=8qZPhHe6NTp&_r=1" target="_blank">@tobbyspetshop.cr en TikTok</a></p>
+        </div>
         <div class="info-row"><span class="info-icon">🚚</span><p>¡Hacemos <strong>entregas a domicilio completamente gratis!</strong> Pedí desde aquí y te lo llevamos.</p></div>
         <div class="info-row"><span class="info-icon">🐶</span><p>Especialistas en alimentos y accesorios para perros, gatos y más mascotas.</p></div>
       </div>
@@ -616,6 +609,9 @@
     <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
       <img src="imagenes/instagram_logo.png" alt="" onerror="this.style.display='none'"> Instagram
     </a>
+    <a href="https://www.tiktok.com/@tobbyspetshop.cr?_t=8qZPhHe6NTp&_r=1" target="_blank">
+      <img src="imagenes/tiktok_logo.png" alt="" onerror="this.style.display='none'"> TikTok
+    </a>
     <a href="https://wa.me/50671830963" target="_blank">
       <img src="imagenes/whatsapp_logo.png" alt="" onerror="this.style.display='none'"> WhatsApp
     </a>
@@ -647,7 +643,7 @@
 <script>
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1VPGurnlH9Fjnts7Q7WfotFVFf_i1_FP1SAC6gPPP3P0/export?format=csv&gid=0';
   const WA_NUMBER = '50671830963';
-  const PER_PAGE  = 24; // productos por página
+  const PER_PAGE  = 20;
 
   const BRAND_LOGOS = {
     'balance':     'imagenes/marcas/balance.png',
@@ -671,8 +667,6 @@
     'bayer':       'imagenes/marcas/bayer.png',
   };
 
-  // Qué marcas del sheet corresponden a cada logo de la barra
-  // Clave = data-brand del img, valor = logo path
   const LOGO_PATH_MAP = {
     'bayer':       'imagenes/marcas/bayer.png',
     'hills':       'imagenes/marcas/hills.png',
@@ -688,7 +682,7 @@
   let allProducts      = [];
   let filteredProducts = [];
   let currentPage      = 1;
-  let activeBrandKey   = null; // data-brand key del logo clickeado
+  let activeBrandKey   = null;
   let cart             = {};
 
   // ── TOBBY BUBBLE ──
@@ -717,7 +711,6 @@
     }
   }
 
-  // ── PARSE CSV ──
   function parseCSV(csv) {
     const lines = csv.trim().split('\n');
     const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,'').toLowerCase());
@@ -741,7 +734,6 @@
     return result;
   }
 
-  // ── FILTERS ──
   function populateFilters() {
     const animals = [...new Set(allProducts.map(p => p.animal).filter(Boolean))].sort();
     const cats    = [...new Set(allProducts.map(p => p.categoria).filter(Boolean))].sort();
@@ -779,7 +771,6 @@
       if (cat && p.categoria !== cat) return false;
       if (marca && p.marca !== marca) return false;
       if (ofertas && (!p.oferta || !p.oferta.trim())) return false;
-      // Filtro de logo de marca
       if (activeBrandKey) {
         const logoPath = LOGO_PATH_MAP[activeBrandKey];
         if (getBrandLogo(p.marca) !== logoPath) return false;
@@ -787,9 +778,7 @@
       return true;
     });
 
-    // Ordenar alfabéticamente por nombre
     results.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
-
     filteredProducts = results;
     currentPage = 1;
     renderPage();
@@ -804,25 +793,16 @@
     clearBrandFilter();
   }
 
-  // ── BRAND LOGO CLICK ──
   function filterByBrand(imgEl) {
     const brandKey = imgEl.getAttribute('data-brand');
-    if (activeBrandKey === brandKey) {
-      // Segundo clic = quitar filtro
-      clearBrandFilter();
-      return;
-    }
+    if (activeBrandKey === brandKey) { clearBrandFilter(); return; }
     activeBrandKey = brandKey;
-    // Highlight todos los logos con ese data-brand
     document.querySelectorAll('.brands-track img').forEach(img => {
       img.classList.toggle('brand-active', img.getAttribute('data-brand') === brandKey);
     });
-    // Mostrar indicador
-    const indicator = document.getElementById('brandFilterIndicator');
-    indicator.classList.add('visible');
+    document.getElementById('brandFilterIndicator').classList.add('visible');
     document.getElementById('brandFilterLabel').textContent = '🏷️ Filtrando por: ' + imgEl.alt;
     applyFilters();
-    // Scroll al catálogo
     document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
@@ -833,7 +813,6 @@
     applyFilters();
   }
 
-  // ── PAGINATION ──
   function renderPage() {
     const grid = document.getElementById('productsGrid');
     const totalPages = Math.ceil(filteredProducts.length / PER_PAGE);
@@ -841,13 +820,8 @@
     const end   = Math.min(start + PER_PAGE, filteredProducts.length);
     const pageProducts = filteredProducts.slice(start, end);
 
-    // Resumen
     const summary = document.getElementById('resultsSummary');
-    if (filteredProducts.length > 0) {
-      summary.textContent = `Mostrando ${start + 1}–${end} de ${filteredProducts.length} productos`;
-    } else {
-      summary.textContent = '';
-    }
+    summary.textContent = filteredProducts.length > 0 ? `Mostrando ${start + 1}–${end} de ${filteredProducts.length} productos` : '';
 
     if (!filteredProducts.length) {
       grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No se encontraron productos con esos filtros.</p></div>`;
@@ -858,12 +832,10 @@
 
     grid.innerHTML = pageProducts.map((p, i) => buildCard(p, i)).join('');
 
-    // Paginación
     const wrap = document.getElementById('paginationWrap');
     const info = document.getElementById('paginationInfo');
     if (totalPages <= 1) {
-      wrap.style.display = 'none';
-      info.textContent = '';
+      wrap.style.display = 'none'; info.textContent = '';
     } else {
       wrap.style.display = 'flex';
       document.getElementById('btnPrev').disabled = currentPage === 1;
@@ -871,18 +843,12 @@
       info.textContent = `Página ${currentPage} de ${totalPages}`;
       buildPageNumbers(totalPages);
     }
-
-    // Scroll suave al inicio del catálogo al cambiar página
-    if (currentPage > 1) {
-      document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
-    }
   }
 
   function buildPageNumbers(totalPages) {
     const container = document.getElementById('pageNumbers');
     container.innerHTML = '';
-    const pages = getPagesToShow(currentPage, totalPages);
-    pages.forEach(p => {
+    getPagesToShow(currentPage, totalPages).forEach(p => {
       const el = document.createElement('button');
       el.className = 'page-number' + (p === '...' ? ' dots' : '') + (p === currentPage ? ' active' : '');
       el.textContent = p;
@@ -913,9 +879,9 @@
     if (page < 1 || page > totalPages) return;
     currentPage = page;
     renderPage();
+    document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
   }
 
-  // ── BRAND LOGO ──
   function getBrandLogo(marca) {
     if (!marca) return null;
     const key = marca.toLowerCase().trim();
@@ -925,7 +891,6 @@
     return null;
   }
 
-  // ── BUILD CARD ──
   function getPrice(p) {
     const hasOffer = p.oferta && p.oferta.trim() !== '';
     const regular  = parseFloat((p.precio||'0').replace(/[^\d.]/g,'')) || 0;
@@ -976,7 +941,6 @@
       </div>`;
   }
 
-  // ── CART ──
   function addToCart(id) {
     const product = allProducts.find(p => p._id === id);
     if (!product) return;
@@ -991,11 +955,7 @@
     updateAll(id);
   }
 
-  function deleteItem(id) {
-    delete cart[id];
-    updateAll(id);
-  }
-
+  function deleteItem(id) { delete cart[id]; updateAll(id); }
   function updateAll(id) { updateCardUI(id); updateCartUI(); }
 
   function updateCardUI(id) {
@@ -1052,7 +1012,6 @@
     document.getElementById('cartOverlay').classList.toggle('active');
   }
 
-  // ── WHATSAPP ──
   function hacerPedido() {
     const items = Object.values(cart);
     if (!items.length) return;
@@ -1071,7 +1030,6 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
-  // ── FAQ ──
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = answer.classList.contains('open');
@@ -1080,7 +1038,6 @@
     if (!isOpen) { answer.classList.add('open'); btn.classList.add('active'); }
   }
 
-  // ── INIT ──
   loadProducts();
 </script>
 </body>
