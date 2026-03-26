@@ -81,13 +81,27 @@
     /* ── BRANDS SCROLL ── */
     .brands-bar { background:white; overflow:hidden; padding:16px 0; position:relative; border-top:2px solid var(--green-pale); border-bottom:2px solid var(--green-pale); }
     .brands-track { display:flex; width:max-content; animation:scrollBrands 25s linear infinite; }
-    .brands-track img { height:50px; margin:0 40px; object-fit:contain; filter:grayscale(20%); opacity:0.85; transition:transform 0.2s, opacity 0.2s; }
-    .brands-track img:hover { transform:scale(1.1); opacity:1; filter:none; }
+    .brands-track img {
+      height:50px; margin:0 40px; object-fit:contain;
+      filter:grayscale(20%); opacity:0.85;
+      transition:transform 0.2s, opacity 0.2s, filter 0.2s;
+      cursor:pointer;
+    }
+    .brands-track img:hover { transform:scale(1.12); opacity:1; filter:none; }
+    .brands-track img.brand-active { filter:none; opacity:1; outline:3px solid var(--green); border-radius:6px; }
     @keyframes scrollBrands { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── CATALOG FILTERS ── */
+    /* ── CATALOG ── */
     #catalogo { background:var(--offwhite); }
-    .filters-bar { background:white; border-radius:20px; padding:20px 24px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin:0 auto 32px; }
+
+    /* Filters label + bar */
+    .filters-label {
+      max-width:1200px; margin:0 auto 10px;
+      font-family:'Baloo 2',cursive; font-size:1rem; font-weight:800;
+      color:var(--green); letter-spacing:0.08em; text-transform:uppercase;
+      display:flex; align-items:center; gap:8px;
+    }
+    .filters-bar { background:white; border-radius:20px; padding:20px 24px; box-shadow:var(--shadow); display:flex; flex-wrap:wrap; gap:16px; align-items:center; max-width:1200px; margin:0 auto 16px; }
     .filter-search { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; background:var(--green-pale); border-radius:50px; padding:10px 18px; }
     .filter-search input { border:none; background:transparent; outline:none; font-family:'Nunito',sans-serif; font-size:0.95rem; color:var(--text); width:100%; }
     .filter-select { padding:10px 18px; border:2px solid var(--green-pale); border-radius:50px; background:white; font-family:'Nunito',sans-serif; font-size:0.9rem; font-weight:600; color:var(--text); cursor:pointer; outline:none; transition:border-color 0.2s; }
@@ -97,6 +111,23 @@
     .filter-clear { background:none; border:2px solid var(--muted); color:var(--muted); padding:8px 18px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; }
     .filter-clear:hover { border-color:var(--coral); color:var(--coral); }
 
+    /* Active brand filter indicator */
+    .brand-filter-active {
+      max-width:1200px; margin:0 auto 12px;
+      display:none; align-items:center; gap:10px;
+      background:var(--green-pale); border-radius:50px;
+      padding:8px 18px; width:fit-content;
+      font-size:0.85rem; font-weight:700; color:var(--green);
+    }
+    .brand-filter-active.visible { display:flex; }
+    .brand-filter-active button { background:none; border:none; cursor:pointer; color:var(--coral); font-size:1rem; font-weight:800; line-height:1; }
+
+    /* Results summary */
+    .results-summary {
+      max-width:1200px; margin:0 auto 16px;
+      font-size:0.85rem; color:var(--muted); font-weight:600;
+    }
+
     /* ── PRODUCTS GRID ── */
     .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
     .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s; position:relative; animation:popIn 0.4s ease both; }
@@ -105,28 +136,56 @@
     .offer-badge { position:absolute; top:12px; left:12px; z-index:2; background:var(--coral); color:white; padding:4px 12px; border-radius:50px; font-size:0.75rem; font-weight:800; text-transform:uppercase; }
     .cart-indicator { position:absolute; top:12px; right:12px; z-index:2; background:var(--green); color:white; width:32px; height:32px; border-radius:50%; font-size:0.8rem; font-weight:800; display:none; align-items:center; justify-content:center; }
     .product-card.in-cart .cart-indicator { display:flex; }
-    .img-wrap { width:100%; height:200px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
-    .product-img { width:100%; height:200px; object-fit:contain; background:var(--green-pale); padding:16px; display:block; }
-    .brand-img { width:100%; height:200px; object-fit:contain; background:var(--green-pale); padding:28px; display:block; }
-    .product-img-placeholder { width:100%; height:200px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted); }
-    .product-img-placeholder span { font-size:2.5rem; }
-    .product-img-placeholder p { font-size:0.8rem; font-weight:600; text-align:center; padding:0 12px; }
-    .product-body { padding:16px; }
+    .img-wrap { width:100%; height:180px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .product-img { width:100%; height:180px; object-fit:contain; background:var(--green-pale); padding:12px; display:block; image-rendering:auto; }
+    .brand-img { width:100%; height:180px; object-fit:contain; background:var(--green-pale); padding:24px; display:block; }
+    .product-img-placeholder { width:100%; height:180px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted); }
+    .product-img-placeholder span { font-size:2.2rem; }
+    .product-img-placeholder p { font-size:0.78rem; font-weight:600; text-align:center; padding:0 10px; }
+    .product-body { padding:14px; }
     .product-animal { font-size:0.68rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
     .product-category { font-size:0.72rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--green); margin-bottom:4px; }
-    .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:1.05rem; color:var(--text); margin-bottom:4px; line-height:1.2; }
-    .product-brand { font-size:0.8rem; color:var(--muted); margin-bottom:10px; }
-    .product-desc { font-size:0.82rem; color:#5a7a6a; line-height:1.5; margin-bottom:12px; }
-    .product-price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
-    .price-normal { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--green); }
-    .price-old { font-size:0.9rem; color:var(--muted); text-decoration:line-through; }
-    .price-offer { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--coral); }
+    .product-name { font-family:'Baloo 2',cursive; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:4px; line-height:1.2; }
+    .product-brand { font-size:0.8rem; color:var(--muted); margin-bottom:8px; }
+    .product-desc { font-size:0.82rem; color:#5a7a6a; line-height:1.5; margin-bottom:10px; }
+    .product-price { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+    .price-normal { font-family:'Baloo 2',cursive; font-size:1.25rem; font-weight:800; color:var(--green); }
+    .price-old { font-size:0.88rem; color:var(--muted); text-decoration:line-through; }
+    .price-offer { font-family:'Baloo 2',cursive; font-size:1.25rem; font-weight:800; color:var(--coral); }
     .product-actions { display:flex; gap:8px; align-items:center; }
-    .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:10px 16px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.9rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px; }
+    .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:9px 14px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.88rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:6px; }
     .btn-add:hover { background:var(--green-lt); }
-    .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:8px 14px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; display:none; }
+    .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:7px 12px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.85rem; cursor:pointer; transition:all 0.2s; display:none; }
     .btn-remove:hover { background:var(--coral); color:white; }
     .product-card.in-cart .btn-remove { display:block; }
+
+    /* ── PAGINATION ── */
+    .pagination-wrap {
+      max-width:1200px; margin:36px auto 0;
+      display:flex; justify-content:center; align-items:center; gap:12px;
+      flex-wrap:wrap;
+    }
+    .pagination-info { font-size:0.88rem; color:var(--muted); font-weight:600; text-align:center; }
+    .page-btn {
+      background:white; border:2px solid var(--green-pale);
+      color:var(--text); padding:9px 20px; border-radius:50px;
+      font-family:'Nunito',sans-serif; font-weight:700; font-size:0.9rem;
+      cursor:pointer; transition:all 0.2s; box-shadow:var(--shadow);
+    }
+    .page-btn:hover:not(:disabled) { background:var(--green); color:white; border-color:var(--green); }
+    .page-btn:disabled { opacity:0.4; cursor:not-allowed; }
+    .page-btn.active { background:var(--green); color:white; border-color:var(--green); }
+    .page-numbers { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+    .page-number {
+      background:white; border:2px solid var(--green-pale);
+      color:var(--muted); width:38px; height:38px; border-radius:50%;
+      font-family:'Nunito',sans-serif; font-weight:700; font-size:0.88rem;
+      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center;
+    }
+    .page-number:hover { border-color:var(--green); color:var(--green); }
+    .page-number.active { background:var(--green); color:white; border-color:var(--green); }
+    .page-number.dots { cursor:default; border-color:transparent; }
+    .page-number.dots:hover { border-color:transparent; color:var(--muted); }
 
     /* ── STATES ── */
     .loading-state,.empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
@@ -170,29 +229,17 @@
     #nosotros { background:var(--green-pale); }
     .nosotros-inner { max-width:1100px; margin:0 auto; }
     .nosotros-intro { text-align:center; max-width:680px; margin:0 auto 64px; font-size:1.05rem; line-height:1.9; color:#3a6a50; }
-
-    /* Fotos colgantes */
     .hanging-photos { display:flex; justify-content:center; gap:60px; flex-wrap:wrap; margin-bottom:64px; }
     .hanging-photo-wrap { display:flex; flex-direction:column; align-items:center; }
     .hanging-string { width:2px; height:40px; background:linear-gradient(to bottom,#8B6914,#C8A84B); }
     .hanging-clip { font-size:1.2rem; margin-bottom:-6px; z-index:2; position:relative; }
-    .hanging-frame {
-      width:240px;
-      background:white;
-      padding:16px 16px 40px;
-      box-shadow:4px 8px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1);
-      transition:transform 0.3s, box-shadow 0.3s;
-      position:relative;
-    }
-    /* Rotaciones individuales por defecto — SIN inline styles para que hover funcione */
+    .hanging-frame { width:240px; background:white; padding:16px 16px 40px; box-shadow:4px 8px 24px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1); transition:transform 0.3s, box-shadow 0.3s; position:relative; }
     .hanging-photo-wrap:nth-child(1) .hanging-frame { transform:rotate(-2deg); }
     .hanging-photo-wrap:nth-child(2) .hanging-frame { transform:rotate(1.5deg); }
-    /* Hover igual para AMBAS fotos */
     .hanging-frame:hover { transform:rotate(0deg) scale(1.04) !important; box-shadow:6px 12px 32px rgba(0,0,0,0.25); }
     .hanging-frame img { width:100%; height:220px; object-fit:cover; display:block; }
     .hanging-frame .frame-caption { text-align:center; margin-top:12px; font-family:'Baloo 2',cursive; font-size:0.9rem; font-weight:700; color:var(--text); line-height:1.3; }
     .hanging-frame .frame-subcaption { text-align:center; font-size:0.75rem; color:var(--muted); margin-top:4px; }
-
     .nosotros-valores { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:900px; margin:0 auto; }
     .valor-card { background:white; border-radius:16px; padding:28px 24px; text-align:center; box-shadow:var(--shadow); }
     .valor-icon { font-size:2.2rem; margin-bottom:12px; }
@@ -240,7 +287,7 @@
     .foot-links a img { height:16px; width:16px; object-fit:contain; filter:brightness(0) invert(1); opacity:0.8; }
     footer p { font-size:0.8rem; color:rgba(255,255,255,0.55); }
 
-    /* ── TOBBY WELCOME BUBBLE ── */
+    /* ── TOBBY BUBBLE ── */
     .tobby-bubble { position:fixed; bottom:32px; right:32px; z-index:500; display:flex; flex-direction:column; align-items:flex-end; gap:10px; animation:tobbyAppear 0.6s ease both; }
     .tobby-bubble.hiding { animation:tobbyHide 0.8s ease forwards; }
     .tobby-speech { background:white; border-radius:20px 20px 4px 20px; padding:12px 18px; box-shadow:0 6px 24px rgba(0,0,0,0.15); font-family:'Baloo 2',cursive; font-size:0.95rem; font-weight:700; color:var(--text); max-width:220px; text-align:center; line-height:1.4; border:2px solid var(--green-pale); position:relative; }
@@ -272,12 +319,13 @@
       .info-bar{gap:16px}
       .filters-bar{padding:16px}
       .tobby-bubble{bottom:16px;right:16px}
+      .page-numbers{display:none}
     }
   </style>
 </head>
 <body>
 
-<!-- TOBBY WELCOME BUBBLE -->
+<!-- TOBBY BUBBLE -->
 <div class="tobby-bubble" id="tobbyBubble">
   <div class="tobby-speech">🐾 ¡Bienvenidos a<br/>Tobby's Pet Shop!</div>
   <div class="tobby-avatar">
@@ -310,9 +358,7 @@
 <!-- HERO -->
 <section id="inicio">
   <div class="hero-shapes">
-    <!-- Fila 1 -->
     <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
-    <!-- Fila 2 — emojis diferentes -->
     <span>🐕</span><span>🐩</span><span>🐈</span><span>😻</span><span>🦮</span>
   </div>
   <div class="hero-inner">
@@ -354,50 +400,61 @@
     <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
   </div>
 
-  <!-- MARCAS SCROLL -->
+  <!-- MARCAS SCROLL — click para filtrar -->
   <div class="brands-bar">
-    <div class="brands-track">
-      <img src="imagenes/marcas/bayer.png" alt="Bayer">
-      <img src="imagenes/marcas/hills.png" alt="Hills">
-      <img src="imagenes/marcas/whiskas.png" alt="Whiskas">
-      <img src="imagenes/marcas/propet.png" alt="Propet">
-      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
-      <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
-      <img src="imagenes/marcas/purina.png" alt="Purina">
-      <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
-      <img src="imagenes/marcas/balance.png" alt="Balance">
-      <img src="imagenes/marcas/bayer.png" alt="Bayer">
-      <img src="imagenes/marcas/hills.png" alt="Hills">
-      <img src="imagenes/marcas/whiskas.png" alt="Whiskas">
-      <img src="imagenes/marcas/propet.png" alt="Propet">
-      <img src="imagenes/marcas/nutrisource.png" alt="Nutrisource">
-      <img src="imagenes/marcas/Pedigree.png" alt="Pedigree">
-      <img src="imagenes/marcas/purina.png" alt="Purina">
-      <img src="imagenes/marcas/royalcanin.png" alt="Royal Canin">
-      <img src="imagenes/marcas/balance.png" alt="Balance">
+    <div class="brands-track" id="brandsTrack">
+      <img src="imagenes/marcas/bayer.png"       alt="Bayer"      data-brand="bayer"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/hills.png"        alt="Hills"      data-brand="hills"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/whiskas.png"      alt="Whiskas"    data-brand="whiskas"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/propet.png"       alt="Pro Pet"    data-brand="pro pet"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/nutrisource.png"  alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/Pedigree.png"     alt="Pedigree"   data-brand="pedigree"   onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/purina.png"       alt="Purina"     data-brand="purina"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/royalcanin.png"   alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/balance.png"      alt="Balance"    data-brand="balance"    onclick="filterByBrand(this)">
+      <!-- Duplicado para loop infinito -->
+      <img src="imagenes/marcas/bayer.png"       alt="Bayer"      data-brand="bayer"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/hills.png"        alt="Hills"      data-brand="hills"      onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/whiskas.png"      alt="Whiskas"    data-brand="whiskas"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/propet.png"       alt="Pro Pet"    data-brand="pro pet"    onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/nutrisource.png"  alt="Nutrisource" data-brand="nutrisource" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/Pedigree.png"     alt="Pedigree"   data-brand="pedigree"   onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/purina.png"       alt="Purina"     data-brand="purina"     onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/royalcanin.png"   alt="Royal Canin" data-brand="royal canin" onclick="filterByBrand(this)">
+      <img src="imagenes/marcas/balance.png"      alt="Balance"    data-brand="balance"    onclick="filterByBrand(this)">
     </div>
   </div>
 
   <!-- FILTROS -->
+  <div class="filters-label">🔍 Filtros</div>
   <div class="filters-bar">
     <div class="filter-search">
       <span>🔍</span>
       <input type="text" id="searchInput" placeholder="Buscar producto o marca..." oninput="applyFilters()" />
     </div>
     <select class="filter-select" id="animalFilter" onchange="applyFilters()">
-      <option value="">🐾 Todos los animales</option>
+      <option value="">🐾 Animales</option>
     </select>
     <select class="filter-select" id="catFilter" onchange="applyFilters()">
-      <option value="">📦 Todas las categorías</option>
+      <option value="">📦 Categoría</option>
     </select>
     <select class="filter-select" id="marcaFilter" onchange="applyFilters()">
-      <option value="">🏷️ Todas las marcas</option>
+      <option value="">🏷️ Marcas</option>
     </select>
     <label class="filter-ofertas">
       <input type="checkbox" id="ofertaFilter" onchange="applyFilters()" /> 🔥 Solo ofertas
     </label>
-    <button class="filter-clear" onclick="clearFilters()">✕ Limpiar</button>
+    <button class="filter-clear" onclick="clearFilters()">✕ Limpiar filtros</button>
   </div>
+
+  <!-- Indicador de filtro de marca activo -->
+  <div class="brand-filter-active" id="brandFilterIndicator">
+    <span id="brandFilterLabel"></span>
+    <button onclick="clearBrandFilter()" title="Quitar filtro de marca">✕</button>
+  </div>
+
+  <!-- Resumen de resultados -->
+  <div class="results-summary" id="resultsSummary"></div>
 
   <div class="products-grid" id="productsGrid">
     <div class="loading-state">
@@ -405,6 +462,14 @@
       <p style="color:var(--muted);font-weight:600;margin-top:8px;">Cargando productos...</p>
     </div>
   </div>
+
+  <!-- PAGINACIÓN -->
+  <div class="pagination-wrap" id="paginationWrap" style="display:none;">
+    <button class="page-btn" id="btnPrev" onclick="changePage(currentPage - 1)">← Anterior</button>
+    <div class="page-numbers" id="pageNumbers"></div>
+    <button class="page-btn" id="btnNext" onclick="changePage(currentPage + 1)">Siguiente →</button>
+  </div>
+  <div class="pagination-info" id="paginationInfo" style="margin-top:12px;"></div>
 </section>
 
 <!-- QUIÉNES SOMOS -->
@@ -414,15 +479,12 @@
       <p class="section-label">Conocenos</p>
       <h2 class="section-title">¿Quiénes <span>somos</span>? 💚</h2>
     </div>
-
     <p class="nosotros-intro">
       Tobby's Pet Shop nació del amor por los animales y el sueño de dos mujeres emprendedoras costarricenses:
       una madre y su hija que decidieron crear un espacio donde cada mascota recibe lo mejor.
       Desde Guadalupe, San José, llevamos felicidad a los hogares de cientos de familias y sus peludos. 🐾
     </p>
-
     <div class="hanging-photos">
-      <!-- Foto mujeres -->
       <div class="hanging-photo-wrap">
         <div class="hanging-string"></div>
         <div class="hanging-clip">📎</div>
@@ -433,8 +495,6 @@
           <div class="frame-subcaption">Madre e hija · Fundadoras</div>
         </div>
       </div>
-
-      <!-- Foto Tobby real -->
       <div class="hanging-photo-wrap">
         <div class="hanging-string"></div>
         <div class="hanging-clip">📌</div>
@@ -446,7 +506,6 @@
         </div>
       </div>
     </div>
-
     <div class="nosotros-valores">
       <div class="valor-card">
         <div class="valor-icon">💚</div>
@@ -503,79 +562,47 @@
   </div>
 </section>
 
-<!-- PREGUNTAS FRECUENTES -->
+<!-- FAQ -->
 <section id="faq">
   <div class="section-header">
     <p class="section-label">Resolvemos tus dudas</p>
     <h2 class="section-title">Preguntas <span>Frecuentes</span> 🙋</h2>
   </div>
   <div class="faq-inner">
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        🛒 ¿Cómo hago un pedido? <span class="faq-arrow">▼</span>
-      </button>
+      <button class="faq-question" onclick="toggleFaq(this)">🛒 ¿Cómo hago un pedido? <span class="faq-arrow">▼</span></button>
       <div class="faq-answer">
         ¡Es muy fácil! Explorá nuestro catálogo, agregá los productos al carrito con <strong>➕ Agregar</strong>, y cuando estés listo hacé clic en <strong>"Hacer Pedido por WhatsApp"</strong>. Te llegará un mensaje ya escrito con todo lo que elegiste, solo lo enviás y coordinamos la entrega.<br/><br/>
         Si preferís una atención más personalizada o un servicio especial, también podés escribirnos directamente al <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> 7183-0963</a> y con gusto te asesoramos.
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        🚚 ¿Cómo funcionan los envíos? <span class="faq-arrow">▼</span>
-      </button>
+      <button class="faq-question" onclick="toggleFaq(this)">🚚 ¿Cómo funcionan los envíos? <span class="faq-arrow">▼</span></button>
       <div class="faq-answer">
         Realizamos <strong>entregas a domicilio completamente gratis</strong> en los residenciales cercanos al local, especialmente en la zona de Moravia y alrededores de Guadalupe. También podés <strong>retirar tu pedido directamente en la tienda</strong> sin ningún costo adicional.<br/><br/>
         Solo coordinamos por WhatsApp el horario que más te convenga. 🐾
       </div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        💰 ¿Cuáles son las formas de pago? <span class="faq-arrow">▼</span>
-      </button>
-      <div class="faq-answer">
-        Aceptamos <strong>efectivo y SINPE Móvil</strong>. Al coordinar tu pedido por WhatsApp te confirmamos las opciones disponibles. ¡Buscamos siempre la forma más cómoda para vos!
-      </div>
+      <button class="faq-question" onclick="toggleFaq(this)">💰 ¿Cuáles son las formas de pago? <span class="faq-arrow">▼</span></button>
+      <div class="faq-answer">Aceptamos <strong>efectivo y SINPE Móvil</strong>. Al coordinar tu pedido por WhatsApp te confirmamos las opciones disponibles. ¡Buscamos siempre la forma más cómoda para vos!</div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        🐾 ¿Qué tipo de productos venden? <span class="faq-arrow">▼</span>
-      </button>
-      <div class="faq-answer">
-        Contamos con una amplia variedad de <strong>alimentos y accesorios para perros y gatos</strong>: croquetas por kilo, bolsas, sacos grandes, latas húmedas, snacks y treats. Manejamos marcas como Balance, Nutrisource, Hills, Pro Plan, Royal Canin, Pedigree, Dog Chow y muchas más.
-      </div>
+      <button class="faq-question" onclick="toggleFaq(this)">🐾 ¿Qué tipo de productos venden? <span class="faq-arrow">▼</span></button>
+      <div class="faq-answer">Contamos con una amplia variedad de <strong>alimentos y accesorios para perros y gatos</strong>: croquetas por kilo, bolsas, sacos grandes, latas húmedas, snacks y treats. Manejamos marcas como Balance, Nutrisource, Hills, Pro Plan, Royal Canin, Pedigree, Dog Chow y muchas más.</div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        📦 ¿Tienen productos para otras mascotas? <span class="faq-arrow">▼</span>
-      </button>
-      <div class="faq-answer">
-        Por el momento nuestro catálogo está especializado en perros y gatos, pero estamos en constante crecimiento. ¡Escribinos por WhatsApp si necesitás algo específico! 🐾
-      </div>
+      <button class="faq-question" onclick="toggleFaq(this)">📦 ¿Tienen productos para otras mascotas? <span class="faq-arrow">▼</span></button>
+      <div class="faq-answer">Por el momento nuestro catálogo está especializado en perros y gatos, pero estamos en constante crecimiento. ¡Escribinos por WhatsApp si necesitás algo específico! 🐾</div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        ⏰ ¿Cuál es el horario de atención? <span class="faq-arrow">▼</span>
-      </button>
-      <div class="faq-answer">
-        Atendemos <strong>de lunes a sábado de 9:00am a 6:00pm</strong> en la tienda física y por WhatsApp. Estamos ubicados 50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica.
-      </div>
+      <button class="faq-question" onclick="toggleFaq(this)">⏰ ¿Cuál es el horario de atención? <span class="faq-arrow">▼</span></button>
+      <div class="faq-answer">Atendemos <strong>de lunes a sábado de 9:00am a 6:00pm</strong> en la tienda física y por WhatsApp. Estamos ubicados 50 metros norte de la Iglesia de Guadalupe, San José, Costa Rica.</div>
     </div>
-
     <div class="faq-item">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        ❓ ¿Me pueden asesorar para elegir el alimento correcto? <span class="faq-arrow">▼</span>
-      </button>
-      <div class="faq-answer">
-        ¡Por supuesto! Escribinos por <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> WhatsApp</a> contándonos la raza, edad y necesidades de tu mascota, y con gusto te recomendamos la mejor opción. 💚
-      </div>
+      <button class="faq-question" onclick="toggleFaq(this)">❓ ¿Me pueden asesorar para elegir el alimento correcto? <span class="faq-arrow">▼</span></button>
+      <div class="faq-answer">¡Por supuesto! Escribinos por <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> WhatsApp</a> contándonos la raza, edad y necesidades de tu mascota, y con gusto te recomendamos la mejor opción. 💚</div>
     </div>
-
   </div>
 </section>
 
@@ -622,14 +649,10 @@
 </div>
 
 <script>
-  // ══════════════════════════════════════════════════════════
-  // formato export CSV para que JavaScript pueda leerlo
-  // El link de "compartir" de Google no funciona directamente en código
-  // Se extrae el ID del sheet y se usa el endpoint de exportación
   const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1VPGurnlH9Fjnts7Q7WfotFVFf_i1_FP1SAC6gPPP3P0/export?format=csv&gid=0';
   const WA_NUMBER = '50671830963';
+  const PER_PAGE  = 24; // productos por página
 
-  // Mapa de logos por marca
   const BRAND_LOGOS = {
     'balance':     'imagenes/marcas/balance.png',
     'whiskas':     'imagenes/marcas/whiskas.png',
@@ -652,8 +675,25 @@
     'bayer':       'imagenes/marcas/bayer.png',
   };
 
-  let allProducts = [];
-  let cart = {};
+  // Qué marcas del sheet corresponden a cada logo de la barra
+  // Clave = data-brand del img, valor = logo path
+  const LOGO_PATH_MAP = {
+    'bayer':       'imagenes/marcas/bayer.png',
+    'hills':       'imagenes/marcas/hills.png',
+    'whiskas':     'imagenes/marcas/whiskas.png',
+    'pro pet':     'imagenes/marcas/propet.png',
+    'nutrisource': 'imagenes/marcas/nutrisource.png',
+    'pedigree':    'imagenes/marcas/Pedigree.png',
+    'purina':      'imagenes/marcas/purina.png',
+    'royal canin': 'imagenes/marcas/royalcanin.png',
+    'balance':     'imagenes/marcas/balance.png',
+  };
+
+  let allProducts      = [];
+  let filteredProducts = [];
+  let currentPage      = 1;
+  let activeBrandKey   = null; // data-brand key del logo clickeado
+  let cart             = {};
 
   // ── TOBBY BUBBLE ──
   window.addEventListener('load', () => {
@@ -668,18 +708,16 @@
   async function loadProducts() {
     try {
       const res = await fetch(SHEET_URL);
-      if (!res.ok) throw new Error('Error cargando Sheet');
+      if (!res.ok) throw new Error('Error');
       const csv = await res.text();
       allProducts = parseCSV(csv);
       populateFilters();
-      renderProducts(allProducts);
+      applyFilters();
     } catch (e) {
       document.getElementById('productsGrid').innerHTML = `
-        <div class="empty-state">
-          <div class="empty-icon">⚠️</div>
-          <p>No se pudo cargar el catálogo.<br/>
-          <small style="color:var(--muted);font-weight:500;">Verificá la configuración del Google Sheet.</small></p>
-        </div>`;
+        <div class="empty-state"><div class="empty-icon">⚠️</div>
+        <p>No se pudo cargar el catálogo.<br/>
+        <small style="color:var(--muted);font-weight:500;">Verificá la configuración del Google Sheet.</small></p></div>`;
     }
   }
 
@@ -712,11 +750,9 @@
     const animals = [...new Set(allProducts.map(p => p.animal).filter(Boolean))].sort();
     const cats    = [...new Set(allProducts.map(p => p.categoria).filter(Boolean))].sort();
     const marcas  = [...new Set(allProducts.map(p => p.marca).filter(Boolean))].sort();
-
-    const anSel  = document.getElementById('animalFilter');
-    const catSel = document.getElementById('catFilter');
-    const marSel = document.getElementById('marcaFilter');
-
+    const anSel   = document.getElementById('animalFilter');
+    const catSel  = document.getElementById('catFilter');
+    const marSel  = document.getElementById('marcaFilter');
     animals.forEach(a => { const o = document.createElement('option'); o.value = a; o.textContent = getAnimalEmoji(a) + ' ' + a; anSel.appendChild(o); });
     cats.forEach(c    => { const o = document.createElement('option'); o.value = c; o.textContent = c; catSel.appendChild(o); });
     marcas.forEach(m  => { const o = document.createElement('option'); o.value = m; o.textContent = m; marSel.appendChild(o); });
@@ -739,7 +775,7 @@
     const marca   = document.getElementById('marcaFilter').value;
     const ofertas = document.getElementById('ofertaFilter').checked;
 
-    const filtered = allProducts.filter(p => {
+    let results = allProducts.filter(p => {
       if (search && !p.nombre.toLowerCase().includes(search) &&
           !(p.marca||'').toLowerCase().includes(search) &&
           !(p.descripcion||'').toLowerCase().includes(search)) return false;
@@ -747,9 +783,20 @@
       if (cat && p.categoria !== cat) return false;
       if (marca && p.marca !== marca) return false;
       if (ofertas && (!p.oferta || !p.oferta.trim())) return false;
+      // Filtro de logo de marca
+      if (activeBrandKey) {
+        const logoPath = LOGO_PATH_MAP[activeBrandKey];
+        if (getBrandLogo(p.marca) !== logoPath) return false;
+      }
       return true;
     });
-    renderProducts(filtered);
+
+    // Ordenar alfabéticamente por nombre
+    results.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+
+    filteredProducts = results;
+    currentPage = 1;
+    renderPage();
   }
 
   function clearFilters() {
@@ -758,7 +805,118 @@
     document.getElementById('catFilter').value = '';
     document.getElementById('marcaFilter').value = '';
     document.getElementById('ofertaFilter').checked = false;
-    renderProducts(allProducts);
+    clearBrandFilter();
+  }
+
+  // ── BRAND LOGO CLICK ──
+  function filterByBrand(imgEl) {
+    const brandKey = imgEl.getAttribute('data-brand');
+    if (activeBrandKey === brandKey) {
+      // Segundo clic = quitar filtro
+      clearBrandFilter();
+      return;
+    }
+    activeBrandKey = brandKey;
+    // Highlight todos los logos con ese data-brand
+    document.querySelectorAll('.brands-track img').forEach(img => {
+      img.classList.toggle('brand-active', img.getAttribute('data-brand') === brandKey);
+    });
+    // Mostrar indicador
+    const indicator = document.getElementById('brandFilterIndicator');
+    indicator.classList.add('visible');
+    document.getElementById('brandFilterLabel').textContent = '🏷️ Filtrando por: ' + imgEl.alt;
+    applyFilters();
+    // Scroll al catálogo
+    document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function clearBrandFilter() {
+    activeBrandKey = null;
+    document.querySelectorAll('.brands-track img').forEach(img => img.classList.remove('brand-active'));
+    document.getElementById('brandFilterIndicator').classList.remove('visible');
+    applyFilters();
+  }
+
+  // ── PAGINATION ──
+  function renderPage() {
+    const grid = document.getElementById('productsGrid');
+    const totalPages = Math.ceil(filteredProducts.length / PER_PAGE);
+    const start = (currentPage - 1) * PER_PAGE;
+    const end   = Math.min(start + PER_PAGE, filteredProducts.length);
+    const pageProducts = filteredProducts.slice(start, end);
+
+    // Resumen
+    const summary = document.getElementById('resultsSummary');
+    if (filteredProducts.length > 0) {
+      summary.textContent = `Mostrando ${start + 1}–${end} de ${filteredProducts.length} productos`;
+    } else {
+      summary.textContent = '';
+    }
+
+    if (!filteredProducts.length) {
+      grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No se encontraron productos con esos filtros.</p></div>`;
+      document.getElementById('paginationWrap').style.display = 'none';
+      document.getElementById('paginationInfo').textContent = '';
+      return;
+    }
+
+    grid.innerHTML = pageProducts.map((p, i) => buildCard(p, i)).join('');
+
+    // Paginación
+    const wrap = document.getElementById('paginationWrap');
+    const info = document.getElementById('paginationInfo');
+    if (totalPages <= 1) {
+      wrap.style.display = 'none';
+      info.textContent = '';
+    } else {
+      wrap.style.display = 'flex';
+      document.getElementById('btnPrev').disabled = currentPage === 1;
+      document.getElementById('btnNext').disabled = currentPage === totalPages;
+      info.textContent = `Página ${currentPage} de ${totalPages}`;
+      buildPageNumbers(totalPages);
+    }
+
+    // Scroll suave al inicio del catálogo al cambiar página
+    if (currentPage > 1) {
+      document.getElementById('catalogo').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
+
+  function buildPageNumbers(totalPages) {
+    const container = document.getElementById('pageNumbers');
+    container.innerHTML = '';
+    const pages = getPagesToShow(currentPage, totalPages);
+    pages.forEach(p => {
+      const el = document.createElement('button');
+      el.className = 'page-number' + (p === '...' ? ' dots' : '') + (p === currentPage ? ' active' : '');
+      el.textContent = p;
+      if (p !== '...') el.onclick = () => changePage(p);
+      container.appendChild(el);
+    });
+  }
+
+  function getPagesToShow(current, total) {
+    if (total <= 7) return Array.from({length: total}, (_, i) => i + 1);
+    const pages = [];
+    if (current <= 4) {
+      for (let i = 1; i <= 5; i++) pages.push(i);
+      pages.push('...'); pages.push(total);
+    } else if (current >= total - 3) {
+      pages.push(1); pages.push('...');
+      for (let i = total - 4; i <= total; i++) pages.push(i);
+    } else {
+      pages.push(1); pages.push('...');
+      for (let i = current - 1; i <= current + 1; i++) pages.push(i);
+      pages.push('...'); pages.push(total);
+    }
+    return pages;
+  }
+
+  function changePage(page) {
+    const totalPages = Math.ceil(filteredProducts.length / PER_PAGE);
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    renderPage();
   }
 
   // ── BRAND LOGO ──
@@ -771,16 +929,7 @@
     return null;
   }
 
-  // ── RENDER ──
-  function renderProducts(products) {
-    const grid = document.getElementById('productsGrid');
-    if (!products.length) {
-      grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><p>No se encontraron productos con esos filtros.</p></div>`;
-      return;
-    }
-    grid.innerHTML = products.map((p, i) => buildCard(p, i)).join('');
-  }
-
+  // ── BUILD CARD ──
   function getPrice(p) {
     const hasOffer = p.oferta && p.oferta.trim() !== '';
     const regular  = parseFloat((p.precio||'0').replace(/[^\d.]/g,'')) || 0;
@@ -800,9 +949,9 @@
       const fallback = brandLogo
         ? `this.src='${brandLogo}';this.className='brand-img';this.onerror=function(){this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';};`
         : `this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>';`;
-      imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy" onerror="${fallback}" /></div>`;
+      imgHTML = `<div class="img-wrap"><img class="product-img" src="${p.imagen_url}" alt="${safeNombre}" loading="lazy" decoding="async" onerror="${fallback}" /></div>`;
     } else if (brandLogo) {
-      imgHTML = `<div class="img-wrap"><img class="brand-img" src="${brandLogo}" alt="${p.marca}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
+      imgHTML = `<div class="img-wrap"><img class="brand-img" src="${brandLogo}" alt="${p.marca}" loading="lazy" decoding="async" onerror="this.parentNode.innerHTML='<div class=\\'product-img-placeholder\\'><span>${animalEmoji}🐾</span><p>${safeNombre}</p></div>'" /></div>`;
     } else {
       imgHTML = `<div class="img-wrap"><div class="product-img-placeholder"><span>${animalEmoji}🐾</span><p>${p.nombre}</p></div></div>`;
     }
@@ -812,7 +961,7 @@
       : `<span class="price-normal">₡${regular.toLocaleString()}</span>`;
 
     return `
-      <div class="product-card ${inCart > 0 ? 'in-cart' : ''}" id="card-${p._id}" style="animation-delay:${Math.min(delay,12)*0.05}s">
+      <div class="product-card ${inCart > 0 ? 'in-cart' : ''}" id="card-${p._id}" style="animation-delay:${Math.min(delay,12)*0.04}s">
         ${hasOffer ? '<div class="offer-badge">🔥 Oferta</div>' : ''}
         <div class="cart-indicator" id="ind-${p._id}" style="${inCart > 0 ? 'display:flex' : ''}">${inCart}</div>
         ${imgHTML}
@@ -866,11 +1015,9 @@
     const items      = Object.values(cart);
     const totalQty   = items.reduce((s, i) => s + i.qty, 0);
     const totalPrice = items.reduce((s, i) => s + getPrice(i.product).active * i.qty, 0);
-
     document.getElementById('cartCount').textContent = totalQty;
     document.getElementById('cartTotal').textContent = '₡' + totalPrice.toLocaleString();
     document.getElementById('btnPedido').disabled = totalQty === 0;
-
     const el = document.getElementById('cartItems');
     if (!items.length) {
       el.innerHTML = `<div class="cart-empty"><span>🛒</span><p>Tu carrito está vacío.<br/>¡Agregá productos del catálogo!</p></div>`;
@@ -909,7 +1056,7 @@
     document.getElementById('cartOverlay').classList.toggle('active');
   }
 
-  // ── WHATSAPP ORDER ──
+  // ── WHATSAPP ──
   function hacerPedido() {
     const items = Object.values(cart);
     if (!items.length) return;
@@ -928,7 +1075,7 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
-  // ── FAQ ACCORDION ──
+  // ── FAQ ──
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = answer.classList.contains('open');
