@@ -26,15 +26,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s ease;
+      transition: opacity 1s ease !important;
     }
-    #splash.fade-out { opacity: 0; pointer-events: none; transform: none; }
+    #splash.fade-out { opacity: 0; pointer-events: none; }
+    #splash.fade-out * { animation: none !important; }
     #splash.hidden { display: none; }
     #splash-tobby {
       width: 200px;
       height: auto;
       filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35));
       animation: splashSpin 1.2s ease-in-out forwards;
+      transition: none;
     }
     #splash-text { display: none; }
     @keyframes splashSpin {
@@ -702,7 +704,7 @@
     setTimeout(() => {
       splash.classList.add('fade-out');
       setTimeout(() => { splash.classList.add('hidden'); splash.remove(); }, 1000);
-    }, 3000);
+    }, 4000);
   });
 
   // ══ TOBBY WELCOME ══
