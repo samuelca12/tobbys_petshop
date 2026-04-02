@@ -4,51 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tobby's Pet Shop</title>
+  <meta name="description" content="Tobby's Pet Shop — Los mejores alimentos y accesorios para tu mascota en Guadalupe, San Jose, Costa Rica. Entregas a domicilio gratis." />
+  <meta property="og:title" content="Tobby's Pet Shop" />
+  <meta property="og:description" content="Todo para tu mascota: alimentos, accesorios y mucho amor. Entregas gratis en Guadalupe y alrededores." />
+  <meta property="og:image" content="imagenes/logo.jpeg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="imagenes/logo_transparente.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ══════════════════════════════════════════
-       SPLASH SCREEN — pantalla verde con Tobby
-       girando 360° en el centro
+       SPLASH SCREEN
     ══════════════════════════════════════════ */
     #splash {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #1a5c35;           /* verde oscuro */
+      background: #1a5c35;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s ease;  /* fade out suave */
+      transition: opacity 0.8s ease;
     }
-    #splash.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-    #splash.hidden {
-      display: none;
-    }
-    /* Tobby girando */
+    #splash.fade-out { opacity: 0; pointer-events: none; }
+    #splash.hidden { display: none; }
     #splash-tobby {
       width: 200px;
       height: auto;
       filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35));
       animation: splashSpin 1.2s ease-in-out forwards;
     }
-    /* Texto debajo de Tobby — oculto */
-    #splash-text {
-      display: none;
-    }
-
+    #splash-text { display: none; }
     @keyframes splashSpin {
-      0%   { transform: rotate(0deg)   scale(0.6); opacity: 0; }
+      0%   { transform: rotate(0deg) scale(0.6); opacity: 0; }
       15%  { opacity: 1; }
       100% { transform: rotate(360deg) scale(1); opacity: 1; }
     }
 
-    /* ══ RESTO DEL SITE ══ */
+    /* ══ VARIABLES ══ */
     :root {
       --green:      #205f3c;
       --green-lt:   #4CAF7D;
@@ -67,10 +62,12 @@
     body { background:var(--offwhite); color:var(--text); font-family:'Nunito',sans-serif; overflow-x:hidden; }
     body::before { content:''; position:fixed; inset:0; z-index:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ctext y='40' font-size='28' opacity='0.04'%3E🐾%3C/text%3E%3C/svg%3E"); pointer-events:none; }
 
-    /* ── NAV ── */
-    nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--green); padding:0 32px; height:68px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 16px rgba(46,139,87,0.3); }
+    /* ── NAV (3: glass/shrink) ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--green); padding:0 32px; height:68px; display:flex; align-items:center; justify-content:space-between; box-shadow:0 2px 16px rgba(46,139,87,0.3); transition:background 0.3s, height 0.3s, box-shadow 0.3s; }
+    nav.scrolled { background:rgba(32,95,60,0.85); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); height:56px; box-shadow:0 2px 24px rgba(46,139,87,0.45); }
     .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-    .nav-logo img { height:44px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); }
+    .nav-logo img { height:44px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); transition:height 0.3s; }
+    nav.scrolled .nav-logo img { height:36px; }
     .nav-logo span { font-family:'Baloo 2',cursive; font-size:1.3rem; font-weight:800; color:var(--white); }
     .nav-links { display:flex; align-items:center; gap:24px; }
     .nav-links a { color:rgba(255,255,255,0.88); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; display:flex; align-items:center; gap:6px; }
@@ -78,22 +75,25 @@
     .nav-links a img { height:18px; width:18px; object-fit:contain; filter:brightness(0) invert(1); }
     .cart-btn { position:relative; background:var(--yellow); color:var(--text); border:none; cursor:pointer; padding:10px 20px; border-radius:50px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.95rem; display:flex; align-items:center; gap:8px; transition:transform 0.2s, box-shadow 0.2s; box-shadow:0 3px 12px rgba(249,168,37,0.4); }
     .cart-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(249,168,37,0.5); }
-    .cart-count { background:var(--coral); color:white; border-radius:50%; width:22px; height:22px; font-size:0.75rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    /* 9: cart badge bounce */
+    .cart-count { background:var(--coral); color:white; border-radius:50%; width:22px; height:22px; font-size:0.75rem; font-weight:800; display:flex; align-items:center; justify-content:center; transition:transform 0.3s; }
+    .cart-count.bounce { animation:cartBounce 0.4s ease; }
+    @keyframes cartBounce { 0%{transform:scale(1)} 40%{transform:scale(1.55)} 70%{transform:scale(0.85)} 100%{transform:scale(1)} }
 
-    /* ── HERO ── */
-    #inicio { min-height:100vh; padding-top:68px; background:linear-gradient(135deg,var(--green) 0%,var(--green-lt) 50%,#A8D5BA 100%); display:flex; align-items:center; position:relative; overflow:hidden; }
-    .hero-shapes { position:absolute; inset:0; pointer-events:none; }
-    .hero-shapes span { position:absolute; font-size:4rem; opacity:0.12; animation:floatShape 6s ease-in-out infinite; }
-    .hero-shapes span:nth-child(1)  { top:10%;  left:5%;   animation-delay:0s;   font-size:3rem; }
-    .hero-shapes span:nth-child(2)  { top:20%;  right:8%;  animation-delay:1s;   font-size:5rem; }
-    .hero-shapes span:nth-child(3)  { bottom:20%; left:12%; animation-delay:2s;  font-size:3.5rem; }
-    .hero-shapes span:nth-child(4)  { bottom:10%; right:15%; animation-delay:0.5s; font-size:2.5rem; }
-    .hero-shapes span:nth-child(5)  { top:50%;  left:30%;  animation-delay:1.5s; font-size:2rem; }
-    .hero-shapes span:nth-child(6)  { top:35%;  left:18%;  animation-delay:0.8s; font-size:2.8rem; }
-    .hero-shapes span:nth-child(7)  { top:70%;  right:25%; animation-delay:1.2s; font-size:3.2rem; }
-    .hero-shapes span:nth-child(8)  { top:15%;  left:45%;  animation-delay:2.2s; font-size:2.2rem; }
-    .hero-shapes span:nth-child(9)  { bottom:35%; right:5%; animation-delay:0.3s; font-size:3.8rem; }
-    .hero-shapes span:nth-child(10) { bottom:5%;  left:40%; animation-delay:1.8s; font-size:2.6rem; }
+    /* 1: hamburger menu */
+    .hamburger { display:none; background:none; border:none; cursor:pointer; padding:6px; z-index:210; }
+    .hamburger span { display:block; width:24px; height:2.5px; background:white; border-radius:2px; transition:transform 0.3s, opacity 0.3s; margin:5px 0; }
+    .hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+    .mobile-menu-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:199; }
+    .mobile-menu-overlay.active { display:block; }
+
+    /* ── HERO (video background) ── */
+    #inicio { min-height:100vh; padding-top:68px; display:flex; align-items:center; position:relative; overflow:hidden; }
+    .hero-video-bg { position:absolute; inset:0; z-index:0; }
+    .hero-video-bg video { width:100%; height:100%; object-fit:cover; }
+    .hero-video-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(32,95,60,0.82) 0%,rgba(76,175,125,0.7) 50%,rgba(168,213,186,0.6) 100%); }
     .hero-inner { max-width:1200px; margin:0 auto; padding:60px 32px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; position:relative; z-index:2; }
     .hero-text h1 { font-family:'Baloo 2',cursive; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:800; color:white; line-height:1.1; margin-bottom:20px; }
     .hero-text h1 span { color:var(--yellow); }
@@ -104,8 +104,8 @@
     .hero-cta { display:inline-flex; align-items:center; gap:10px; background:var(--yellow); color:var(--text); padding:14px 32px; border-radius:50px; font-weight:800; font-size:1.05rem; text-decoration:none; transition:transform 0.2s, box-shadow 0.3s; box-shadow:0 6px 24px rgba(249,168,37,0.45); }
     .hero-cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(249,168,37,0.5); }
     .hero-img { display:flex; justify-content:center; align-items:center; }
-    .hero-logo-circle { width:280px; height:280px; border-radius:50%; overflow:hidden; border:6px solid rgba(255,255,255,0.4); box-shadow:0 12px 40px rgba(0,0,0,0.2); animation:floatShape 4s ease-in-out infinite; }
-    .hero-logo-circle img { width:100%; height:100%; object-fit:cover; }
+    .hero-logo-circle { width:280px; height:280px; border-radius:50%; overflow:hidden; border:6px solid rgba(255,255,255,0.4); box-shadow:0 12px 40px rgba(0,0,0,0.2); animation:floatShape 4s ease-in-out infinite; background:rgba(255,255,255,0.1); }
+    .hero-logo-circle img { width:100%; height:100%; object-fit:contain; }
 
     /* ── INFO BAR ── */
     .info-bar { background:var(--yellow); padding:14px 32px; display:flex; justify-content:center; flex-wrap:wrap; gap:32px; position:relative; z-index:1; }
@@ -144,15 +144,17 @@
     .brand-filter-active button { background:none; border:none; cursor:pointer; color:var(--coral); font-size:1rem; font-weight:800; line-height:1; }
     .results-summary { max-width:1200px; margin:0 auto 16px; font-size:0.85rem; color:var(--muted); font-weight:600; }
 
-    /* ── PRODUCTS GRID ── */
+    /* ── PRODUCTS GRID (6: better transitions) ── */
     .products-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:20px; max-width:1300px; margin:0 auto; }
-    .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s, box-shadow 0.3s; position:relative; animation:popIn 0.4s ease both; }
-    .product-card:hover { transform:translateY(-6px); box-shadow:0 12px 32px rgba(46,139,87,0.2); }
-    .product-card.in-cart { border:2.5px solid var(--green); }
+    .product-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); transition:transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s, border-color 0.3s; position:relative; animation:popIn 0.4s ease both; border:2.5px solid transparent; }
+    .product-card:hover { transform:translateY(-8px); box-shadow:0 16px 40px rgba(46,139,87,0.22); border-color:rgba(76,175,125,0.3); }
+    .product-card.in-cart { border-color:var(--green); }
     .offer-badge { position:absolute; top:10px; left:10px; z-index:2; background:var(--coral); color:white; padding:3px 10px; border-radius:50px; font-size:0.7rem; font-weight:800; text-transform:uppercase; }
     .cart-indicator { position:absolute; top:10px; right:10px; z-index:2; background:var(--green); color:white; width:28px; height:28px; border-radius:50%; font-size:0.75rem; font-weight:800; display:none; align-items:center; justify-content:center; }
     .product-card.in-cart .cart-indicator { display:flex; }
-    .img-wrap { width:100%; height:160px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .img-wrap { width:100%; height:160px; background:var(--green-pale); display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:pointer; }
+    .img-wrap img, .img-wrap .product-img-placeholder { transition: transform 0.3s ease; }
+    .img-wrap:hover img, .img-wrap:hover .product-img-placeholder { transform: scale(1.08); }
     .product-img { width:100%; height:160px; object-fit:contain; background:var(--green-pale); padding:10px; display:block; }
     .brand-img { width:100%; height:160px; object-fit:contain; background:var(--green-pale); padding:20px; display:block; }
     .product-img-placeholder { width:100%; height:160px; background:var(--green-pale); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--muted); }
@@ -169,8 +171,10 @@
     .price-old { font-size:0.82rem; color:var(--muted); text-decoration:line-through; }
     .price-offer { font-family:'Baloo 2',cursive; font-size:1.15rem; font-weight:800; color:var(--coral); }
     .product-actions { display:flex; gap:6px; align-items:center; }
+    /* 6: btn click effect */
     .btn-add { flex:1; background:var(--green); color:white; border:none; border-radius:50px; padding:8px 12px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:4px; }
-    .btn-add:hover { background:var(--green-lt); }
+    .btn-add:hover { background:var(--green-lt); transform:scale(1.04); }
+    .btn-add:active { transform:scale(0.93); }
     .btn-remove { background:var(--green-pale); color:var(--coral); border:2px solid var(--coral); border-radius:50px; padding:6px 10px; font-family:'Nunito',sans-serif; font-weight:700; font-size:0.8rem; cursor:pointer; transition:all 0.2s; display:none; }
     .btn-remove:hover { background:var(--coral); color:white; }
     .product-card.in-cart .btn-remove { display:block; }
@@ -188,67 +192,30 @@
     .page-number.dots { cursor:default; border-color:transparent; }
     .page-number.dots:hover { border-color:transparent; color:var(--muted); }
 
-    /* ── CATALOG IMAGE HOVER ZOOM ── */
-    .img-wrap { cursor: pointer; }
-    .img-wrap img, .img-wrap .product-img-placeholder {
-      transition: transform 0.3s ease;
-    }
-    .img-wrap:hover img, .img-wrap:hover .product-img-placeholder {
-      transform: scale(1.08);
-    }
-
     /* ── LIGHTBOX ── */
-    .lightbox-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(0,0,0,0.85);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .lightbox-overlay.active {
-      display: flex;
-    }
-    .lightbox-overlay img {
-      max-width: 90vw;
-      max-height: 85vh;
-      object-fit: contain;
-      border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-      cursor: default;
-    }
-    .lightbox-close {
-      position: fixed;
-      top: 20px;
-      right: 28px;
-      z-index: 10001;
-      background: rgba(255,255,255,0.15);
-      border: 2px solid rgba(255,255,255,0.5);
-      color: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-    .lightbox-close:hover {
-      background: rgba(255,255,255,0.3);
-    }
-    .lightbox-close.active {
-      display: flex;
-    }
+    .lightbox-overlay { display:none; position:fixed; inset:0; z-index:10000; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; cursor:pointer; }
+    .lightbox-overlay.active { display:flex; }
+    .lightbox-overlay img { max-width:90vw; max-height:85vh; object-fit:contain; border-radius:12px; box-shadow:0 8px 40px rgba(0,0,0,0.5); cursor:default; }
+    .lightbox-close { position:fixed; top:20px; right:28px; z-index:10001; background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.5); color:white; width:44px; height:44px; border-radius:50%; font-size:1.5rem; cursor:pointer; display:none; align-items:center; justify-content:center; transition:background 0.2s; }
+    .lightbox-close:hover { background:rgba(255,255,255,0.3); }
+    .lightbox-close.active { display:flex; }
 
     /* ── STATES ── */
     .loading-state,.empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
     .loading-state .spinner { width:48px; height:48px; border:4px solid var(--green-pale); border-top-color:var(--green); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 16px; }
     .empty-state .empty-icon { font-size:4rem; margin-bottom:16px; }
     .empty-state p { color:var(--muted); font-size:1.05rem; font-weight:600; }
+
+    /* 7: skeleton loading */
+    .skeleton-card { background:white; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); }
+    .skeleton-img { width:100%; height:160px; background:linear-gradient(90deg,var(--green-pale) 25%,#d4ebe0 50%,var(--green-pale) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; }
+    .skeleton-body { padding:12px; }
+    .skeleton-line { height:12px; border-radius:6px; background:linear-gradient(90deg,var(--green-pale) 25%,#d4ebe0 50%,var(--green-pale) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; margin-bottom:10px; }
+    .skeleton-line.short { width:60%; }
+    .skeleton-line.medium { width:80%; }
+    .skeleton-line.price { width:40%; height:16px; margin-top:12px; }
+    .skeleton-btn { height:34px; border-radius:50px; background:linear-gradient(90deg,var(--green-pale) 25%,#d4ebe0 50%,var(--green-pale) 75%); background-size:200% 100%; animation:shimmer 1.5s infinite; margin-top:8px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
     /* ── CART ── */
     .cart-overlay { display:none; position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.4); backdrop-filter:blur(3px); }
@@ -282,7 +249,7 @@
     .btn-pedido:disabled { background:var(--muted); cursor:not-allowed; box-shadow:none; transform:none; }
     .btn-pedido img { width:22px; height:22px; filter:brightness(0) invert(1); }
 
-    /* ── QUIÉNES SOMOS ── */
+    /* ── QUIENES SOMOS ── */
     #nosotros { background:var(--green-pale); }
     .nosotros-inner { max-width:1100px; margin:0 auto; }
     .nosotros-intro { text-align:center; max-width:680px; margin:0 auto 64px; font-size:1.05rem; line-height:1.9; color:#3a6a50; }
@@ -303,7 +270,7 @@
     .valor-card h4 { font-family:'Baloo 2',cursive; font-size:1.05rem; font-weight:800; color:var(--text); margin-bottom:8px; }
     .valor-card p { font-size:0.85rem; color:var(--muted); line-height:1.7; }
 
-    /* ── TIENDA ── */
+    /* ── TIENDA (5: map) ── */
     #tienda { background:white; }
     .tienda-grid { display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:0 auto; align-items:center; }
     .tienda-img { border-radius:24px; overflow:hidden; box-shadow:var(--shadow); }
@@ -316,6 +283,8 @@
     .info-row p { font-size:0.95rem; line-height:1.7; color:#3a6a50; font-weight:600; }
     .info-row a { color:var(--green); text-decoration:none; font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .info-row a:hover { color:var(--green-lt); }
+    .tienda-map { margin-top:48px; max-width:1100px; margin-left:auto; margin-right:auto; border-radius:20px; overflow:hidden; box-shadow:var(--shadow); }
+    .tienda-map iframe { width:100%; height:300px; border:0; display:block; }
 
     /* ── FAQ ── */
     #faq { background:var(--offwhite); }
@@ -331,18 +300,27 @@
     .faq-answer a { color:var(--green); font-weight:700; display:inline-flex; align-items:center; gap:6px; }
     .faq-answer img.inline-icon { height:16px; width:16px; object-fit:contain; }
 
-    /* ── FOOTER ── */
-    footer { background:var(--green); color:rgba(255,255,255,0.85); padding:40px 32px; text-align:center; position:relative; z-index:1; }
-    .foot-logo { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:20px; }
+    /* 10: FOOTER multi-column */
+    footer { background:var(--green); color:rgba(255,255,255,0.85); padding:48px 32px 32px; position:relative; z-index:1; }
+    .footer-grid { display:grid; grid-template-columns:1.3fr 0.8fr 1fr; gap:40px; max-width:1100px; margin:0 auto 32px; }
+    .footer-col h4 { font-family:'Baloo 2',cursive; font-size:1.1rem; font-weight:800; color:white; margin-bottom:16px; }
+    .foot-logo { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
     .foot-logo img { height:48px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); }
     .foot-logo span { font-family:'Baloo 2',cursive; font-size:1.4rem; font-weight:800; color:white; }
-    .foot-links { display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-bottom:20px; }
+    .footer-col p { font-size:0.88rem; line-height:1.7; color:rgba(255,255,255,0.7); }
+    .foot-links { display:flex; flex-direction:column; gap:10px; }
     .foot-links a { color:rgba(255,255,255,0.8); text-decoration:none; font-weight:600; font-size:0.9rem; transition:color 0.2s; display:inline-flex; align-items:center; gap:6px; }
     .foot-links a:hover { color:var(--yellow); }
     .foot-links a img { height:16px; width:16px; object-fit:contain; filter:brightness(0) invert(1); opacity:0.8; }
-    footer p { font-size:0.8rem; color:rgba(255,255,255,0.55); }
+    .foot-contact { display:flex; flex-direction:column; gap:10px; }
+    .foot-contact-item { display:flex; align-items:center; gap:8px; font-size:0.88rem; color:rgba(255,255,255,0.8); }
+    .foot-contact-item img { width:16px; height:16px; filter:brightness(0) invert(1); opacity:0.8; }
+    .foot-contact-item a { color:rgba(255,255,255,0.8); text-decoration:none; transition:color 0.2s; }
+    .foot-contact-item a:hover { color:var(--yellow); }
+    .footer-bottom { text-align:center; padding-top:24px; border-top:1px solid rgba(255,255,255,0.15); max-width:1100px; margin:0 auto; }
+    .footer-bottom p { font-size:0.8rem; color:rgba(255,255,255,0.55); }
 
-    /* ── TOBBY WELCOME (corriendo) — se mantiene igual ── */
+    /* ── TOBBY WELCOME ── */
     .tobby-welcome { position:fixed; bottom:0; left:50%; transform:translateX(-50%) translateX(120vw); z-index:600; display:flex; flex-direction:column; align-items:center; pointer-events:none; animation: tobbyRun 0.9s cubic-bezier(0.22,1,0.36,1) 0.3s forwards, tobbyExit 0.7s ease-in 4.2s forwards; }
     .tobby-welcome-bubble { background:white; border-radius:20px 20px 20px 4px; padding:14px 22px; box-shadow:0 8px 32px rgba(0,0,0,0.18); font-family:'Baloo 2',cursive; font-size:1rem; font-weight:800; color:var(--text); text-align:center; line-height:1.4; border:2.5px solid var(--green-pale); position:relative; white-space:nowrap; opacity:0; transform:scale(0.5) translateY(10px); animation:bubblePop 0.5s cubic-bezier(0.34,1.56,0.64,1) 1.1s forwards; margin-bottom:-4px; }
     .tobby-welcome-bubble::after { content:''; position:absolute; bottom:-13px; left:22px; width:0; height:0; border-left:14px solid transparent; border-right:4px solid transparent; border-top:15px solid white; }
@@ -353,6 +331,20 @@
     @keyframes bubblePop { from{opacity:0;transform:scale(0.5) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
     @keyframes tobbyBounce { 0%{transform:translateY(0)} 30%{transform:translateY(-18px)} 60%{transform:translateY(-6px)} 80%{transform:translateY(-12px)} 100%{transform:translateY(0)} }
 
+    /* 4: WhatsApp flotante */
+    .wa-float { position:fixed; bottom:28px; right:28px; z-index:500; width:60px; height:60px; border-radius:50%; background:#25D366; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,0.45); transition:transform 0.3s, box-shadow 0.3s; text-decoration:none; }
+    .wa-float:hover { transform:scale(1.12); box-shadow:0 6px 28px rgba(37,211,102,0.6); }
+    .wa-float img { width:32px; height:32px; filter:brightness(0) invert(1); }
+
+    /* 8: scroll to top */
+    .scroll-top { position:fixed; bottom:100px; right:28px; z-index:500; width:44px; height:44px; border-radius:50%; background:var(--green); color:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; box-shadow:0 4px 16px rgba(32,95,60,0.35); opacity:0; transform:translateY(20px); transition:opacity 0.3s, transform 0.3s, background 0.2s; pointer-events:none; }
+    .scroll-top.visible { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .scroll-top:hover { background:var(--green-lt); }
+
+    /* 2: scroll reveal */
+    .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.revealed { opacity:1; transform:translateY(0); }
+
     /* ── ANIMATIONS ── */
     @keyframes floatShape { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
     @keyframes spin { to{transform:rotate(360deg)} }
@@ -361,7 +353,15 @@
     /* ── RESPONSIVE ── */
     @media(max-width:1100px){ .products-grid{grid-template-columns:repeat(4,1fr)} }
     @media(max-width:900px){
-      .nav-links{display:none}
+      .hamburger{display:block}
+      .nav-links{
+        position:fixed;top:0;right:0;width:280px;height:100vh;background:var(--green);
+        flex-direction:column;padding:80px 32px 32px;gap:20px;
+        transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        box-shadow:-8px 0 32px rgba(0,0,0,0.15);z-index:205;
+      }
+      .nav-links.active{transform:translateX(0)}
+      .nav-links a{font-size:1.05rem;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
       .hero-inner{grid-template-columns:1fr;text-align:center}
       .hero-img{display:none}
       .hero-nav-links{justify-content:center}
@@ -371,7 +371,10 @@
       .products-grid{grid-template-columns:repeat(3,1fr)}
       .tobby-welcome-img{width:120px}
       #splash-tobby{width:150px}
-      #splash-text{font-size:1.3rem}
+      .footer-grid{grid-template-columns:1fr;gap:28px;text-align:center}
+      .foot-logo{justify-content:center}
+      .foot-links{align-items:center}
+      .foot-contact{align-items:center}
     }
     @media(max-width:600px){
       section{padding:60px 16px}
@@ -383,20 +386,23 @@
       .tobby-welcome-img{width:100px}
       .tobby-welcome-bubble{font-size:0.88rem;padding:11px 16px}
       #splash-tobby{width:120px}
-      #splash-text{font-size:1.1rem}
+      .wa-float{width:52px;height:52px;bottom:20px;right:20px}
+      .wa-float img{width:26px;height:26px}
+      .scroll-top{bottom:84px;right:20px;width:38px;height:38px;font-size:1rem}
+      .tienda-map iframe{height:220px}
     }
   </style>
 </head>
 <body>
 
-<!-- ══ SPLASH SCREEN ══ -->
+<!-- SPLASH SCREEN -->
 <div id="splash">
   <img id="splash-tobby" src="imagenes/tobby.png" alt="Tobby"
     onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 120%22><text y=%22.8em%22 font-size=%2290%22>🐶</text></svg>'" />
-  <div id="splash-text">Tobby's <span>Pet Shop</span> 🐾</div>
+  <div id="splash-text">Tobby's <span>Pet Shop</span></div>
 </div>
 
-<!-- ══ TOBBY WELCOME (corre desde la derecha) ══ -->
+<!-- TOBBY WELCOME -->
 <div class="tobby-welcome" id="tobbyWelcome">
   <div class="tobby-welcome-bubble">¡Hola! 🐾 Bienvenidos a<br/>Tobby's Pet Shop 🎉</div>
   <img class="tobby-welcome-img" src="imagenes/tobby2.png" alt="Tobby"
@@ -404,15 +410,15 @@
 </div>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="#inicio" class="nav-logo">
     <img src="imagenes/logo_transparente.png" alt="Tobby's" onerror="this.style.display='none'" />
     <span>Tobby's Pet Shop</span>
   </a>
-  <div class="nav-links">
-    <a href="#catalogo">Catálogo</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#tienda">Tienda</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#catalogo" onclick="closeMenu()">Catálogo</a>
+    <a href="#nosotros" onclick="closeMenu()">Nosotros</a>
+    <a href="#tienda" onclick="closeMenu()">Tienda</a>
     <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">
       <img src="imagenes/instagram_logo.png" alt="Instagram" onerror="this.style.display='none'" /> Instagram
     </a>
@@ -426,14 +432,20 @@
   <button class="cart-btn" onclick="toggleCart()">
     🛒 Carrito <span class="cart-count" id="cartCount">0</span>
   </button>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
 
-<!-- HERO -->
+<!-- HERO with video background -->
 <section id="inicio">
-  <div class="hero-shapes">
-    <span>🐾</span><span>🐶</span><span>🐱</span><span>🦴</span><span>❤️</span>
-    <span>🐕</span><span>🐩</span><span>🐈</span><span>😻</span><span>🦮</span>
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="https://res.cloudinary.com/dyigvot7d/video/upload/v1775100838/tobbys_project_stbvb6.mp4" type="video/mp4" />
+    </video>
   </div>
+  <div class="hero-video-overlay"></div>
   <div class="hero-inner">
     <div class="hero-text">
       <h1>Todo para tu <span>mascota</span></h1>
@@ -447,7 +459,7 @@
     </div>
     <div class="hero-img">
       <div class="hero-logo-circle">
-        <img src="imagenes/logo.jpeg" alt="Tobby's Pet Shop" onerror="this.parentNode.style.background='var(--green-lt)'" />
+        <img src="imagenes/logo_transparente.png" alt="Tobby's Pet Shop" onerror="this.parentNode.style.background='var(--green-lt)'" />
       </div>
     </div>
   </div>
@@ -465,9 +477,9 @@
   <div class="info-item">🚚 Entregas gratis</div>
 </div>
 
-<!-- CATÁLOGO -->
+<!-- CATALOGO -->
 <section id="catalogo">
-  <div class="section-header">
+  <div class="section-header reveal">
     <p class="section-label">Lo que tenemos para vos</p>
     <h2 class="section-title">Nuestro <span>Catálogo</span> 🛍️</h2>
   </div>
@@ -518,7 +530,17 @@
   <div class="results-summary" id="resultsSummary"></div>
 
   <div class="products-grid" id="productsGrid">
-    <div class="loading-state"><div class="spinner"></div><p style="color:var(--muted);font-weight:600;margin-top:8px;">Cargando productos...</p></div>
+    <!-- 7: skeleton loading -->
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
+    <div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-body"><div class="skeleton-line short"></div><div class="skeleton-line medium"></div><div class="skeleton-line"></div><div class="skeleton-line price"></div><div class="skeleton-btn"></div></div></div>
   </div>
 
   <div class="pagination-wrap" id="paginationWrap" style="display:none;">
@@ -529,15 +551,15 @@
   <div class="pagination-info" id="paginationInfo" style="margin-top:12px;"></div>
 </section>
 
-<!-- QUIÉNES SOMOS -->
+<!-- QUIENES SOMOS -->
 <section id="nosotros">
   <div class="nosotros-inner">
-    <div class="section-header">
+    <div class="section-header reveal">
       <p class="section-label">Conócenos</p>
       <h2 class="section-title">¿Quiénes <span>somos</span>? 💚</h2>
     </div>
-    <p class="nosotros-intro">Tobby's Pet Shop nació del amor por los animales y el sueño de dos mujeres emprendedoras costarricenses: una madre y su hija que decidieron crear un espacio donde cada mascota recibe lo mejor. Desde Guadalupe, San José, llevamos felicidad a los hogares de cientos de familias y sus peludos. 🐾</p>
-    <div class="hanging-photos">
+    <p class="nosotros-intro reveal">Tobby's Pet Shop nació del amor por los animales y el sueño de dos mujeres emprendedoras costarricenses: una madre y su hija que decidieron crear un espacio donde cada mascota recibe lo mejor. Desde Guadalupe, San José, llevamos felicidad a los hogares de cientos de familias y sus peludos. 🐾</p>
+    <div class="hanging-photos reveal">
       <div class="hanging-photo-wrap">
         <div class="hanging-string"></div><div class="hanging-clip">📎</div>
         <div class="hanging-frame">
@@ -555,7 +577,7 @@
         </div>
       </div>
     </div>
-    <div class="nosotros-valores">
+    <div class="nosotros-valores reveal">
       <div class="valor-card"><div class="valor-icon">💚</div><h4>Amor por los animales</h4><p>Cada producto que vendemos lo elegimos pensando en el bienestar y la felicidad de tu mascota.</p></div>
       <div class="valor-card"><div class="valor-icon">⭐</div><h4>Calidad garantizada</h4><p>Trabajamos solo con marcas reconocidas y de confianza. Tu mascota merece lo mejor.</p></div>
       <div class="valor-card"><div class="valor-icon">🤝</div><h4>Atención personalizada</h4><p>Somos un negocio familiar y te atendemos con la calidez y el compromiso de siempre.</p></div>
@@ -565,11 +587,11 @@
 
 <!-- TIENDA -->
 <section id="tienda">
-  <div class="section-header">
+  <div class="section-header reveal">
     <p class="section-label">Visítanos en persona</p>
     <h2 class="section-title">Nuestra <span>Tienda</span> Física</h2>
   </div>
-  <div class="tienda-grid">
+  <div class="tienda-grid reveal">
     <div>
       <div class="tienda-img">
         <img src="imagenes/local.png" alt="Tobby's Pet Shop" onerror="this.parentNode.innerHTML='<div style=\'background:var(--green-pale);padding:80px;text-align:center;border-radius:24px;font-size:5rem;\'>🏪</div>'" />
@@ -588,15 +610,19 @@
       </div>
     </div>
   </div>
+  <!-- 5: mapa embebido -->
+  <div class="tienda-map reveal">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.5!2d-84.0593!3d9.9473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e36d70000001%3A0x1!2sGuadalupe%2C%20San%20Jos%C3%A9%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1700000000000!5m2!1ses!2scr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 </section>
 
 <!-- FAQ -->
 <section id="faq">
-  <div class="section-header">
+  <div class="section-header reveal">
     <p class="section-label">Resolvemos tus dudas</p>
     <h2 class="section-title">Preguntas <span>Frecuentes</span> 🙋</h2>
   </div>
-  <div class="faq-inner">
+  <div class="faq-inner reveal">
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">🛒 ¿Cómo hago un pedido? <span class="faq-arrow">▼</span></button><div class="faq-answer">¡Es muy fácil! Explorá nuestro catálogo, agregá los productos al carrito con <strong>➕ Agregar</strong>, y cuando estés listo hacé clic en <strong>"Hacer Pedido por WhatsApp"</strong>. Si preferís atención personalizada, escribinos al <a href="https://wa.me/50671830963"><img src="imagenes/whatsapp_logo.png" class="inline-icon" onerror="this.style.display='none'"> 7183-0963</a>.</div></div>
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">🚚 ¿Cómo funcionan los envíos? <span class="faq-arrow">▼</span></button><div class="faq-answer">Realizamos <strong>entregas a domicilio completamente gratis</strong> en Moravia y alrededores de Guadalupe. También podés <strong>retirar directamente en la tienda</strong>. Coordinamos por WhatsApp. 🐾</div></div>
     <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">💰 ¿Cuáles son las formas de pago? <span class="faq-arrow">▼</span></button><div class="faq-answer">Aceptamos <strong>efectivo y SINPE Móvil</strong>. ¡Buscamos siempre la forma más cómoda!</div></div>
@@ -607,19 +633,39 @@
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- 10: FOOTER multi-column -->
 <footer>
-  <div class="foot-logo">
-    <img src="imagenes/logo_transparente.png" alt="Logo" onerror="this.style.display='none'" />
-    <span>Tobby's Pet Shop</span>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="foot-logo">
+        <img src="imagenes/logo_transparente.png" alt="Logo" onerror="this.style.display='none'" />
+        <span>Tobby's Pet Shop</span>
+      </div>
+      <p>Nacimos del amor por los animales. Somos un negocio familiar dedicado a ofrecer los mejores productos para tu mascota en Guadalupe, San José.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <div class="foot-links">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#tienda">Tienda</a>
+        <a href="#faq">Preguntas Frecuentes</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <div class="foot-contact">
+        <div class="foot-contact-item"><span>📍</span> 50m norte Iglesia Guadalupe, San José</div>
+        <div class="foot-contact-item"><span>🕐</span> Lun–Sáb 9am–6pm</div>
+        <div class="foot-contact-item"><img src="imagenes/whatsapp_logo.png" alt="" onerror="this.outerHTML='<span>💬</span>'" /> <a href="https://wa.me/50671830963">7183-0963</a></div>
+        <div class="foot-contact-item"><img src="imagenes/instagram_logo.png" alt="" onerror="this.outerHTML='<span>📸</span>'" /> <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank">@tobbyspetshop.cr</a></div>
+        <div class="foot-contact-item"><img src="imagenes/tiktok_logo.png" alt="" onerror="this.outerHTML='<span>🎵</span>'" /> <a href="https://www.tiktok.com/@tobbyspetshop.cr?_t=8qZPhHe6NTp&_r=1" target="_blank">@tobbyspetshop.cr</a></div>
+      </div>
+    </div>
   </div>
-  <div class="foot-links">
-    <a href="#catalogo">Catálogo</a><a href="#nosotros">Nosotros</a><a href="#tienda">Tienda</a><a href="#faq">FAQ</a>
-    <a href="https://www.instagram.com/tobbyspetshop.cr/" target="_blank"><img src="imagenes/instagram_logo.png" alt="" onerror="this.style.display='none'"> Instagram</a>
-    <a href="https://www.tiktok.com/@tobbyspetshop.cr?_t=8qZPhHe6NTp&_r=1" target="_blank"><img src="imagenes/tiktok_logo.png" alt="" onerror="this.style.display='none'"> TikTok</a>
-    <a href="https://wa.me/50671830963" target="_blank"><img src="imagenes/whatsapp_logo.png" alt="" onerror="this.style.display='none'"> WhatsApp</a>
+  <div class="footer-bottom">
+    <p>© 2025 Tobby's Pet Shop · San José, Costa Rica · Hecho con ❤️ para las mascotas</p>
   </div>
-  <p>© 2025 Tobby's Pet Shop · San José, Costa Rica · Hecho con ❤️ para las mascotas</p>
 </footer>
 
 <!-- CART -->
@@ -635,24 +681,103 @@
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Producto" onclick="event.stopPropagation()" />
+</div>
+<button class="lightbox-close" onclick="closeLightbox()">✕</button>
+
+<!-- 4: WhatsApp flotante -->
+<a class="wa-float" href="https://wa.me/50671830963" target="_blank" aria-label="WhatsApp">
+  <img src="imagenes/whatsapp_logo.png" alt="WhatsApp" onerror="this.outerHTML='<span style=font-size:1.6rem>💬</span>'" />
+</a>
+
+<!-- 8: scroll to top -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">▲</button>
+
 <script>
   // ══ SPLASH SCREEN ══
-  // Tobby gira 1.2s, texto aparece a los 0.8s, fade-out empieza a los 2s, desaparece del DOM a los 2.8s
   window.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash');
     setTimeout(() => {
-      splash.classList.add('fade-out');         // inicia fade out suave (0.8s)
-      setTimeout(() => {
-        splash.classList.add('hidden');          // elimina del flujo
-        splash.remove();                         // elimina del DOM
-      }, 850);
-    }, 2000);                                    // espera 2 segundos
+      splash.classList.add('fade-out');
+      setTimeout(() => { splash.classList.add('hidden'); splash.remove(); }, 850);
+    }, 2000);
   });
 
-  // ══ TOBBY WELCOME (corriendo) ══
+  // ══ TOBBY WELCOME ══
   window.addEventListener('load', () => {
     const w = document.getElementById('tobbyWelcome');
     setTimeout(() => { if (w) w.remove(); }, 5500);
+  });
+
+  // ══ 1: HAMBURGER MENU ══
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+    document.getElementById('hamburgerBtn').classList.toggle('active');
+    document.getElementById('mobileOverlay').classList.toggle('active');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('active');
+    document.getElementById('hamburgerBtn').classList.remove('active');
+    document.getElementById('mobileOverlay').classList.remove('active');
+  }
+
+  // ══ 3: NAV GLASS ON SCROLL + 8: SCROLL-TOP ══
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    if (window.scrollY > 500) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+
+  // ══ 2: SCROLL REVEAL ══
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ══ LIGHTBOX ══
+  function openLightbox(src) {
+    const overlay = document.getElementById('lightboxOverlay');
+    const img = document.getElementById('lightboxImg');
+    const closeBtn = document.querySelector('.lightbox-close');
+    img.src = src;
+    overlay.classList.add('active');
+    closeBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    const overlay = document.getElementById('lightboxOverlay');
+    const closeBtn = document.querySelector('.lightbox-close');
+    overlay.classList.remove('active');
+    closeBtn.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = e.target.closest('.img-wrap');
+    if (wrap) {
+      const img = wrap.querySelector('img');
+      if (img && img.src) openLightbox(img.src);
+      return;
+    }
+    if (e.target.id === 'lightboxOverlay') closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
   });
 
   // ══ CATALOGO ══
@@ -773,7 +898,9 @@
     const priceHTML=hasOffer?`<span class="price-old">₡${regular.toLocaleString()}</span><span class="price-offer">₡${offer.toLocaleString()}</span>`:`<span class="price-normal">₡${regular.toLocaleString()}</span>`;
     return`<div class="product-card ${inCart>0?'in-cart':''}" id="card-${p._id}" style="animation-delay:${Math.min(delay,12)*0.04}s">${hasOffer?'<div class="offer-badge">🔥 Oferta</div>':''}<div class="cart-indicator" id="ind-${p._id}" style="${inCart>0?'display:flex':''}">${inCart}</div>${imgHTML}<div class="product-body">${p.animal?`<div class="product-animal">${ae} ${p.animal}</div>`:''}<div class="product-category">${p.categoria||''}</div><div class="product-name">${p.nombre}</div>${p.marca?`<div class="product-brand">🏷️ ${p.marca}</div>`:''}${p.descripcion?`<div class="product-desc">${p.descripcion}</div>`:''}<div class="product-price">${priceHTML}</div><div class="product-actions"><button class="btn-add" onclick="addToCart(${p._id})">➕ Agregar</button><button class="btn-remove" onclick="removeOne(${p._id})">➖</button></div></div></div>`;
   }
-  function addToCart(id){const product=allProducts.find(p=>p._id===id);if(!product)return;if(cart[id]){cart[id].qty++;}else{cart[id]={product,qty:1};}updateAll(id);}
+  // 9: cart bounce animation
+  function addToCart(id){const product=allProducts.find(p=>p._id===id);if(!product)return;if(cart[id]){cart[id].qty++;}else{cart[id]={product,qty:1};}updateAll(id);bounceCartCount();}
+  function bounceCartCount(){const el=document.getElementById('cartCount');el.classList.remove('bounce');void el.offsetWidth;el.classList.add('bounce');}
   function removeOne(id){if(!cart[id])return;cart[id].qty--;if(cart[id].qty<=0)delete cart[id];updateAll(id);}
   function deleteItem(id){delete cart[id];updateAll(id);}
   function updateAll(id){updateCardUI(id);updateCartUI();}
@@ -799,43 +926,8 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
   }
   function toggleFaq(btn){const answer=btn.nextElementSibling,isOpen=answer.classList.contains('open');document.querySelectorAll('.faq-answer').forEach(a=>a.classList.remove('open'));document.querySelectorAll('.faq-question').forEach(b=>b.classList.remove('active'));if(!isOpen){answer.classList.add('open');btn.classList.add('active');}}
-  // ══ LIGHTBOX ══
-  function openLightbox(src) {
-    const overlay = document.getElementById('lightboxOverlay');
-    const img = document.getElementById('lightboxImg');
-    const closeBtn = document.querySelector('.lightbox-close');
-    img.src = src;
-    overlay.classList.add('active');
-    closeBtn.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    const overlay = document.getElementById('lightboxOverlay');
-    const closeBtn = document.querySelector('.lightbox-close');
-    overlay.classList.remove('active');
-    closeBtn.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('click', function(e) {
-    const wrap = e.target.closest('.img-wrap');
-    if (wrap) {
-      const img = wrap.querySelector('img');
-      if (img && img.src) openLightbox(img.src);
-      return;
-    }
-    if (e.target.id === 'lightboxOverlay') closeLightbox();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
-  });
 
   loadProducts();
 </script>
-
-<!-- LIGHTBOX -->
-<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
-  <img id="lightboxImg" src="" alt="Producto" onclick="event.stopPropagation()" />
-</div>
-<button class="lightbox-close" onclick="closeLightbox()">✕</button>
 </body>
 </html>
