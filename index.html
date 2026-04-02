@@ -28,7 +28,7 @@
       justify-content: center;
       transition: opacity 0.8s ease;
     }
-    #splash.fade-out { opacity: 0; pointer-events: none; }
+    #splash.fade-out { opacity: 0; pointer-events: none; transform: none; }
     #splash.hidden { display: none; }
     #splash-tobby {
       width: 200px;
@@ -93,7 +93,7 @@
     #inicio { min-height:100vh; padding-top:68px; display:flex; align-items:center; position:relative; overflow:hidden; }
     .hero-video-bg { position:absolute; inset:0; z-index:0; }
     .hero-video-bg video { width:100%; height:100%; object-fit:cover; }
-    .hero-video-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(32,95,60,0.82) 0%,rgba(76,175,125,0.7) 50%,rgba(168,213,186,0.6) 100%); }
+    .hero-video-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(135deg,rgba(32,95,60,0.55) 0%,rgba(76,175,125,0.45) 50%,rgba(168,213,186,0.35) 100%); }
     .hero-inner { max-width:1200px; margin:0 auto; padding:60px 32px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; position:relative; z-index:2; }
     .hero-text h1 { font-family:'Baloo 2',cursive; font-size:clamp(2.4rem,5vw,3.8rem); font-weight:800; color:white; line-height:1.1; margin-bottom:20px; }
     .hero-text h1 span { color:var(--yellow); }
@@ -451,9 +451,9 @@
       <h1>Todo para tu <span>mascota</span></h1>
       <p>En Tobby's Pet Shop encontrás los mejores alimentos y accesorios para tus compañeros de vida</p>
       <div class="hero-nav-links">
-        <a href="#tienda" class="hero-nav-link">📍 Nuestra Tienda</a>
-        <a href="#nosotros" class="hero-nav-link">💚 Quiénes Somos</a>
-        <a href="#faq" class="hero-nav-link">🙋 Preguntas Frecuentes</a>
+        <a href="#tienda" class="hero-nav-link">Nuestra Tienda</a>
+        <a href="#nosotros" class="hero-nav-link">Quiénes Somos</a>
+        <a href="#faq" class="hero-nav-link">Preguntas Frecuentes</a>
       </div>
       <a href="#catalogo" class="hero-cta">Ver catálogo 🛍️</a>
     </div>
@@ -701,8 +701,8 @@
     const splash = document.getElementById('splash');
     setTimeout(() => {
       splash.classList.add('fade-out');
-      setTimeout(() => { splash.classList.add('hidden'); splash.remove(); }, 850);
-    }, 2000);
+      setTimeout(() => { splash.classList.add('hidden'); splash.remove(); }, 1000);
+    }, 3000);
   });
 
   // ══ TOBBY WELCOME ══
