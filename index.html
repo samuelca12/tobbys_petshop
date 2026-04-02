@@ -14,37 +14,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ══════════════════════════════════════════
-       SPLASH SCREEN
-    ══════════════════════════════════════════ */
-    #splash {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #1a5c35;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 1s ease !important;
-    }
-    #splash.fade-out { opacity: 0; pointer-events: none; }
-    #splash.fade-out * { animation: none !important; }
-    #splash.hidden { display: none; }
-    #splash-tobby {
-      width: 200px;
-      height: auto;
-      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35));
-      animation: splashSpin 1.2s ease-in-out forwards;
-      transition: none;
-    }
-    #splash-text { display: none; }
-    @keyframes splashSpin {
-      0%   { transform: rotate(0deg) scale(0.6); opacity: 0; }
-      15%  { opacity: 1; }
-      100% { transform: rotate(360deg) scale(1); opacity: 1; }
-    }
-
     /* ══ VARIABLES ══ */
     :root {
       --green:      #205f3c;
@@ -372,7 +341,6 @@
       .hanging-photos{gap:30px}
       .products-grid{grid-template-columns:repeat(3,1fr)}
       .tobby-welcome-img{width:120px}
-      #splash-tobby{width:150px}
       .footer-grid{grid-template-columns:1fr;gap:28px;text-align:center}
       .foot-logo{justify-content:center}
       .foot-links{align-items:center}
@@ -387,7 +355,6 @@
       .page-numbers{display:none}
       .tobby-welcome-img{width:100px}
       .tobby-welcome-bubble{font-size:0.88rem;padding:11px 16px}
-      #splash-tobby{width:120px}
       .wa-float{width:52px;height:52px;bottom:20px;right:20px}
       .wa-float img{width:26px;height:26px}
       .scroll-top{bottom:84px;right:20px;width:38px;height:38px;font-size:1rem}
@@ -397,12 +364,6 @@
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
-<div id="splash">
-  <img id="splash-tobby" src="imagenes/tobby.png" alt="Tobby"
-    onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 120%22><text y=%22.8em%22 font-size=%2290%22>🐶</text></svg>'" />
-  <div id="splash-text">Tobby's <span>Pet Shop</span></div>
-</div>
 
 <!-- TOBBY WELCOME -->
 <div class="tobby-welcome" id="tobbyWelcome">
@@ -698,15 +659,6 @@
 <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">▲</button>
 
 <script>
-  // ══ SPLASH SCREEN ══
-  window.addEventListener('DOMContentLoaded', () => {
-    const splash = document.getElementById('splash');
-    setTimeout(() => {
-      splash.classList.add('fade-out');
-      setTimeout(() => { splash.classList.add('hidden'); splash.remove(); }, 1000);
-    }, 4000);
-  });
-
   // ══ TOBBY WELCOME ══
   window.addEventListener('load', () => {
     const w = document.getElementById('tobbyWelcome');
