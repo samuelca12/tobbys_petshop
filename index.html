@@ -21,7 +21,6 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       transition: opacity 0.8s ease;  /* fade out suave */
     }
     #splash.fade-out {
@@ -36,32 +35,17 @@
       width: 200px;
       height: auto;
       filter: drop-shadow(0 8px 32px rgba(0,0,0,0.35));
-      animation: splashSpin 1.2s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+      animation: splashSpin 1.2s ease-in-out forwards;
     }
-    /* Texto debajo de Tobby */
+    /* Texto debajo de Tobby — oculto */
     #splash-text {
-      font-family: 'Baloo 2', cursive;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: white;
-      letter-spacing: 0.04em;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: splashTextIn 0.5s ease 0.8s forwards;
-    }
-    #splash-text span {
-      color: #FFD54F;
+      display: none;
     }
 
     @keyframes splashSpin {
       0%   { transform: rotate(0deg)   scale(0.6); opacity: 0; }
-      20%  { transform: rotate(80deg)  scale(1.05); opacity: 1; }
-      60%  { transform: rotate(280deg) scale(1); opacity: 1; }
-      85%  { transform: rotate(345deg) scale(1.04); }
+      15%  { opacity: 1; }
       100% { transform: rotate(360deg) scale(1); opacity: 1; }
-    }
-    @keyframes splashTextIn {
-      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ══ RESTO DEL SITE ══ */
@@ -203,6 +187,62 @@
     .page-number.active { background:var(--green); color:white; border-color:var(--green); }
     .page-number.dots { cursor:default; border-color:transparent; }
     .page-number.dots:hover { border-color:transparent; color:var(--muted); }
+
+    /* ── CATALOG IMAGE HOVER ZOOM ── */
+    .img-wrap { cursor: pointer; }
+    .img-wrap img, .img-wrap .product-img-placeholder {
+      transition: transform 0.3s ease;
+    }
+    .img-wrap:hover img, .img-wrap:hover .product-img-placeholder {
+      transform: scale(1.08);
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox-overlay.active {
+      display: flex;
+    }
+    .lightbox-overlay img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 28px;
+      z-index: 10001;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid rgba(255,255,255,0.5);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .lightbox-close.active {
+      display: flex;
+    }
 
     /* ── STATES ── */
     .loading-state,.empty-state { text-align:center; padding:64px 24px; grid-column:1/-1; }
@@ -759,7 +799,43 @@
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
   }
   function toggleFaq(btn){const answer=btn.nextElementSibling,isOpen=answer.classList.contains('open');document.querySelectorAll('.faq-answer').forEach(a=>a.classList.remove('open'));document.querySelectorAll('.faq-question').forEach(b=>b.classList.remove('active'));if(!isOpen){answer.classList.add('open');btn.classList.add('active');}}
+  // ══ LIGHTBOX ══
+  function openLightbox(src) {
+    const overlay = document.getElementById('lightboxOverlay');
+    const img = document.getElementById('lightboxImg');
+    const closeBtn = document.querySelector('.lightbox-close');
+    img.src = src;
+    overlay.classList.add('active');
+    closeBtn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    const overlay = document.getElementById('lightboxOverlay');
+    const closeBtn = document.querySelector('.lightbox-close');
+    overlay.classList.remove('active');
+    closeBtn.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = e.target.closest('.img-wrap');
+    if (wrap) {
+      const img = wrap.querySelector('img');
+      if (img && img.src) openLightbox(img.src);
+      return;
+    }
+    if (e.target.id === 'lightboxOverlay') closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
   loadProducts();
 </script>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Producto" onclick="event.stopPropagation()" />
+</div>
+<button class="lightbox-close" onclick="closeLightbox()">✕</button>
 </body>
 </html>
